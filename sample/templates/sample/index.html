@@ -1,0 +1,39 @@
+<html>
+  <head><title>Teacher Registration</title>
+ </head>
+ <body>
+ <form action="{% url 'sample:submit' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
+<table cellpadding="2" width="30%" bgcolor="99FFFF" align="center" cellspacing="2">
+<tr>
+  <td colspan=2>
+  <center><font size=4><b>Teacher Registration Form</b></font></center>
+  </td>
+</tr>
+<tr>
+  <td>Name</td>
+  <td><input type=text name=tname id="tname" size="30" required></td>
+</tr>
+<tr>
+  <td>Designation</td>
+  <td><input type="text" name="designation" id="designation" size="30" required></td>
+</tr>
+<tr>
+  <td>Residential Contact</td>
+  <td><input type="text" name="rescontact" id="rescontact" size="30"></td>
+</tr>
+<tr>
+  <td>Mobile Number</td>
+  <td><input type="text" name="mobileno" id="mobileno" size="30" required></td>
+</tr>
+<tr>
+  <td>Email Id</td>
+  <td><input type="text" name="emailid" id="emailid" size="30" required></td>
+</tr>
+<tr>
+  <td><input type="reset"></td>
+  <td colspan="2"><input type="submit" value="Submit Form" /></td>
+</tr>
+</table>
+</form>
+</body>
+</html>
