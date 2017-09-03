@@ -1,9 +1,13 @@
 from django.db import models
+from fernet_fields import EncryptedTextField
+from fernet_fields import EncryptedEmailField
+from fernet_fields import EncryptedIntegerField
+
 class teacher(models.Model):
-	tname = models.CharField(max_length=40)
-	designation = models.CharField(max_length=20)
-	contact_res=models.IntegerField()
-	contact_mob=models.IntegerField()
-	email=models.CharField(max_length=30)
+	tname = EncryptedTextField()
+	designation = EncryptedTextField()
+	contact_res=EncryptedIntegerField()
+	contact_mob=EncryptedIntegerField()
+	email=EncryptedEmailField()
 	
 # Create your models here.
