@@ -25,10 +25,16 @@ SECRET_KEY = 'j6@=b8u8a0ci1lx@d3ka0$bjt4fpvf*nq7)b8i)uk-l20x58gk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['anilrajole.pythonanywhere.com']
+ALLOWED_HOSTS = ['anilrajole.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "rajoleanil80@gmail.com"
+EMAIL_HOST_PASSWORD = '/dmZsZ80'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 INSTALLED_APPS = [
 	
@@ -39,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+	
   #  'blog',
 	'sample',
 ]
@@ -79,16 +86,16 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-     #   'ENGINE': 'django.db.backends.mysql',
-     #   'NAME': 'db',
-     #   'USER': 'root',
-     #   'PASSWORD': '',
-     #   'HOST': '127.0.0.1',
-     #   'PORT': '3306',
+       # 'ENGINE': 'django.db.backends.mysql',
+       # 'NAME': 'db',
+       # 'USER': 'root',
+       # 'PASSWORD': '',
+       # 'HOST': '127.0.0.1',
+       # 'PORT': '3306',
 		
 		'ENGINE': 'django.db.backends.mysql',
        'NAME': 'anilrajole$test1',
-        'USER': 'anilrajole',
+       'USER': 'anilrajole',
         'PASSWORD': 'test1234',
         'HOST': 'anilrajole.mysql.pythonanywhere-services.com',
         'PORT': '3306',

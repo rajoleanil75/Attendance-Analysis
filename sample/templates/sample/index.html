@@ -1,39 +1,83 @@
 <html>
-  <head><title>Teacher Registration</title>
- </head>
- <body>
- <form action="{% url 'sample:submit' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
-<table cellpadding="2" width="30%" bgcolor="99FFFF" align="center" cellspacing="2">
-<tr>
-  <td colspan=2>
-  <center><font size=4><b>Teacher Registration Form</b></font></center>
-  </td>
+<head>
+<title>NWC Attendence System</title>
+<script>
+		function myFunction() {
+    var pass1 = document.getElementById("pass1").value;
+    var pass2 = document.getElementById("pass2").value;
+    var ok = true;
+    if (pass1 != pass2) {
+        alert("Passwords Do not match");
+        document.getElementById("pass1").style.borderColor = "#E34234";
+        document.getElementById("pass2").style.borderColor = "#E34234";
+        ok = false;
+    }
+    else {
+       
+    }
+    return ok;
+}
+		</script>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'sample/css/style.css' %}" />
+</head>
+<body>
+
+	<div id="t_wrapper">
+	<div id="t_header">
+<!--	<img src="{% static "sample/images/clg_logo.ejpg" %}" width="125" height="125" />	 Site logo-->
+<!--	<h1>Nowrosjee Wadia College,Pune-01.</h1>		-->				<!--site title-->
+	</div>								<!--end of t_header-->
+	<div id="t_menu">
+	<ul>
+			<li><a href="index.php">Home</a></li>	
+	</ul>
+	</div> 
+	<div id="background">
+        <div id="height">
+        <table width="800" >
+        <th colspan="2" align="center">Teacher Registration</th>
+	
+	<form action="{% url 'sample:submit' %}" name="TeacherRegistration" onsubmit="return myFunction()" method="POST">{% csrf_token %}
+	<tr>
+        
+		<td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRegistration ID</p></td>
+        <td><input type="text" name="tid" id="tid" size="30" required></td>
+        </tr>
+	<tr>
+        <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspName</p></td>
+        <td><input type=text name=tname id="tname" size="30" required></td>
+        </tr>
+		<tr>
+        <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDesignation</p></td>
+        <td><input type="text" name="designation" id="designation" size="30" required></td>
+        </tr>
+		<tr>
+        <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMobile Number</p></td>
+        <td><input type="text" name="mobileno" id="mobileno" size="30" required></td>
+        </tr>
+        <tr>
+        <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspEmail ID</p></td>
+        <td><input type="text" name="emailid" id="emailid" size="30" required></td>
+        </tr>
+		<tr>
+  <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPassword</p></td>
+  <td><input type="password" name="pass1" id="pass1" size="30"></td>
 </tr>
 <tr>
-  <td>Name</td>
-  <td><input type=text name=tname id="tname" size="30" required></td>
+  <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspConfirmed Password</p></td>
+  <td><input type="password" name="pass2" id="pass2" size="30"></td>
 </tr>
-<tr>
-  <td>Designation</td>
-  <td><input type="text" name="designation" id="designation" size="30" required></td>
-</tr>
-<tr>
-  <td>Residential Contact</td>
-  <td><input type="text" name="rescontact" id="rescontact" size="30"></td>
-</tr>
-<tr>
-  <td>Mobile Number</td>
-  <td><input type="text" name="mobileno" id="mobileno" size="30" required></td>
-</tr>
-<tr>
-  <td>Email Id</td>
-  <td><input type="text" name="emailid" id="emailid" size="30" required></td>
-</tr>
-<tr>
-  <td><input type="reset"></td>
-  <td colspan="2"><input type="submit" value="Submit Form" /></td>
-</tr>
-</table>
-</form>
+		<tr>
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="Reset" name="reset"/></td>
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" value="Submit" name="submit" /></td> 
+	</tr>
+        </table>
+		
+        </div>
+        </div>
+		<div id="t_footer"></div>
+<div id="footer"> </div>
+<div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>
 </body>
 </html>
