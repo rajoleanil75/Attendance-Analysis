@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['anilrajole.pythonanywhere.com','127.0.0.1']
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.sendgrid.net"
 EMAIL_HOST_USER = "apikey"
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_PASSWORD = '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'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
