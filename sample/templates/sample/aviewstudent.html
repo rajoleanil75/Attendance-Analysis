@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>NWC Attendence System</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'sample/css/style.css' %}" />
+</head>
+<body>
+	<div id="t_wrapper">
+	<div id="t_header">
+	
+	</div>		
+	<!--end of t_header-->
+	<div id="t_menu">
+	<ul>
+			<li><a href="{% url 'sample:adashboard' %}">Dashboard</a></li>
+			<li><a href="{% url 'sample:aviewteacher' %}">Teacher</a></li>
+			<li><a href="{% url 'sample:aviewstudent' %}">Student</a></li>
+			<li><a href="{% url 'sample:aviewcourse' %}">Course</a></li>
+			<li><a href="">Manage Data</a></li>
+			<li><a href="{% url 'sample:home' %}">Logout</a></li>
+	</ul>
+	</div>
+	
+	 <div id="background">
+        <div id="height">
+	<table width="865">
+	<th align="right">
+		<form name="Search1" action="customer_search.php" method="POST">
+	<select name="role" id="role">
+		<option name="cid" value="cid">Admission No</option>
+		<option name="c_name" value="c_name">Student Name</option>
+		<option name="mobile" value="mobile">Contact No</option>
+	</select>	
+
+	<input type="text" name="search" size="15" required /> <input type="submit" name="submit" value="Search" /></th>
+	</form>
+	</table>
+	<table border="double" width="865">
+        <th colspan="6"><a href="">Add Student</a></th>
+        <tr>
+        <th>Admission No</th>
+	<th>NAME</th>
+	<th>Course</th>	
+	<th>Contact No</th>
+        <th>EMAIL</th>
+        <th>MORE</th>
+        </tr>
+		
+		
+		{% for b in obj %}
+		<tr>
+		<td>{{ b.admission_no }}</td>
+		<td>{{ b.sname }}</td>
+		<td></td>
+		<td>{{ b.smobile }}</td>
+		<td>{{ b.semail }}</td>
+		</tr>
+		{% endfor %}
+		 </table>
+        
+		</div>
+       
+		<hr noshade>
+
+	
+	</div>	
+	
+	
+	<div id="t_footer"></div>
+<div id="footer"></div>
+<div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>
+</body>
+</html>

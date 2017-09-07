@@ -29,12 +29,12 @@ ALLOWED_HOSTS = ['anilrajole.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = "smtp.sendgrid.net"
-EMAIL_HOST_USER = "apikey"
-EMAIL_HOST_PASSWORD = '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'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = "smtp.sendgrid.net"
+#EMAIL_HOST_USER = "apikey"
+#EMAIL_HOST_PASSWORD = 'SG.R7p'
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
 
 INSTALLED_APPS = [
 	
@@ -86,19 +86,19 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-      #  'ENGINE': 'django.db.backends.mysql',
-      #  'NAME': 'db',
-      #  'USER': 'root',
-      #  'PASSWORD': '',
-      #  'HOST': '127.0.0.1',
-      #  'PORT': '3306',
-		
-		'ENGINE': 'django.db.backends.mysql',
-       'NAME': 'anilrajole$test1',
-       'USER': 'anilrajole',
-        'PASSWORD': 'test1234',
-        'HOST': 'anilrajole.mysql.pythonanywhere-services.com',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
+		
+	#	'ENGINE': 'django.db.backends.mysql',
+    #   'NAME': 'anilrajole$test1',
+    #   'USER': 'anilrajole',
+    #    'PASSWORD': 'test1234',
+    #    'HOST': 'anilrajole.mysql.pythonanywhere-services.com',
+     #   'PORT': '3306',
       #  'ENGINE': 'django.db.backends.sqlite3',
       #  'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }

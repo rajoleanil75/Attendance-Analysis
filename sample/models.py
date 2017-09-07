@@ -8,6 +8,9 @@ class admin(models.Model):
 	uid=models.AutoField(primary_key=True)
 	uname=EncryptedTextField()
 	upass=EncryptedTextField()
+	
+	
+
 
 class teacher(models.Model):
 	tid=models.IntegerField(primary_key=True,default="")
@@ -52,11 +55,11 @@ class subject(models.Model):
 	
 class student(models.Model):
 	adminssion_no=models.IntegerField(primary_key=True)
-	roll=EncryptedIntegerField()
+	roll=EncryptedIntegerField(default="")
 	sname=EncryptedTextField()
 	smobile=EncryptedIntegerField()
 	semail=EncryptedTextField()
-	spassword=EncryptedTextField()
+	spassword=EncryptedTextField(default="")
 	
 class attendence(models.Model):
 	aid=models.AutoField(primary_key=True)
