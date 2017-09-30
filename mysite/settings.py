@@ -98,7 +98,7 @@ DATABASES = {
        'USER': 'anilrajole',
        'PASSWORD': 'test1234',
        'HOST': 'anilrajole.mysql.pythonanywhere-services.com',
-       'PORT': '3306',
+     #  'PORT': '3306',
       #  'ENGINE': 'django.db.backends.sqlite3',
       #  'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
