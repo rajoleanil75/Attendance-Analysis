@@ -2,7 +2,7 @@
 <head>
 <title>NWC Attendence System</title>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'sample/css/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
 </head>
 <body>
 	<div id="t_wrapper">
@@ -11,18 +11,18 @@
 	</div>								<!--end of t_header-->
 	<div id="t_menu">
 	<ul>
-			<li><a href="{% url 'sample:home' %}">Home</a></li>	
+			<li><a href="{% url 'attendence:home' %}">Home</a></li>	
 	</ul>
 	</div>
 
 	<div id="t_back">
 		<div class="cs_article">
 		<div class="left">
-		<img src="{% static "sample/images/front1.jpg" %}" width="400" height="200">
+		<img src="{% static "attendence/images/front1.jpg" %}" width="400" height="200">
 		</div>
 		<div class="right"><p>Welcome to Attendence portal of Department of Computer Science, now manage your attendence on the move</a>
-		<a href="{% url 'sample:login' %}"><img src="{% static "sample/images/login_button2.png" %}" width="250" height="65"></a></p>
-		<a href="{% url 'sample:index' %}">new user?</a>
+		<a href="{% url 'attendence:login' %}"><img src="{% static "attendence/images/login_button2.png" %}" width="250" height="65"></a></p>
+		<a href="{% url 'attendence:index' %}">new user?</a>
 		</div>
 		</div>
 	</div>

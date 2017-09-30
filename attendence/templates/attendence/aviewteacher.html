@@ -2,7 +2,7 @@
 <head>
 <title>NWC Attendence System</title>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'sample/css/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
 </head>
 <body>
 	<div id="t_wrapper">
@@ -12,12 +12,12 @@
 	<!--end of t_header-->
 	<div id="t_menu">
 	<ul>
-			<li><a href="{% url 'sample:adashboard' %}">Dashboard</a></li>
-			<li><a href="{% url 'sample:aviewteacher' %}">Teacher</a></li>
-			<li><a href="{% url 'sample:aviewstudent' %}">Student</a></li>
-			<li><a href="{% url 'sample:aviewcourse' %}">Course</a></li>
-			<li><a href="">Manage Data</a></li>
-			<li><a href="{% url 'sample:home' %}">Logout</a></li>
+			<li><a href="{% url 'attendence:adashboard' %}">Dashboard</a></li>
+			<li><a href="{% url 'attendence:aviewteacher' %}">Teacher</a></li>
+			<li><a href="{% url 'attendence:aviewstudent' %}">Student</a></li>
+			<li><a href="{% url 'attendence:aviewcourse' %}">Course</a></li>
+			<li><a href="">Mail</a></li>
+			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
 	</ul>
 	</div>
 	
@@ -27,8 +27,8 @@
 	<th align="right">
 		<form name="Search1" action="customer_search.php" method="POST">
 	<select name="role" id="role">
-		<option name="cid" value="cid">Admission No</option>
-		<option name="c_name" value="c_name">Student Name</option>
+		<option name="cid" value="cid">Teacher ID</option>
+		<option name="c_name" value="c_name">Teacher Name</option>
 		<option name="mobile" value="mobile">Contact No</option>
 	</select>	
 
@@ -36,11 +36,11 @@
 	</form>
 	</table>
 	<table border="double" width="865">
-        <th colspan="6"><a href="">Add Student</a></th>
+        <th colspan="6"><a href="">Add Teacher</a></th>
         <tr>
-        <th>Admission No</th>
+        <th>Teacher ID</th>
 	<th>NAME</th>
-	<th>Course</th>	
+	<th>Designation</th>	
 	<th>Contact No</th>
         <th>EMAIL</th>
         <th>MORE</th>
@@ -49,11 +49,11 @@
 		
 		{% for b in obj %}
 		<tr>
-		<td>{{ b.admission_no }}</td>
-		<td>{{ b.sname }}</td>
-		<td></td>
-		<td>{{ b.smobile }}</td>
-		<td>{{ b.semail }}</td>
+		<td>{{ b.tid }}</td>
+		<td>{{ b.tname }}</td>
+		<td>{{ b.designation }}</td>
+		<td>{{ b.contact_mob }}</td>
+		<td>{{ b.email }}</td>
 		</tr>
 		{% endfor %}
 		 </table>

@@ -2,7 +2,7 @@
 <head>
 <title>NWC Attendence System</title>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'sample/css/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
 </head>
 <body>
 	<div id="t_wrapper">
@@ -11,16 +11,16 @@
 	</div>								<!--end of t_header-->
 	<div id="t_menu">
 	<ul>
-			<li><a href="{% url 'sample:home' %}">Home</a></li>	
+			<li><a href="{% url 'attendence:home' %}">Home</a></li>	
 	</ul>
 	</div>
 	
-	<form name="login" id="login" action="{% url 'sample:login_check' %}" method="POST">{% csrf_token %}
+	<form name="login" id="login" action="{% url 'attendence:login_check' %}" method="POST">{% csrf_token %}
         <div id="background">
         <h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Teacher Login</h4>
         <hr noshade>
         <div id="login">
-        <img src="{% static "sample/images/person_login.png" %}">
+        <img src="{% static "attendence/images/person_login.png" %}">
         <div id="login_right">
         <h1>username &nbsp&nbsp&nbsp&nbsp&nbsp <input type="text" name="lid" maxlength="16"/></h1>
         <br>
@@ -32,7 +32,7 @@
 		<option value="admin">Admin</option>
 	</select>
 	<br>
-<input type="image" src="{% static "sample/images/loginbutton.png" %}" value="e_submit" name="e_submit" width="200" height="50"/>
+<input type="image" src="{% static "attendence/images/loginbutton.png" %}" value="e_submit" name="e_submit" width="200" height="50"/>
 
 <!--        <a href="login_check.php"><img src="images/loginbutton.png"></a>	-->
         </div>

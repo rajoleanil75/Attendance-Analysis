@@ -19,18 +19,18 @@
 }
 		</script>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'sample/css/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
 </head>
 <body>
 
 	<div id="t_wrapper">
 	<div id="t_header">
-<!--	<img src="{% static "sample/images/clg_logo.ejpg" %}" width="125" height="125" />	 Site logo-->
+<!--	<img src="{% static "attendence/images/clg_logo.ejpg" %}" width="125" height="125" />	 Site logo-->
 <!--	<h1>Nowrosjee Wadia College,Pune-01.</h1>		-->				<!--site title-->
 	</div>								<!--end of t_header-->
 	<div id="t_menu">
 	<ul>
-			<li><a href="{% url 'sample:home' %}">Home</a></li>	
+			<li><a href="{% url 'attendence:home' %}">Home</a></li>	
 	</ul>
 	</div> 
 	<div id="background">
@@ -38,7 +38,7 @@
         <table width="800" >
         <th colspan="2" align="center">Teacher Registration</th>
 	
-	<form action="{% url 'sample:submit' %}" name="TeacherRegistration" onsubmit="return myFunction()" method="POST">{% csrf_token %}
+	<form action="{% url 'attendence:submit' %}" name="TeacherRegistration" onsubmit="return myFunction()" method="POST">{% csrf_token %}
 	<tr>
         
 		<td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRegistration ID</p></td>
@@ -70,7 +70,7 @@
 </tr>
 		<tr>
 	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="Reset" name="reset"/></td>
-	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" value="Submit" name="submit" /></td> 
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type="submit" value="Submit" name="submit" /></td> 
 	</tr>
         </table>
 		

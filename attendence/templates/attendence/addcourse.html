@@ -2,7 +2,7 @@
 <head>
 <title>NWC Attendence System</title>
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'sample/css/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
 </head>
 <body>
 	<div id="t_wrapper">
@@ -12,12 +12,12 @@
 	<!--end of t_header-->
 	<div id="t_menu">
 	<ul>
-			<li><a href="{% url 'sample:adashboard' %}">Dashboard</a></li>
-			<li><a href="{% url 'sample:aviewteacher' %}">Teacher</a></li>
-			<li><a href="{% url 'sample:aviewstudent' %}">Student</a></li>
-			<li><a href="{% url 'sample:aviewcourse' %}">Course</a></li>
-			<li><a href="">Manage Data</a></li>
-			<li><a href="{% url 'sample:home' %}">Logout</a></li>
+			<li><a href="{% url 'attendence:adashboard' %}">Dashboard</a></li>
+			<li><a href="{% url 'attendence:aviewteacher' %}">Teacher</a></li>
+			<li><a href="{% url 'attendence:aviewstudent' %}">Student</a></li>
+			<li><a href="{% url 'attendence:aviewcourse' %}">Course</a></li>
+			<li><a href="">Mail</a></li>
+			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
 	</ul>
 	</div>
 	<div id="background">
@@ -25,7 +25,7 @@
         <table width="800" >
         <th colspan="2" align="center">Add Course</th>
 	
-	<form action="{% url 'sample:coursesubmit' %}" name="AddCourse" method="POST">{% csrf_token %}
+	<form action="{% url 'attendence:coursesubmit' %}" name="AddCourse" method="POST">{% csrf_token %}
 	<tr>
         
 		<td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCourse Name</p></td>
@@ -37,7 +37,7 @@
         </tr>
 		<tr>
 	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="Reset" name="reset"/></td>
-	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" value="Submit" name="submit" /></td> 
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type="submit" value="Submit" name="submit" /></td> 
 	</tr>
         </table>
 		

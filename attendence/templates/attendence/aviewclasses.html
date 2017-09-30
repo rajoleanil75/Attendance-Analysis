@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>NWC Attendence System</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
+</head>
+<body>
+	<div id="t_wrapper">
+	<div id="t_header">
+	
+	</div>		
+	<!--end of t_header-->
+	<div id="t_menu">
+	<ul>
+			<li><a href="{% url 'attendence:adashboard' %}">Dashboard</a></li>
+			<li><a href="{% url 'attendence:aviewteacher' %}">Teacher</a></li>
+			<li><a href="{% url 'attendence:aviewstudent' %}">Student</a></li>
+			<li><a href="{% url 'attendence:aviewcourse' %}">Course</a></li>
+			<li><a href="">Mail</a></li>
+			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
+	</ul>
+	</div>
+	
+	 <div id="background">
+        <div id="height">
+	<table width="865">
+	<th align="right">
+	
+		<form name="Search1" id="search1" action="{% url 'attendence:aview' %}" method="POST">{% csrf_token %}
+<!--	<select name="role" id="role">
+		<option name="cid" value="cid">Course Name</option>
+		<option name="c_name" value="c_name">Pattern</option>
+		
+	</select>	
+-->
+	<input type="text" name="a" size="15" required /> <input type="submit" name="submit" value="Search" /> </th>
+	 </form>
+	
+	</table>
+	<table border="double" width="865">
+        <th colspan="6"><a href="">Add Class</a></th>
+        <tr>
+		 <th>Sr.No.</th>
+        <th>Class Name</th>
+		<th>Total Division</th>
+        <th>MORE</th>
+        </tr>
+		
+		
+		{% for b in obj %}
+		<tr>
+		<td>{{ b.coid }}</td>
+		<td>{{ b.coname }}</td>
+		<td>{{ b.copattern }}</td>
+		<td> <form name="classes" id="classes" action="{% url 'attendence:aview' %}" method="POST">{% csrf_token %} <input type="hidden" name="cid" value="{{ b.coid }}"> <input type="submit" name={{ b.coid }} value=&gt;&gt; > </form></a> </td>
+		</tr>
+		{% endfor %}
+		 </table>
+        
+		</div>
+       
+		<hr noshade>
+
+	
+	</div>	
+	
+	
+	<div id="t_footer"></div>
+<div id="footer"></div>
+<div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>
+</body>
+</html>
