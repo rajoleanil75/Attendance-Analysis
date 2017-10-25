@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>NWC Attendence System</title>
+
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
 </head>
@@ -11,13 +12,13 @@
 	</div>								<!--end of t_header-->
 	<div id="t_menu">
 	<ul>
-			<li><a href="{% url 'attendence:home' %}">Home</a></li>	
+			<li><a href="{% url 'attendence:student1' %}">Home</a></li>	
 	</ul>
 	</div>
 	
-	<form name="login" id="login" action="{% url 'attendence:login_check' %}" method="POST">{% csrf_token %}
+	<form name="login" id="login" action="{% url 'attendence:slogin_check' %}" method="POST">{% csrf_token %}
         <div id="background">
-        <h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Teacher Login</h4>
+        <h4>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Student Login</h4>
         <hr noshade>
         <div id="login">
         <img src="{% static "attendence/images/person_login.png" %}">
@@ -26,11 +27,7 @@
         <br>
         <h2>password &nbsp&nbsp&nbsp&nbsp&nbsp <input type="password" name="lpass" maxlength="30"/></h2>
         <br>
-	<select name="role" id="role">
-		<option value="teacher">Teacher</option>
-		<option value="hod">HOD</option>
-		<option value="admin">Admin</option>
-	</select>
+	
 	<br>
 <input type="image" src="{% static "attendence/images/loginbutton.png" %}" value="e_submit" name="e_submit" width="200" height="50"/>
 

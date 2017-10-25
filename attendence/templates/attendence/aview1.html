@@ -23,43 +23,21 @@
 	
 	 <div id="background">
         <div id="height">
-	<table border="double" width="865">
-        <th><a href="{% url 'attendence:aviewteacher' %}">Teacher</a></th>
-        <th><a href="{% url 'attendence:aviewsubject' %}">Subject</a></th>
-		<th><a href="{% url 'attendence:aviewlab' %}">Lab</a></th>
-        </table>
-		<br><br>
-	<table border="double" width="865">
-        <th colspan="6"><a href="{% url 'attendence:addteacher' %}">Add Teacher</a></th>
-        <tr>
-        <th>Teacher ID</th>
-	<th>NAME</th>
-	<th>Designation</th>	
-	<th>Contact No</th>
-        <th>EMAIL</th>
-    
-        </tr>
-		
-		
-		{% for b in obj %}
-		<tr>
-		<td>{{ b.tid }}</td>
-		<td>{{ b.tname }}</td>
-		<td>{{ b.designation }}</td>
-		<td>{{ b.contact_mob }}</td>
-		<td>{{ b.email }}</td>
-		</tr>
-		{% endfor %}
-		 </table>
-        
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		google.load("visualization", "1", {packages:["corechart"]});
+	</script>
+	{{ chart.as_html }}
 		</div>
        
 		<hr noshade>
+		
+		
 
 	
 	</div>	
 	
-	
+	</form>
 	<div id="t_footer"></div>
 <div id="footer"></div>
 <div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>

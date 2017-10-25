@@ -37,7 +37,7 @@ ALLOWED_HOSTS = ['anilraj.pythonanywhere.com','127.0.0.1']
 #EMAIL_USE_TLS = True
 
 INSTALLED_APPS = [
-	
+	'graphos',
  #   'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'attendence'
+	
   #  'blog',
 	#'sample',
 ]
@@ -86,19 +87,19 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-		'ENGINE': 'django.db.backends.mysql',
-		'NAME': 'anilraj$test',
-		'USER': 'anilraj',
-		'PASSWORD': 'test1234',
-		'HOST': 'anilraj.mysql.pythonanywhere-services.com',
-		'PORT': '3306',
+		#'ENGINE': 'django.db.backends.mysql',
+		#'NAME': 'anilraj$test',
+		#'USER': 'anilraj',
+		#'PASSWORD': 'test1234',
+		#'HOST': 'anilraj.mysql.pythonanywhere-services.com',
+		#'PORT': '3306',
 	 
-	 # 'ENGINE': 'django.db.backends.mysql',
-       # 'NAME': 'db',
-       # 'USER': 'root',
-       # 'PASSWORD': '',
-       # 'HOST': '127.0.0.1',
-       # 'PORT': '3306',
+		'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
       #  'ENGINE': 'django.db.backends.sqlite3',
       #  'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
@@ -140,6 +141,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
+FILE_UPLOAD_HANDLERS = ("django_excel.ExcelMemoryFileUploadHandler","django_excel.TemporaryExcelFileUploadHandler")
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

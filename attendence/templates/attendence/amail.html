@@ -22,35 +22,29 @@
 	</div>
 	
 	 <div id="background">
-        <div id="height">
-	<table border="double" width="865">
-        <th><a href="{% url 'attendence:aviewteacher' %}">Teacher</a></th>
-        <th><a href="{% url 'attendence:aviewsubject' %}">Subject</a></th>
-		<th><a href="{% url 'attendence:aviewlab' %}">Lab</a></th>
-        </table>
-		<br><br>
-	<table border="double" width="865">
-        <th colspan="6"><a href="{% url 'attendence:addteacher' %}">Add Teacher</a></th>
+	 <div id="height">
+	 
+        <h1>Notification</h1>
+        <br>
+        <table border="double" width="850">
         <tr>
-        <th>Teacher ID</th>
-	<th>NAME</th>
-	<th>Designation</th>	
-	<th>Contact No</th>
-        <th>EMAIL</th>
-    
+        <th>Date</th>
+        <th>Time</th>
+        <th>Message</th>
         </tr>
-		
-		
-		{% for b in obj %}
-		<tr>
-		<td>{{ b.tid }}</td>
-		<td>{{ b.tname }}</td>
-		<td>{{ b.designation }}</td>
-		<td>{{ b.contact_mob }}</td>
-		<td>{{ b.email }}</td>
-		</tr>
+        {% for b in obj1 %}
+			<tr>
+			<td>{{b.mdate}}</td>
+			<td>{{b.mtime}}</td>
+			<td>{{b.message}}</td>
+			</tr>
 		{% endfor %}
-		 </table>
+		
+		
+		</table>
+		
+        
+	
         
 		</div>
        

@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>NWC Attendence System</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
+</head>
+<body>
+	<div id="t_wrapper">
+	<div id="t_header">
+	
+	</div>		
+	<!--end of t_header-->
+	<div id="t_menu">
+	<ul>
+			<li><a href="{% url 'attendence:adashboard' %}">Dashboard</a></li>
+			<li><a href="{% url 'attendence:aviewteacher' %}">Teacher</a></li>
+			<li><a href="{% url 'attendence:aviewstudent' %}">Student</a></li>
+			<li><a href="{% url 'attendence:aviewcourse' %}">View</a></li>
+			<li><a href="{% url 'attendence:amail' %}">Notification</a></li>
+			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
+	</ul>
+	</div>
+	
+	 <div id="background">
+        <div id="height">
+	<table border="double" width="865">
+        <th><a href="{% url 'attendence:aviewteacher' %}">Teacher</a></th>
+        <th><a href="{% url 'attendence:aviewsubject' %}">Subject</a></th>
+		<th><a href="{% url 'attendence:aviewlab' %}">Lab</a></th>
+        
+        </table>
+		<br><br>
+	
+	
+	<table width="800" >
+        <th colspan="2" align="center">Add Subject</th>
+	<form action="{% url 'attendence:addsubject1' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
+	<tr>
+        
+		<td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSubject Code</p></td>
+        <td><input type="text" name="scode" id="scode" size="30" required></td>
+        </tr>
+	<tr>
+        <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSubject Name</p></td>
+        <td><input type=text name=sname id="sname" size="30" required></td>
+        </tr>
+		<tr>
+        <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMax Lecture</p></td>
+        <td><input type="text" name="maxlec" id="maxlec" size="30" required></td>
+        </tr>
+		<tr>
+        <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspTeacher</p></td>
+        <td><select name="teacher" id="teacher" >
+		<option value="">Select Teacher</option>
+		{% for b in obj %}
+		<option value="{{b.tid}}">{{b.tname}}</option>
+		{% endfor %}
+		</select>
+		</td>
+        </tr>
+        <tr>
+        <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspClass</p></td>
+        <td><select name="classes" id="classes" >
+                <option value="">Select Class</option>
+                <option value="1">FYBSc</option>
+                <option value="2">SYBSc</option>
+				<option value="3">TYBSc</option>
+				<option value="4">FYMSc</option>
+				<option value="5">SYMSc</option>
+            </select></td>
+        </tr>
+		<tr>
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="Reset" name="reset"/></td>
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type="submit" value="Submit" name="submit" /></td> 
+	</tr>
+        </table>
+        
+		</div>
+       
+		<hr noshade>
+
+	
+	</div>	
+	
+	
+	<div id="t_footer"></div>
+<div id="footer"></div>
+<div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>
+</body>
+</html>

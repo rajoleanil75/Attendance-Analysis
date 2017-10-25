@@ -30,24 +30,24 @@
         </table>
 		<br><br>
 	<table border="double" width="865">
-        <th colspan="6"><a href="{% url 'attendence:addteacher' %}">Add Teacher</a></th>
+        <th colspan="6"><a href="{% url 'attendence:addsubject' %}">Add Subject</a></th>
         <tr>
-        <th>Teacher ID</th>
+        <th>Subject Code</th>
 	<th>NAME</th>
-	<th>Designation</th>	
-	<th>Contact No</th>
-        <th>EMAIL</th>
+	<th>Max Lecture</th>	
+	<th>Teacher</th>
+        <th>Class</th>
     
         </tr>
 		
 		
 		{% for b in obj %}
 		<tr>
-		<td>{{ b.tid }}</td>
-		<td>{{ b.tname }}</td>
-		<td>{{ b.designation }}</td>
-		<td>{{ b.contact_mob }}</td>
-		<td>{{ b.email }}</td>
+		<td>{{ b.scode }}</td>
+		<td>{{ b.sname }}</td>
+		<td>{{ b.max_lacture }}</td>
+		<td>{{ b.teacher.tname }}</td>
+		<td>{{ b.classes.clname }}</td>
 		</tr>
 		{% endfor %}
 		 </table>

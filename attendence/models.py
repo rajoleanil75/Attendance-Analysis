@@ -14,7 +14,7 @@ class teacher(models.Model):
 	tid=models.IntegerField(primary_key=True)
 	tname = EncryptedTextField()
 	designation = EncryptedTextField()
-	contact_mob=EncryptedIntegerField(default="")
+	contact_mob=models.CharField(max_length=12,default="")
 	email=EncryptedEmailField(default="")
 	tpassword=EncryptedTextField(default="")
 	lastlogin=models.DateTimeField(blank=True, null=True)
@@ -45,9 +45,10 @@ class subject(models.Model):
 	
 class student(models.Model):
 	sid=models.AutoField(primary_key=True)
-	roll=EncryptedIntegerField(default="")
+	roll=EncryptedIntegerField()
+	suname=models.TextField(default="")
 	sname=EncryptedTextField()
-	smobile=EncryptedIntegerField(default="")
+	smobile=models.CharField(max_length=12)
 	semail=EncryptedTextField(default="")
 	spassword=EncryptedTextField(default="")
 	division=models.ForeignKey(division, on_delete=models.CASCADE)
@@ -62,18 +63,21 @@ class attendence(models.Model):
 	division=models.ForeignKey(division, on_delete=models.CASCADE)
 	
 class lab(models.Model):
-	slid=models.AutoField(primary_key=True)
-	slname=EncryptedTextField()
-	slstart=EncryptedIntegerField()
-	slend=EncryptedIntegerField()
+	lid=models.AutoField(primary_key=True)
+	lname=models.TextField()
+	teacher=models.ForeignKey(teacher,on_delete=models.CASCADE)
 	division=models.ForeignKey(division, on_delete=models.CASCADE)
 
+class lab1(models.Model):
+	lid=models.AutoField(primary_key=True)
+	lab=models.ForeignKey(lab,on_delete=models.CASCADE)
+	student=models.ForeignKey(student,on_delete=models.CASCADE)
+
 class lattendence(models.Model):
-	laid=models.AutoField(primary_key=True)
+	aid=models.AutoField(primary_key=True)
 	adate= models.DateField()
 	atime=models.TimeField()
-	student=models.ForeignKey(student, on_delete=models.CASCADE)
-	lab=models.ForeignKey(lab, on_delete=models.CASCADE)
+	lid=models.ForeignKey(lab1, on_delete=models.CASCADE)
 	
 class divtimetable(models.Model):
 	dtmid=models.AutoField(primary_key=True)
@@ -93,8 +97,7 @@ class labtimetable(models.Model):
 	
 class mail(models.Model):
 	mid=models.AutoField(primary_key=True)
-	sender=EncryptedTextField()
-	to=EncryptedTextField()
+	sender=models.IntegerField()
 	subject=EncryptedTextField(default="")
 	message=EncryptedTextField()
 	mdate= models.DateField()

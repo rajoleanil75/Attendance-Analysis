@@ -1,6 +1,376 @@
 <html>
 <head>
 <title>NWC Attendence System</title>
+<script language="javascript" type="text/javascript">
+			function dynamicdropdown(listindex)
+            {
+                document.getElementById("subcategory").length = 0;
+				var tbl = document.getElementById('tbl');
+				while(tbl.rows.length > 2) {
+					tbl.deleteRow(2);
+				}
+                switch (listindex)
+                {
+                    case "BSc (Computer Science)" :
+                        document.getElementById("subcategory").options[0]=new Option("Please select Class","");
+                        document.getElementById("subcategory").options[1]=new Option("FYBsc","FYBsc");
+                        document.getElementById("subcategory").options[2]=new Option("SYBsc","SYBsc");
+                        document.getElementById("subcategory").options[3]=new Option("TYBsc","TYBsc");
+						var r = 2;
+						{% for b in obj %}
+							{% if b.division.classes.course.coid == 1 %}
+								var x=tbl.insertRow(r);
+								var y = x.insertCell(0);
+								var y1 = x.insertCell(1);
+								var y2 = x.insertCell(2);
+								var y3 = x.insertCell(3);
+								var y4 = x.insertCell(4);
+								tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+								tbl.rows[r].cells[4].innerHTML = {{b.roll}};
+								r++;
+							{% endif %}
+						{% endfor %}
+						break;
+                    
+                    case "MSc (Computer Science)" :
+                        document.getElementById("subcategory").options[0]=new Option("Please select Class","");
+                        document.getElementById("subcategory").options[1]=new Option("FYMsc","FYMsc");
+                        document.getElementById("subcategory").options[2]=new Option("SYMsc","SYMsc"); 
+						var r = 2;
+						{% for b in obj %}
+							{% if b.division.classes.course.coid == 2 %}
+								var x=tbl.insertRow(r);
+								var y = x.insertCell(0);
+								var y1 = x.insertCell(1);
+								var y2 = x.insertCell(2);
+								var y3 = x.insertCell(3);
+								var y4 = x.insertCell(4);
+								tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+								tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+								r++;
+							{% endif %}
+						{% endfor %}
+                        break;
+                }
+				return true;
+            }
+			function dynamicdropdown1(listindex)
+            {
+                document.getElementById("sub1category").length = 0;
+				var tbl = document.getElementById('tbl');
+				while(tbl.rows.length > 2) {
+					tbl.deleteRow(2);
+				}
+                switch (listindex)
+                {
+                    case "FYBsc" :
+                        document.getElementById("sub1category").options[0]=new Option("Please select Division","");
+                        document.getElementById("sub1category").options[1]=new Option("Div A","Div A");
+                        document.getElementById("sub1category").options[2]=new Option("Div B","Div B");
+						var r = 2;
+						{% for b in obj %}
+							{% if b.division.classes.clid == 1 %}
+								var x=tbl.insertRow(r);
+								var y = x.insertCell(0);
+								var y1 = x.insertCell(1);
+								var y2 = x.insertCell(2);
+								var y3 = x.insertCell(3);
+								var y4 = x.insertCell(4);
+								tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+								tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+								r++;
+							{% endif %}
+						{% endfor %}
+                        break;
+					case "SYBsc" :
+                        document.getElementById("sub1category").options[0]=new Option("Please select Division","");
+                        document.getElementById("sub1category").options[1]=new Option("Div A","Div A");
+                        document.getElementById("sub1category").options[2]=new Option("Div B","Div B");
+						var r = 2;
+						{% for b in obj %}
+							{% if b.division.classes.clid == 2 %}
+								var x=tbl.insertRow(r);
+								var y = x.insertCell(0);
+								var y1 = x.insertCell(1);
+								var y2 = x.insertCell(2);
+								var y3 = x.insertCell(3);
+								var y4 = x.insertCell(4);
+								tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+								tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+								r++;
+							{% endif %}
+						{% endfor %}
+                        break;
+					case "TYBsc" :
+                        document.getElementById("sub1category").options[0]=new Option("Please select Division","");
+                        document.getElementById("sub1category").options[1]=new Option("Div A","Div A");
+                        document.getElementById("sub1category").options[2]=new Option("Div B","Div B");
+						var r = 2;
+						{% for b in obj %}
+							{% if b.division.classes.clid == 3 %}
+								var x=tbl.insertRow(r);
+								var y = x.insertCell(0);
+								var y1 = x.insertCell(1);
+								var y2 = x.insertCell(2);
+								var y3 = x.insertCell(3);
+								var y4 = x.insertCell(4);
+								tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+								tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+								r++;
+							{% endif %}
+						{% endfor %}
+                        break;
+                    case "FYMsc" :
+                        document.getElementById("sub1category").options[0]=new Option("Please select Division","");
+                        document.getElementById("sub1category").options[1]=new Option("Div A","Div A");
+						var r = 2;
+						{% for b in obj %}
+							{% if b.division.classes.clid == 4 %}
+								var x=tbl.insertRow(r);
+								var y = x.insertCell(0);
+								var y1 = x.insertCell(1);
+								var y2 = x.insertCell(2);
+								var y3 = x.insertCell(3);
+								var y4 = x.insertCell(4);
+								tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+								tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+								r++;
+							{% endif %}
+						{% endfor %}
+                        break;
+					case "SYMsc" :
+                        document.getElementById("sub1category").options[0]=new Option("Please select Division","");
+                        document.getElementById("sub1category").options[1]=new Option("Div A","Div A");
+						var r = 2;
+						{% for b in obj %}
+							{% if b.division.classes.clid == 5 %}
+								var x=tbl.insertRow(r);
+								var y = x.insertCell(0);
+								var y1 = x.insertCell(1);
+								var y2 = x.insertCell(2);
+								var y3 = x.insertCell(3);
+								var y4 = x.insertCell(4);
+								tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+								tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+								r++;
+							{% endif %}
+						{% endfor %}
+                        break;
+                    }
+                return true;
+            }
+			function dynamicdropdown2(listindex)
+            {
+                var tbl = document.getElementById('tbl');
+				var s2 = document.getElementById("subcategory").value;
+				while(tbl.rows.length > 2) {
+					tbl.deleteRow(2);
+				}
+				
+                switch (s2)
+                {
+                    case "FYBsc" :
+						switch (listindex)
+						{
+							case "Div A" :
+								var r = 2;
+								{% for b in obj %}
+									{% if b.division.did == 1 %}
+									var x=tbl.insertRow(r);
+									var y = x.insertCell(0);
+									var y1 = x.insertCell(1);
+									var y2 = x.insertCell(2);
+									var y3 = x.insertCell(3);
+									var y4 = x.insertCell(4);
+									tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									r++;
+									{% endif %}
+								{% endfor %}
+								break;
+							case "Div B" :
+								var r = 2;
+								{% for b in obj %}
+									{% if b.division.did == 2 %}
+									var x=tbl.insertRow(r);
+									var y = x.insertCell(0);
+									var y1 = x.insertCell(1);
+									var y2 = x.insertCell(2);
+									var y3 = x.insertCell(3);
+									var y4 = x.insertCell(4);
+									tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									r++;
+									{% endif %}
+								{% endfor %}
+								break;
+						}
+                        break;
+					case "SYBsc" :
+                        switch (listindex)
+						{
+							case "Div A" :
+								var r = 2;
+								{% for b in obj %}
+									{% if b.division.did == 3 %}
+									var x=tbl.insertRow(r);
+									var y = x.insertCell(0);
+									var y1 = x.insertCell(1);
+									var y2 = x.insertCell(2);
+									var y3 = x.insertCell(3);
+									var y4 = x.insertCell(4);
+									tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									r++;
+									{% endif %}
+								{% endfor %}
+								break;
+							case "Div B" :
+								var r = 2;
+								{% for b in obj %}
+									{% if b.division.did == 4 %}
+									var x=tbl.insertRow(r);
+									var y = x.insertCell(0);
+									var y1 = x.insertCell(1);
+									var y2 = x.insertCell(2);
+									var y3 = x.insertCell(3);
+									var y4 = x.insertCell(4);
+									tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									r++;
+									{% endif %}
+								{% endfor %}
+								break;
+						}
+						break;
+					case "TYBsc" :
+                        switch (listindex)
+						{
+							case "Div A" :
+								var r = 2;
+								{% for b in obj %}
+									{% if b.division.did == 5 %}
+									var x=tbl.insertRow(r);
+									var y = x.insertCell(0);
+									var y1 = x.insertCell(1);
+									var y2 = x.insertCell(2);
+									var y3 = x.insertCell(3);
+									var y4 = x.insertCell(4);
+									tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									r++;
+									{% endif %}
+								{% endfor %}
+								break;
+							case "Div B" :
+								var r = 2;
+								{% for b in obj %}
+									{% if b.division.did == 6 %}
+									var x=tbl.insertRow(r);
+									var y = x.insertCell(0);
+									var y1 = x.insertCell(1);
+									var y2 = x.insertCell(2);
+									var y3 = x.insertCell(3);
+									var y4 = x.insertCell(4);
+									tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									r++;
+									{% endif %}
+								{% endfor %}
+								break;
+						}
+						break;
+                    case "FYMsc" :
+                        switch (listindex)
+						{
+							case "Div A" :
+								var r = 2;
+								{% for b in obj %}
+									{% if b.division.did == 7 %}
+									var x=tbl.insertRow(r);
+									var y = x.insertCell(0);
+									var y1 = x.insertCell(1);
+									var y2 = x.insertCell(2);
+									var y3 = x.insertCell(3);
+									var y4 = x.insertCell(4);
+									tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									r++;
+									{% endif %}
+								{% endfor %}
+								break;
+						}
+						break;
+					case "SYMsc" :
+                        switch (listindex)
+						{
+							case "Div A" :
+								var r = 2;
+								{% for b in obj %}
+									{% if b.division.did == 8 %}
+									var x=tbl.insertRow(r);
+									var y = x.insertCell(0);
+									var y1 = x.insertCell(1);
+									var y2 = x.insertCell(2);
+									var y3 = x.insertCell(3);
+									var y4 = x.insertCell(4);
+									tbl.rows[r].cells[0].innerHTML = {{b.roll}};
+									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
+									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
+									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
+									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									r++;
+									{% endif %}
+								{% endfor %}
+								break;
+						}
+						break;
+                    }
+                return true;
+            }
+       </script>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
 </head>
@@ -15,8 +385,8 @@
 			<li><a href="{% url 'attendence:adashboard' %}">Dashboard</a></li>
 			<li><a href="{% url 'attendence:aviewteacher' %}">Teacher</a></li>
 			<li><a href="{% url 'attendence:aviewstudent' %}">Student</a></li>
-			<li><a href="{% url 'attendence:aviewcourse' %}">Course</a></li>
-			<li><a href="">Mail</a></li>
+			<li><a href="{% url 'attendence:aviewcourse' %}">View</a></li>
+			<li><a href="{% url 'attendence:amail' %}">Notification</a></li>
 			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
 	</ul>
 	</div>
@@ -25,36 +395,54 @@
         <div id="height">
 	<table width="865">
 	<th align="right">
-		<form name="Search1" action="customer_search.php" method="POST">
-	<select name="role" id="role">
-		<option name="cid" value="cid">Admission No</option>
-		<option name="c_name" value="c_name">Student Name</option>
-		<option name="mobile" value="mobile">Contact No</option>
-	</select>	
-
-	<input type="text" name="search" size="15" required /> <input type="submit" name="submit" value="Search" /></th>
-	</form>
+	<!--	<form name="Search1" action="customer_search.php" method="POST"> -->
+		<select name="category1" id="category1" onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);">
+                <option value="">Select Course</option>
+                <option value="BSc (Computer Science)">BSc (Computer Science)</option>
+                <option value="MSc (Computer Science)">MSc (Computer Science)</option>
+            </select>
+	<script type="text/javascript" language="JavaScript">
+                document.write('<select name="subcategory" class="required-entry" id="subcategory" onchange="javascript: dynamicdropdown1(this.options[this.selectedIndex].value);"><option value="">Please select Class</option></select>')
+            </script>
+            <noscript>
+                <select name="subcategory" id="subcategory" >
+                    <option value="">Please select Class</option>
+                </select>
+            </noscript>
+	<script type="text/javascript" language="JavaScript">
+                document.write('<select name="sub1category" id="sub1category" onchange="javascript: dynamicdropdown2(this.options[this.selectedIndex].value);"><option value="">Please select Division</option></select>')
+            </script>
+            <noscript>
+                <select name="sub1category" id="sub1category" >
+                    <option value="">Please select Division</option>
+                </select>
+            </noscript>	
+	<!--<input type="text" name="search" size="15" required /> <input type="submit" name="submit" value="Search" />--></th>
+	<!--</form>-->
+	
 	</table>
-	<table border="double" width="865">
-        <th colspan="6"><a href="">Add Student</a></th>
+	<table name="tbl" id="tbl" border="double" width="865">
+        <th colspan="6"><a href="{% url 'attendence:addstudent' %}">Add Student</a></th>
         <tr>
-        <th>Admission No</th>
-	<th>NAME</th>
-	<th>Course</th>	
-	<th>Contact No</th>
-        <th>EMAIL</th>
-        <th>MORE</th>
-        </tr>
+        
+	<th>Roll No.</th>	
+	<th>Name</th>
+        <th>Contact No.</th>
+        <th>Email</th>
+        <th>More</th>
+		</tr>
 		
 		
 		{% for b in obj %}
+		
 		<tr>
-		<td>{{ b.admission_no }}</td>
+		<td>{{b.roll}}</td>
 		<td>{{ b.sname }}</td>
-		<td></td>
 		<td>{{ b.smobile }}</td>
 		<td>{{ b.semail }}</td>
+		<td></td>
 		</tr>
+		
 		{% endfor %}
 		 </table>
         

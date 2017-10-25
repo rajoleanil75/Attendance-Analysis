@@ -64,11 +64,11 @@
 	<!--end of t_header-->
 	<div id="t_menu">
 	<ul>
-			 <li><a href="{% url 'attendence:adashboard' %}">Dashboard</a></li>
-			<li><a href="{% url 'attendence:aviewteacher' %}">Teacher</a></li>
-			<li><a href="{% url 'attendence:aviewstudent' %}">Student</a></li>
-			<li><a href="{% url 'attendence:aviewcourse' %}">View</a></li>
-			<li><a href="{% url 'attendence:amail' %}">Notification</a></li>
+			<li><a href="{% url 'attendence:tdashboard' %}">Dashboard</a></li>
+			<li><a href="{% url 'attendence:tattendence' %}">Add Attendence</a></li>
+			<li><a href="{% url 'attendence:utattendence' %}">Update Attendence</a></li>
+			<li><a href="{% url 'attendence:tview' %}">View</a></li>
+			<li><a href="{% url 'attendence:tmail' %}">Notification</a></li>
 			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
 	</ul>
 	</div>
@@ -76,8 +76,8 @@
 	 <div id="background">
         <div id="height">
 		<table border="double" width="865">
-        <th><a href="{% url 'attendence:aviewcourse' %}">View Division Attendence</a></th>
-        <th><a href="{% url 'attendence:alview' %}">View Lab Attendence</a></th>
+        <th><a href="{% url 'attendence:tview' %}">View Division Attendence</a></th>
+        <th><a href="{% url 'attendence:tlview' %}">View Lab Attendence</a></th>
         </table>
 		<br><br>
 	<table width="600">
@@ -85,7 +85,7 @@
 	<tr>
 	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Subject</td>
 	<td>
-	<form action="{% url 'attendence:aview1' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
+	<form action="{% url 'attendence:tview1' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
 	
 		<select name="category1" id="category1" onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);">
                 <option value="">Select Subject</option>

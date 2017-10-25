@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>NWC Attendence System</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
+</head>
+<body>
+	<div id="t_wrapper">
+	<div id="t_header">
+	
+	</div>		
+	<!--end of t_header-->
+	<div id="t_menu">
+	<ul>
+			<li><a href="{% url 'attendence:hdashboard' %}">Dashboard</a></li>
+			<li><a href="{% url 'attendence:hattendence' %}">Add Attendence</a></li>
+			<li><a href="{% url 'attendence:uhattendence' %}">Update Attendence</a></li>
+			<li><a href="{% url 'attendence:hview' %}">View</a></li>
+			<li><a href="{% url 'attendence:hmail' %}">Notification</a></li>
+			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
+	</ul>
+	</div>
+	
+	 <div id="background">
+	 <div id="height">
+	 <div id="common">
+        <div class="cs_article">
+        <div class="left">
+        <h1>Notification</h1>
+        <br>
+        <table border="double" width="850">
+        <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Message</th>
+        </tr>
+        {% for b in obj1 %}
+			<tr>
+			<td>{{b.mdate}}</td>
+			<td>{{b.mtime}}</td>
+			<td>{{b.message}}</td>
+			</tr>
+		{% endfor %}
+		
+		
+		</table>
+		</div>
+		
+		</div>
+		</div>
+        
+	
+        
+		</div>
+       
+		<hr noshade>
+
+	
+	</div>	
+	
+	
+	<div id="t_footer"></div>
+<div id="footer"></div>
+<div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>
+</body>
+</html>

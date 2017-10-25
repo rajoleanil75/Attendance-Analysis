@@ -1,0 +1,154 @@
+<html>
+<head>
+<title>NWC Attendence System</title>
+<script language="javascript" type="text/javascript">
+            function dynamicdropdown(listindex)
+            {
+                document.getElementById("subcategory").length = 0;
+                switch (listindex)
+                {
+                    case "BSc (Computer Science)" :
+                        document.getElementById("subcategory").options[0]=new Option("Please select Class","");
+                        document.getElementById("subcategory").options[1]=new Option("FYBsc","FYBsc");
+                        document.getElementById("subcategory").options[2]=new Option("SYBsc","SYBsc");
+                        document.getElementById("subcategory").options[3]=new Option("TYBsc","TYBsc");
+                        break;
+                    
+                    case "MSc (Computer Science)" :
+                        document.getElementById("subcategory").options[0]=new Option("Please select Class","");
+                        document.getElementById("subcategory").options[1]=new Option("FYMsc","FYMsc");
+                        document.getElementById("subcategory").options[2]=new Option("SYMsc","SYMsc");
+                        break;
+                }
+                return true;
+            }
+			function dynamicdropdown1(listindex)
+            {
+                document.getElementById("sub1category").length = 0;
+                switch (listindex)
+                {
+                    case "FYBsc" :
+                        document.getElementById("sub1category").options[0]=new Option("Please select Division","");
+                        document.getElementById("sub1category").options[1]=new Option("Div A","Div A");
+                        document.getElementById("sub1category").options[2]=new Option("Div B","Div B");
+                        break;
+					case "SYBsc" :
+                        document.getElementById("sub1category").options[0]=new Option("Please select Division","");
+                        document.getElementById("sub1category").options[1]=new Option("Div A","Div A");
+                        document.getElementById("sub1category").options[2]=new Option("Div B","Div B");
+                        break;
+					case "TYBsc" :
+                        document.getElementById("sub1category").options[0]=new Option("Please select Division","");
+                        document.getElementById("sub1category").options[1]=new Option("Div A","Div A");
+                        document.getElementById("sub1category").options[2]=new Option("Div B","Div B");
+                        break;
+                    case "FYMsc" :
+                        document.getElementById("sub1category").options[0]=new Option("Please select Division","");
+                        document.getElementById("sub1category").options[1]=new Option("Div A","Div A");
+                        break;
+					case "SYMsc" :
+                        document.getElementById("sub1category").options[0]=new Option("Please select Division","");
+                        document.getElementById("sub1category").options[1]=new Option("Div A","Div A");
+                        break;
+                    }
+                return true;
+            }
+       </script>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
+</head>
+<body>
+	<div id="t_wrapper">
+	<div id="t_header">
+	
+	</div>		
+	<!--end of t_header-->
+	<div id="t_menu">
+	<ul>
+			<li><a href="{% url 'attendence:adashboard' %}">Dashboard</a></li>
+			<li><a href="{% url 'attendence:aviewteacher' %}">Teacher</a></li>
+			<li><a href="{% url 'attendence:aviewstudent' %}">Student</a></li>
+			<li><a href="{% url 'attendence:aviewcourse' %}">View</a></li>
+			<li><a href="{% url 'attendence:amail' %}">Notification</a></li>
+			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
+	</ul>
+	</div>
+	
+	 <div id="background">
+        <div id="height">
+	
+
+	
+	
+	<table width="800" >
+        <th colspan="2" align="center">Add Students</th>
+	
+	<form action="{% url 'attendence:addstudent1' %}" name="AddStudent" method="POST" enctype="multipart/form-data">{% csrf_token %}
+	<tr>
+        
+		<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Course</td>
+        <td><select name="category1" id="category1" onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);">
+                <option value="">Select Course</option>
+                <option value="BSc (Computer Science)">BSc (Computer Science)</option>
+                <option value="MSc (Computer Science)">MSc (Computer Science)</option>
+            </select>
+		</td>
+        </tr>
+	<tr>
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Class</td>
+        <td>
+			<script type="text/javascript" language="JavaScript">
+                document.write('<select name="subcategory" class="required-entry" id="subcategory" onchange="javascript: dynamicdropdown1(this.options[this.selectedIndex].value);"><option value="">Please select Class</option></select>')
+            </script>
+            <noscript>
+                <select name="subcategory" id="subcategory" >
+                    <option value="">Please select Class</option>
+                </select>
+            </noscript>
+			
+			
+		</td>
+        </tr>
+		<tr>
+	<tr>
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Division</td>
+        <td>
+		<script type="text/javascript" language="JavaScript">
+                document.write('<select name="sub1category" id="sub1category"><option value="">Please select Division</option></select>')
+            </script>
+            <noscript>
+                <select name="sub1category" id="sub1category" >
+                    <option value="">Please select Division</option>
+                </select>
+            </noscript>
+		</td>
+        </tr>
+		<tr>
+	<tr>
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect File</td>
+        <td><input type="file" name="efile" id="efile" size="30" required></td>
+        </tr>
+		<tr>
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="Reset" name="reset"/></td>
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type="submit" value="Submit" name="submit" /></td> 
+	</tr>
+        </table>	
+		
+		
+		
+	
+        
+		</div>
+       
+		<hr noshade>
+
+	
+	</div>	
+	
+	
+	<div id="t_footer"></div>
+<div id="footer"></div>
+<div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>
+</body>
+</html>

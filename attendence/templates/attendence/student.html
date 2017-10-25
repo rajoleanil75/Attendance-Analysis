@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>NWC Attendence System</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
+</head>
+<body>
+	<div id="t_wrapper">
+	<div id="t_header">
+	
+	</div>								<!--end of t_header-->
+	<div id="t_menu">
+	<ul>
+			<li><a href="{% url 'attendence:student1' %}">Home</a></li>	
+	</ul>
+	</div>
+
+	<div id="t_back">
+		<div class="cs_article">
+		<div class="left">
+		<img src="{% static "attendence/images/front1.jpg" %}" width="400" height="200">
+		</div>
+		<div class="right"><p>Welcome to Attendence portal of Department of Computer Science, now manage your attendence on the move</a>
+		<a href="{% url 'attendence:slogin' %}"><img src="{% static "attendence/images/login_button2.png" %}" width="250" height="65"></a></p>
+		<a href="{% url 'attendence:sindex' %}">new user?</a>
+		</div>
+		</div>
+	</div>
+	<div id="background">	
+	<br>
+	
+	<br>
+	<br>
+	
+	<br>
+
+	<hr noshade>
+	<br>
+	
+	</div>	
+	
+	
+	<div id="t_footer"></div>
+<div id="footer"></div>
+<div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>
+</body>
+</html>

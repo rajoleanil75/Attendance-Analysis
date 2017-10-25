@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>NWC Attendence System</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
+</head>
+<body>
+	<div id="t_wrapper">
+	<div id="t_header">
+	
+	</div>		
+	<!--end of t_header-->
+	<div id="t_menu">
+	<ul>
+			<li><a href="{% url 'attendence:sdashboard' %}">Dashboard</a></li>
+			<li><a href="{% url 'attendence:sview1' %}">View</a></li>
+			<li><a href="{% url 'attendence:slogout' %}">Logout</a></li>
+	</ul>
+	</div>
+	
+	<div id="background">
+        <div id="common">
+        <div class="cs_article">
+        <div class="left">
+        <h1>Alert and Messages</h1>
+        <br>
+	<table width="300">
+	<tr>
+	<td>Total Subject</td>
+	<td>4
+	</td>
+	</table>
+        
+        </div>
+        <div class="right">
+        <h1>Dashboard</h1>
+        <ul class="list">
+        <li><a href="">Update Password</a></li>
+        </ul>
+        </div>
+        </div>
+        </div>
+       
+
+	
+	<hr noshade>
+	 </div>
+
+
+	<div id="t_footer"></div>
+<div id="footer"></div>
+<div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>
+</body>
+</html>
