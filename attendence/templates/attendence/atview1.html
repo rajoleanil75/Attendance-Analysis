@@ -75,39 +75,45 @@ document.onclick = mclose;
 	
 	 <div id="background">
         <div id="height">
-	
-		<br><br>
-	<table border="double" width="865">
-        <th colspan="6"><a href="{% url 'attendence:addsubject' %}">Add Subject</a></th>
-        <tr>
-        <th>Subject Code</th>
-	<th>NAME</th>
-	<th>Max Lecture</th>	
-	<th>Teacher</th>
-        <th>Class</th>
-    
-        </tr>
-		
-		
-		{% for b in obj %}
-		<tr>
-		<td>{{ b.scode }}</td>
-		<td>{{ b.sname }}</td>
-		<td>{{ b.max_lacture }}</td>
-		<td>{{ b.teacher.tname }}</td>
-		<td>{{ b.classes.clname }}</td>
-		</tr>
-		{% endfor %}
-		 </table>
-        
+		<br><br><br><br><br>
+		<script>
+		 function myfun()
+		 {
+			var a=document.getElementById("tbl");
+			newWin=window.open("");
+			newWin.document.write(a.outerHTML);
+			newWin.print();
+			newWin.close();
+		}
+			
+		 
+		 </script>
+<input type="button" value="Print" onclick="myfun()" />
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		google.load("visualization", "1", {packages:["corechart"]});
+	</script>
+	<table name="tbl" id="tbl" border="double" width="865">
+	<tr><th>
+	Teacher name: Prof.{{ name }}
+	</th>
+	</tr>
+	<tr>
+	<td>
+	{{ chart.as_html }}
+	</td>
+	</tr>
+	</table>
 		</div>
        
 		<hr noshade>
+		
+		
 
 	
 	</div>	
 	
-	
+	</form>
 	<div id="t_footer"></div>
 <div id="footer"></div>
 <div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>

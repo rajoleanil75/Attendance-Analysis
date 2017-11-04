@@ -2,7 +2,24 @@
 <head>
 <title>NWC Attendence System</title>
 <script>
-		function myFunction() {
+    function ValidateEmail()   
+    {  
+		var email = document.getElementById("emailid").value;
+		var ok=true;
+     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))  
+      {    
+      } 
+	else
+		{
+		 ok= false; 
+		alert("Invalid email address...!!!")  
+		document.getElementById("emailid").style.borderColor = "#E34234";
+       
+		}
+		return ok;
+         
+    }  
+	function myFunction() {
     var pass1 = document.getElementById("pass1").value;
     var pass2 = document.getElementById("pass2").value;
     var ok = true;
@@ -12,11 +29,11 @@
         document.getElementById("pass2").style.borderColor = "#E34234";
         ok = false;
     }
-    else {
-       
+    else 
+	{   
     }
-    return ok;
-}
+		return ok;
+	}
 		</script>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
@@ -38,24 +55,24 @@
         <table width="800" >
         <th colspan="2" align="center">Teacher Registration</th>
 	
-	<form action="{% url 'attendence:submit' %}" name="TeacherRegistration" onsubmit="return myFunction()" method="POST">{% csrf_token %}
+	<form action="{% url 'attendence:submit' %}" name="TeacherRegistration"  onsubmit="return ( myFunction() & ValidateEmail())" method="POST">{% csrf_token %}
 	<tr>
         
 		<td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRegistration ID</p></td>
-        <td><input type="text" name="tid" id="tid" size="30" required></td>
+        <td><input type="number" name="tid" id="tid" min="0" size="30" required /></td>
         </tr>
 		
         <tr>
         <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspEmail ID</p></td>
-        <td><input type="text" name="emailid" id="emailid" size="30" required></td>
+        <td><input type="text" name="emailid" id="emailid" size="30" required onblur="ValidateEmail()" ></td>
         </tr>
 		<tr>
   <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPassword</p></td>
-  <td><input type="password" name="pass1" id="pass1" size="30"></td>
+  <td><input type="password" name="pass1" id="pass1" size="30" required></td>
 </tr>
 <tr>
   <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspConfirmed Password</p></td>
-  <td><input type="password" name="pass2" id="pass2" size="30"></td>
+  <td><input type="password" name="pass2" id="pass2" size="30" onblur="myFunction" required></td>
 </tr>
 		<tr>
 	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="Reset" name="reset"/></td>

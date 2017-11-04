@@ -13,8 +13,8 @@
 	<div id="t_menu">
 	<ul>
 			<li><a href="{% url 'attendence:tdashboard' %}">Dashboard</a></li>
-			<li><a href="{% url 'attendence:tattendence' %}">Add Attendence</a></li>
-			<li><a href="{% url 'attendence:utattendence' %}">Update Attendence</a></li>
+			<li><a href="{% url 'attendence:tattendence' %}">Add Attendance</a></li>
+			<li><a href="{% url 'attendence:utattendence' %}">Update Attendance</a></li>
 			<li><a href="{% url 'attendence:tview' %}">View</a></li>
 			<li><a href="{% url 'attendence:tmail' %}">Notification</a></li>
 			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
@@ -23,12 +23,48 @@
 	
 	 <div id="background">
         <div id="height">
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript">
-		google.load("visualization", "1", {packages:["corechart"]});
-	</script>
-	{{ chart.as_html }}
-		</div>
+		<script>
+		 function myfun()
+		 {
+			var a=document.getElementById("tbl");
+			newWin=window.open("");
+			newWin.document.write(a.outerHTML);
+			newWin.print();
+			newWin.close();
+		}
+			
+		 
+		 </script>
+<input type="button" value="Print" onclick="myfun()" />
+		
+		<table name="tbl" id="tbl" border="double" width="865">
+		<tr>
+        
+	<th>Roll No.</th>	
+	<th>Name</th>
+        <th>Total Attendance</th>
+        </tr>
+		
+		
+		{% for b in obj2 %}
+			<tr>
+		<td>{{ b.roll }}</td>
+		<td>{{ b.sname }}</td>
+		<td>
+		<script>cnt=0;
+			{% for c in obj1 %}
+				{% if b.roll == c.student.roll %}
+					cnt=cnt+1;
+				{% endif %}
+			{% endfor %}
+			document.write(cnt);
+			</script>
+			</td>
+		</tr>
+		
+		{% endfor %}
+		 </table>
+		 </div>
        
 		<hr noshade>
 		

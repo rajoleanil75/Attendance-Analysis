@@ -55,6 +55,36 @@
        </script>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
+<script type="text/javascript">
+var timeout         = 500;
+var closetimer		= 0;
+var ddmenuitem      = 0;
+function mopen(id)
+{	
+	mcancelclosetime();
+	if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+	ddmenuitem = document.getElementById(id);
+	ddmenuitem.style.visibility = 'visible';
+}
+function mclose()
+{
+	if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+}
+function mclosetime()
+{
+	closetimer = window.setTimeout(mclose, timeout);
+}
+function mcancelclosetime()
+{
+	if(closetimer)
+	{
+		window.clearTimeout(closetimer);
+		closetimer = null;
+	}
+}
+document.onclick = mclose; 
+</script>
+
 </head>
 <body>
 	<div id="t_wrapper">
@@ -62,29 +92,50 @@
 	
 	</div>		
 	<!--end of t_header-->
-	<div id="t_menu">
-	<ul>
-			<li><a href="{% url 'attendence:adashboard' %}">Dashboard</a></li>
-			<li><a href="{% url 'attendence:aviewteacher' %}">Teacher</a></li>
-			<li><a href="{% url 'attendence:aviewstudent' %}">Student</a></li>
-			<li><a href="{% url 'attendence:aviewcourse' %}">View</a></li>
+	<ul id="sddm">
+
+			<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Dashboard</a><div id="m1" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="{% url 'attendence:adashboard' %}">Dashboard</a>
+        <a href="#">Backup</a>
+        <a href="#">Restore</a>
+		<a href="{% url 'attendence:aupdatepass1' %}">Update Password</a>
+        </div></li>
+			<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Manage</a><div id="m2" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="{% url 'attendence:aviewteacher' %}">Teacher &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+        <a href="{% url 'attendence:aviewsubject' %}">Subject</a>
+		<a href="{% url 'attendence:aviewlab' %}">Lab</a>
+        </div></li>
+			<li><a href="#" onmouseover="mopen('m3')" onmouseout="mclosetime()">Student</a><div id="m3" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="{% url 'attendence:addstudent' %}">Add Student</a>
+        <a href="{% url 'attendence:aviewstudent' %}">View Student</a>
+        </div></li>
+			
+			<li><a href="#" onmouseover="mopen('m4')" onmouseout="mclosetime()">View</a><div id="m4" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="{% url 'attendence:atview' %}">Teacher Attendance</a>
+        <a href="{% url 'attendence:aviewcourse' %}">Division Attendance</a>
+		<a href="{% url 'attendence:alview' %}">Lab Attendance</a>
+        </div></li>
 			<li><a href="{% url 'attendence:amail' %}">Notification</a></li>
 			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
 	</ul>
-	</div>
 	
 	 <div id="background">
         <div id="height">
-		<table border="double" width="865">
-        <th><a href="{% url 'attendence:aviewcourse' %}">View Division Attendence</a></th>
-        <th><a href="{% url 'attendence:alview' %}">View Lab Attendence</a></th>
-        </table> 
+		 
 		<br><br>
 	<table width="600">
 	
-	<th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspView Lab Attendence</th>
+	<th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspView Lab Attendance</th>
 	<tr>
-	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Subject</td>
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Lab</td>
 	<td>
 	<form action="{% url 'attendence:alview1' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
 	
@@ -117,6 +168,14 @@
                 </select>
             </noscript>	
 			</td>
+			</tr>
+			<tr>
+			<td></td>
+			<td><input type="radio" name="direct" value="1" checked> View Graph</td>
+			</tr>
+			<tr>
+			<td></td>
+			<td><input type="radio" name="direct" value="2" > View Report</td>
 			</tr>
 			
 	<!--<input type="text" name="search" size="15" required /> <input type="submit" name="submit" value="Search" />--></th>

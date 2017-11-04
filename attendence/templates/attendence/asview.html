@@ -75,30 +75,57 @@ document.onclick = mclose;
 	
 	 <div id="background">
         <div id="height">
-	
 		<br><br>
 	<table border="double" width="865">
-        <th colspan="6"><a href="{% url 'attendence:addsubject' %}">Add Subject</a></th>
-        <tr>
-        <th>Subject Code</th>
-	<th>NAME</th>
-	<th>Max Lecture</th>	
-	<th>Teacher</th>
-        <th>Class</th>
-    
+        <th><a href="{% url 'attendence:asview' %}">View Report</a></th>
+        <th><a href="{% url 'attendence:asview1' %}">View Graph</a></th>
+        </table>
+		<br><br>
+		<script>
+		 function myfun()
+		 {
+			var a=document.getElementById("tbl");
+			newWin=window.open("");
+			newWin.document.write(a.outerHTML);
+			newWin.print();
+			newWin.close();
+		}
+			
+		 
+		 </script>
+		 <input type="button" value="Print" onclick="myfun()" />
+		<table name="tbl" id="tbl" border="double" width="865">
+			<tr>
+        <th colspan="3">
+		Roll No: {{ obj.roll }}
+		, Student Name: {{ obj.sname }}
+		, Course Name: {{ obj.division.classes.course.coname }}
+		, Class: {{ obj.division.classes.clname }}  
+		, Division:  {{ obj.division.dname }}
+		</th>
         </tr>
-		
-		
-		{% for b in obj %}
+		<tr><th>Subjet</th>
+		<th>Attendance</th>
+		<th>Total Lecture</th></tr>
+	{% for c in mat %}
 		<tr>
-		<td>{{ b.scode }}</td>
-		<td>{{ b.sname }}</td>
-		<td>{{ b.max_lacture }}</td>
-		<td>{{ b.teacher.tname }}</td>
-		<td>{{ b.classes.clname }}</td>
+		<td>
+		<script>
+		var arr={{ c|safe }} ;
+		document.write(arr[0]);
+		</script>
+		</td>
+		<td>
+		<script>document.write(arr[1]);
+		</script>
+		</td>
+		<td><script>document.write(arr[2]);
+		</script>
+		</td>
 		</tr>
-		{% endfor %}
-		 </table>
+	{% endfor %}
+
+		</table>
         
 		</div>
        

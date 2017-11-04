@@ -38,6 +38,7 @@ document.onclick = mclose;
 	<div id="t_header">
 	
 	</div>		
+	<!--end of t_header-->
 	<ul id="sddm">
 
 			<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Dashboard</a><div id="m1" 
@@ -75,39 +76,69 @@ document.onclick = mclose;
 	
 	 <div id="background">
         <div id="height">
-	
-		<br><br>
-	<table border="double" width="865">
-        <th colspan="6"><a href="{% url 'attendence:addsubject' %}">Add Subject</a></th>
-        <tr>
-        <th>Subject Code</th>
-	<th>NAME</th>
-	<th>Max Lecture</th>	
-	<th>Teacher</th>
-        <th>Class</th>
-    
-        </tr>
-		
-		
-		{% for b in obj %}
+		<script>
+		 function myfun()
+		 {
+			var a=document.getElementById("tbl");
+			newWin=window.open("");
+			newWin.document.write(a.outerHTML);
+			newWin.print();
+			newWin.close();
+		}
+			
+		 
+		 </script>
+<br><br><br><br>		 
+<input type="button" value="Print" onclick="myfun()" />
+
+	<table name="tbl" id="tbl" border="double" width="865">
+	<tr><th colspan=3 >
+	{% for a in obj3 %}
+		Course Name:
+		{{ a.division.classes.course.coname}}
+		, Class Name:
+		{{ a.division.classes.clname}}
+		, Division:
+		{{ a.division.dname }}
+		, Teacher: Prof.
+		{{ a.teacher.tname }}
+		, Lab:
+		{{ a.lname}}
+	{% endfor %}
+	</th>
+	</tr>
+	<tr>
+	<th>Roll No.</th>
+	<th>Name</th>
+	<th>Total Attendance</th>
+	</tr>
+	{% for c in obj1 %}
 		<tr>
-		<td>{{ b.scode }}</td>
-		<td>{{ b.sname }}</td>
-		<td>{{ b.max_lacture }}</td>
-		<td>{{ b.teacher.tname }}</td>
-		<td>{{ b.classes.clname }}</td>
-		</tr>
+		<td>{{ c.student.roll }}</td>
+		<td>{{ c.student.sname }}</td>
+		<td>
+		<script>cnt=0;
+		{% for b in obj4 %}	
+			{% if b.lid.lid == c.lid %}
+				cnt=cnt+1;
+			{% endif %}
 		{% endfor %}
-		 </table>
-        
+		document.write(cnt);
+		</script>
+		</td>
+		</tr>
+	{% endfor %}
+	</table>
 		</div>
        
 		<hr noshade>
+		
+		
 
 	
 	</div>	
 	
-	
+	</form>
 	<div id="t_footer"></div>
 <div id="footer"></div>
 <div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>

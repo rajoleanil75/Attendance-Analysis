@@ -4,7 +4,22 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <SCRIPT language="javascript">
 
-			
+			function dynamicdropdown(listindex)
+            {
+                document.getElementById("subcategory").length = 0;
+				document.getElementById("subcategory").options[0]=new Option("Please select Class","");
+				var ro=1;
+				{% for b in obj1 %}
+					if ( listindex == {{b.lid}} )
+					{
+						document.getElementById("subcategory").options[ro]=new Option("{{b.division.classes.clname}}","{{b.division.classes.clid}}");
+						ro++;
+					}
+				{% endfor %} 
+				
+                
+				return true;
+            }
 			function dynamicdropdown1(listindex)
             {
                 document.getElementById("sub1category").length = 0;
@@ -111,86 +126,37 @@ document.onclick = mclose;
 	</ul>
 	
 	 <div id="background">
-        <div id="height">
-		
+        <div id="height"> 
 		<br><br>
 	<table width="600">
-	<th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspView Division Attendence</th>
 	
-	<form action="{% url 'attendence:aview1' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
-	
-		
-	</tr><tr>
-	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Class</td>
+	<th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspView Teacher Attendance</th>
+	<tr>
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Teacher</td>
 	<td>
-			<select name="subcategory" id="subcategory" onchange="javascript: dynamicdropdown1(this.options[this.selectedIndex].value);">
-             
-                    <option value="">Select Class</option>
-					
-					{% for b in obj1 %}
-					<option value="{{b.clid}}">{{b.clname}}</option>
-					{% endfor %}
-                </select>
-    
-	</td></tr><tr>
-	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Division</td>
-	<td>
+	<form action="{% url 'attendence:atview1' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
 	
-                <select name="sub1category" id="sub1category" >
-                    <option value="">Please select Division</option>
-                </select>
-          
-			</td>
+		<select name="category1" id="category1" onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);">
+                <option value="">Select Teacher</option>
+                {% for b in obj1 %}
+				<option value="{{b.tid}}">{{b.tname}}</option>
+				{% endfor %}
+            </select>
+	</td></tr>
+			<tr>
+			<td></td>
+			<td><input type="radio" name="direct" value="1" checked> View Graph</td>
 			</tr>
-		<!--	<tr><td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Date</td>
-			<td><input name="date" id="date" type="date"></td></tr>
-			-->
-	<!--<input type="text" name="search" size="15" required /> <input type="submit" name="submit" value="Search" />--></th>
-	<!--</form>-->
-	
-	
-	
-	
-	
+			<tr>
+			<td></td>
+			<td><input type="radio" name="direct" value="2" > View Report</td>
+			</tr>		
         <tr><td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type=reset name="all" id='check_all' value="Reset" /></td>
         <td><input type="submit" id="submit-button" value="Submit" name="submit"  /></td></tr>
-	
         </table>
-		<!--
-	<table name="tbl" id="tbl" border="double" width="865">
-        <th colspan="6">Select Student</a></th>
-        <tr>
-        
-	<th>Select</th>	
-	<th>Roll No</th>
-        <th>Name</th>
-       </tr>
-	
-		<tr>
-		<td><input type='checkbox' name='chk' id='chk' value='1' /></td>
-		<td>a</td>
-		<td>b</b>
-		</tr>
-		
-			<tr>
-		<td><input type='checkbox' name='chk' id='chk' value='2' /></td>
-		<td>a</td>
-		<td>b</b>
-		</tr>
-	
-		
-		
-		 </table>
-        -->
-		</div>
-       
+		</div>  
 		<hr noshade>
-		
-		
-
-	
 	</div>	
-	
 	</form>
 	<div id="t_footer"></div>
 <div id="footer"></div>

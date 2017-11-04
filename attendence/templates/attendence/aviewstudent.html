@@ -29,7 +29,19 @@
 								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-								tbl.rows[r].cells[4].innerHTML = {{b.roll}};
+								var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+									//alert({{b.sid }});
+								}
+								y4.appendChild(btn);
+								//tbl.rows[r].cells[4].innerHTML = {{b.roll}};
 								r++;
 							{% endif %}
 						{% endfor %}
@@ -52,7 +64,17 @@
 								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-								tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+								var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 								r++;
 							{% endif %}
 						{% endfor %}
@@ -86,7 +108,17 @@
 								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-								tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+								var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 								r++;
 							{% endif %}
 						{% endfor %}
@@ -108,7 +140,17 @@
 								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-								tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+								var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 								r++;
 							{% endif %}
 						{% endfor %}
@@ -130,7 +172,17 @@
 								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-								tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+								var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 								r++;
 							{% endif %}
 						{% endfor %}
@@ -151,7 +203,17 @@
 								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-								tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+								var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 								r++;
 							{% endif %}
 						{% endfor %}
@@ -172,7 +234,17 @@
 								tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 								tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 								tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-								tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+								var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 								r++;
 							{% endif %}
 						{% endfor %}
@@ -207,7 +279,17 @@
 									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 									r++;
 									{% endif %}
 								{% endfor %}
@@ -226,7 +308,17 @@
 									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 									r++;
 									{% endif %}
 								{% endfor %}
@@ -250,7 +342,17 @@
 									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 									r++;
 									{% endif %}
 								{% endfor %}
@@ -269,7 +371,17 @@
 									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 									r++;
 									{% endif %}
 								{% endfor %}
@@ -293,7 +405,17 @@
 									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 									r++;
 									{% endif %}
 								{% endfor %}
@@ -312,7 +434,17 @@
 									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 									r++;
 									{% endif %}
 								{% endfor %}
@@ -336,7 +468,17 @@
 									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 									r++;
 									{% endif %}
 								{% endfor %}
@@ -360,7 +502,17 @@
 									tbl.rows[r].cells[1].innerHTML = "{{b.sname}}";
 									tbl.rows[r].cells[2].innerHTML ={{b.smobile}};
 									tbl.rows[r].cells[3].innerHTML ="{{b.semail}}";
-									tbl.rows[r].cells[4].innerHTML = "{{b.roll}}";
+									var btn = document.createElement("BUTTON"); 
+								var jroll={{ b.sid }}
+								btn.setAttribute("value", jroll );
+								btn.setAttribute("name", jroll );
+								var t = document.createTextNode(">>");
+								btn.appendChild(t);
+								btn.onclick=function(){
+								document.cookie = "sid = {{ b.sid }}"; 
+								document.location.href ="{% url 'attendence:asview' %}"
+								}
+								y4.appendChild(btn);
 									r++;
 									{% endif %}
 								{% endfor %}
@@ -371,6 +523,52 @@
                 return true;
             }
        </script>
+	   <script type="text/javascript">
+<!--
+var timeout         = 500;
+var closetimer		= 0;
+var ddmenuitem      = 0;
+
+// open hidden layer
+function mopen(id)
+{	
+	// cancel close timer
+	mcancelclosetime();
+
+	// close old layer
+	if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+
+	// get new layer and show it
+	ddmenuitem = document.getElementById(id);
+	ddmenuitem.style.visibility = 'visible';
+
+}
+// close showed layer
+function mclose()
+{
+	if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+}
+
+// go close timer
+function mclosetime()
+{
+	closetimer = window.setTimeout(mclose, timeout);
+}
+
+// cancel close timer
+function mcancelclosetime()
+{
+	if(closetimer)
+	{
+		window.clearTimeout(closetimer);
+		closetimer = null;
+	}
+}
+
+// close layer when click-out
+document.onclick = mclose; 
+// -->
+</script>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
 </head>
@@ -379,17 +577,41 @@
 	<div id="t_header">
 	
 	</div>		
-	<!--end of t_header-->
-	<div id="t_menu">
-	<ul>
-			<li><a href="{% url 'attendence:adashboard' %}">Dashboard</a></li>
-			<li><a href="{% url 'attendence:aviewteacher' %}">Teacher</a></li>
-			<li><a href="{% url 'attendence:aviewstudent' %}">Student</a></li>
-			<li><a href="{% url 'attendence:aviewcourse' %}">View</a></li>
+	<ul id="sddm">
+
+			<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Dashboard</a><div id="m1" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="{% url 'attendence:adashboard' %}">Dashboard</a>
+        <a href="#">Backup</a>
+        <a href="#">Restore</a>
+		<a href="{% url 'attendence:aupdatepass1' %}">Update Password</a>
+        </div></li>
+			<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Manage</a><div id="m2" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="{% url 'attendence:aviewteacher' %}">Teacher &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+        <a href="{% url 'attendence:aviewsubject' %}">Subject</a>
+		<a href="{% url 'attendence:aviewlab' %}">Lab</a>
+        </div></li>
+			<li><a href="#" onmouseover="mopen('m3')" onmouseout="mclosetime()">Student</a><div id="m3" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="{% url 'attendence:addstudent' %}">Add Student</a>
+        <a href="{% url 'attendence:aviewstudent' %}">View Student</a>
+        </div></li>
+			
+			<li><a href="#" onmouseover="mopen('m4')" onmouseout="mclosetime()">View</a><div id="m4" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="{% url 'attendence:atview' %}">Teacher Attendance</a>
+        <a href="{% url 'attendence:aviewcourse' %}">Division Attendance</a>
+		<a href="{% url 'attendence:alview' %}">Lab Attendance</a>
+        </div></li>
 			<li><a href="{% url 'attendence:amail' %}">Notification</a></li>
 			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
 	</ul>
-	</div>
+	
 	
 	 <div id="background">
         <div id="height">
@@ -422,7 +644,7 @@
 	
 	</table>
 	<table name="tbl" id="tbl" border="double" width="865">
-        <th colspan="6"><a href="{% url 'attendence:addstudent' %}">Add Student</a></th>
+        <th colspan="6">Student List</th>
         <tr>
         
 	<th>Roll No.</th>	
@@ -433,17 +655,7 @@
 		</tr>
 		
 		
-		{% for b in obj %}
 		
-		<tr>
-		<td>{{b.roll}}</td>
-		<td>{{ b.sname }}</td>
-		<td>{{ b.smobile }}</td>
-		<td>{{ b.semail }}</td>
-		<td></td>
-		</tr>
-		
-		{% endfor %}
 		 </table>
         
 		</div>

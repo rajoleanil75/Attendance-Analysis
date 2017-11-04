@@ -75,39 +75,62 @@ document.onclick = mclose;
 	
 	 <div id="background">
         <div id="height">
-	
-		<br><br>
-	<table border="double" width="865">
-        <th colspan="6"><a href="{% url 'attendence:addsubject' %}">Add Subject</a></th>
-        <tr>
-        <th>Subject Code</th>
-	<th>NAME</th>
-	<th>Max Lecture</th>	
-	<th>Teacher</th>
-        <th>Class</th>
-    
-        </tr>
-		
-		
-		{% for b in obj %}
+		<script>
+		 function myfun()
+		 {
+			var a=document.getElementById("tbl");
+			newWin=window.open("");
+			newWin.document.write(a.outerHTML);
+			newWin.print();
+			newWin.close();
+		}
+			
+		 
+		 </script>
+<input type="button" value="Print" onclick="myfun()" />
+	<table name="tbl" id="tbl" border="double" width="865">
+	<tr><th colspan=4 >
+	Teacher Name: Prof.{{ name }}
+	</th>
+	</tr>
+	<tr>
+	<th>Subject</th>
+	<th>Class</th>
+	<th>Average Attendance</th>
+	<th>Total Lacture</th>
+	</tr>
+	{% for c in mat %}
 		<tr>
-		<td>{{ b.scode }}</td>
-		<td>{{ b.sname }}</td>
-		<td>{{ b.max_lacture }}</td>
-		<td>{{ b.teacher.tname }}</td>
-		<td>{{ b.classes.clname }}</td>
+		<td>
+		<script>
+		var arr={{ c|safe }} ;
+		document.write(arr[0]);
+		</script>
+		</td>
+		<td>
+		<script>document.write(arr[1]);
+		</script>
+		</td>
+		<td><script>document.write(arr[2]);
+		</script>
+		</td>
+		<td>
+		<script>document.write(arr[3]);
+		</script>
+		</td>
 		</tr>
-		{% endfor %}
-		 </table>
-        
+	{% endfor %}
+	</table>
 		</div>
        
 		<hr noshade>
+		
+		
 
 	
 	</div>	
 	
-	
+	</form>
 	<div id="t_footer"></div>
 <div id="footer"></div>
 <div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>
