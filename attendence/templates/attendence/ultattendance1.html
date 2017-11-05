@@ -103,7 +103,7 @@ document.onclick = mclose;
         <div id="height">
 	<table width="865">
 	<th align="right">
-	<form action="{% url 'attendence:utattendence2' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
+	<form action="{% url 'attendence:ultattendence2' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
 	
 		
 	<!--<input type="text" name="search" size="15" required /> <input type="submit" name="submit" value="Search" />--></th>
@@ -127,15 +127,13 @@ document.onclick = mclose;
 	<th>Roll No</th>
         <th>Name</th>
        </tr>
-	   
-	   {% for b in obj2 %}
+	   {% for b in obj1 %}
 	   <tr>
-	   <td><input type='checkbox' name='chk' id='chk' value="{{b.sid}}" /></td>
-	   <td>{{b.roll}}</td>
-	   <td>{{b.sname}}</td>
+	   <td><input type='checkbox' name='chk' id='chk' value="{{b.lid}}" /></td>
+	   <td>{{b.student.roll}}</td>
+	   <td>{{b.student.sname}}</td>
 	   </tr>
 	   {% endfor %}
-	   
 	<!--
 		<tr>
 		<td><input type='checkbox' name='chk' id='chk' value='1' /></td>
