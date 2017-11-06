@@ -694,7 +694,7 @@ def aview1(request):
 def amail(request):
 	if  'lid' in request.session:
 		n=request.session.get('lid', '')
-		obj1=mail.objects.filter(sender=n)
+		obj1=mail.objects.filter(sender=n).order_by('-mid')[:30]
 		context_dict = { 'obj1' : obj1}
 		return render(request,'attendence/amail.html', context_dict)
 		#return render(request,'attendence/amail.html')
@@ -704,7 +704,7 @@ def amail(request):
 def tmail(request):
 	if  'lid' in request.session:
 		n=request.session.get('lid', '')
-		obj1=mail.objects.filter(sender=n)
+		obj1=mail.objects.filter(sender=n).order_by('-mid')[:30]
 		context_dict = { 'obj1' : obj1}
 		return render(request,'attendence/tmail.html', context_dict)
 		#return render(request,'attendence/tmail.html')
@@ -714,7 +714,7 @@ def tmail(request):
 def hmail(request):
 	if  'lid' in request.session:
 		n=request.session.get('lid', '')
-		obj1=mail.objects.filter(sender=n)
+		obj1=mail.objects.filter(sender=n).order_by('-mid')[:30]
 		context_dict = { 'obj1' : obj1}
 		return render(request,'attendence/hmail.html', context_dict)
 		#return render(request,'attendence/tmail.html')
@@ -1692,7 +1692,7 @@ def login_check(request):
 	lid=request.POST.get('lid','')
 	lpass=request.POST.get('lpass','')
 	role=request.POST.get('role','')
-	print(lid)
+	#print(lid)
 	if role=="admin":
 	#	a=admin.objects.all()
 		#b=admin.objects.get(uid=1)
@@ -1750,7 +1750,7 @@ def login_check(request):
 def slogin_check(request):
 	lid=request.POST.get('lid','')
 	lpass=request.POST.get('lpass','')
-	print(lid)
+	#print(lid)
 	#if role=="admin":
 	#	a=admin.objects.all()
 		#b=admin.objects.get(uid=1)

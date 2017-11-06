@@ -28,6 +28,8 @@ DEBUG = True
 #ALLOWED_HOSTS = ['anilraj.pythonanywhere.com','127.0.0.1']
 ALLOWED_HOSTS = ['anilraj.pythonanywhere.com']
 
+#ALLOWED_HOSTS = ['*']
+
 # Application definition
 EMAIL_BACKEND = ''
 EMAIL_HOST = ""

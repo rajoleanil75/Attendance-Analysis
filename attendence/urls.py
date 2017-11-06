@@ -21,6 +21,7 @@ urlpatterns = [
 	url(r'^coursesubmit/$', views.coursesubmit, name='coursesubmit'),
 	url(r'^aviewclasses/$', views.aviewclasses, name='aviewclasses'),
 	url(r'^logout/$', views.logout, name='logout'),
+	url(r'^slogout/$', views.slogout, name='slogout'),
 	url(r'^aview/$', views.aview, name='aview'),
 	url(r'^adminreg/$', views.adminreg, name='adminreg'),
 	url(r'^adminsubmit/$', views.adminsubmit, name='adminsubmit'),
