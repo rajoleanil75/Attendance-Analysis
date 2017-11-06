@@ -4,22 +4,7 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <SCRIPT language="javascript">
 
-			function dynamicdropdown(listindex)
-            {
-                document.getElementById("subcategory").length = 0;
-				document.getElementById("subcategory").options[0]=new Option("Please select Class","");
-				var ro=1;
-				{% for b in obj1 %}
-					if ( listindex == {{b.sid}} )
-					{
-						document.getElementById("subcategory").options[ro]=new Option("{{b.classes.clname}}","{{b.classes.clid}}");
-						ro++;
-					}
-				{% endfor %} 
-				
-                
-				return true;
-            }
+			
 			function dynamicdropdown1(listindex)
             {
                 document.getElementById("sub1category").length = 0;
@@ -55,66 +40,102 @@
        </script>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
+<script type="text/javascript">
+var timeout         = 500;
+var closetimer		= 0;
+var ddmenuitem      = 0;
+function mopen(id)
+{	
+	mcancelclosetime();
+	if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+	ddmenuitem = document.getElementById(id);
+	ddmenuitem.style.visibility = 'visible';
+}
+function mclose()
+{
+	if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+}
+function mclosetime()
+{
+	closetimer = window.setTimeout(mclose, timeout);
+}
+function mcancelclosetime()
+{
+	if(closetimer)
+	{
+		window.clearTimeout(closetimer);
+		closetimer = null;
+	}
+}
+document.onclick = mclose; 
+</script>
 </head>
 <body>
 	<div id="t_wrapper">
 	<div id="t_header">
 	
 	</div>		
-	<!--end of t_header-->
-	<div id="t_menu">
-	<ul>
-			<li><a href="{% url 'attendence:hdashboard' %}">Dashboard</a></li>
-			<li><a href="{% url 'attendence:hattendence' %}">Add Attendence</a></li>
-			<li><a href="{% url 'attendence:uhattendence' %}">Update Attendence</a></li>
-			<li><a href="{% url 'attendence:hview' %}">View</a></li>
+		<ul id="sddm">
+
+			<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Dashboard</a><div id="m1" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="{% url 'attendence:hdashboard' %}">Dashboard</a>
+		<a href="">Update Password</a>
+        </div></li>
+			<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Add</a><div id="m2" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+        <a href="{% url 'attendence:hattendence' %}">Division Attendance</a>
+        <a href="{% url 'attendence:hlattendence' %}">Lab Attendance</a>
+        </div></li>
+			<li><a href="#" onmouseover="mopen('m3')" onmouseout="mclosetime()">Update</a><div id="m3" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+		<a href="{% url 'attendence:uhattendence' %}">Division Attendance</a>
+        <a href="{% url 'attendence:ulhattendence' %}">Lab Attendance</a>        </div></li>
+			
+			<li><a href="#" onmouseover="mopen('m4')" onmouseout="mclosetime()">View</a><div id="m4" 
+            onmouseover="mcancelclosetime()" 
+            onmouseout="mclosetime()">
+		<a href="{% url 'attendence:htview' %}">Teacher Attendance</a>
+        <a href="{% url 'attendence:hview' %}">Division Attendance</a>
+		<a href="{% url 'attendence:hlview' %}">Lab Attendance</a>
+        </div></li>
 			<li><a href="{% url 'attendence:hmail' %}">Notification</a></li>
 			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
 	</ul>
-	</div>
-	
 	 <div id="background">
         <div id="height">
-		<table border="double" width="865">
-        <th><a href="{% url 'attendence:hview' %}">View Division Attendence</a></th>
-        <th><a href="{% url 'attendence:hlview' %}">View Lab Attendence</a></th>
-        </table>
+		
+		
 		<br><br>
 	<table width="600">
-	<th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspView Attendence</th>
-	<tr>
-	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Subject</td>
-	<td>
+	<th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspView Division Attendence</th>
+	
 	<form action="{% url 'attendence:hview1' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
 	
-		<select name="category1" id="category1" onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);">
-                <option value="">Select Subject</option>
-                {% for b in obj1 %}
-				<option value="{{b.sid}}">{{b.sname}}</option>
-				{% endfor %}
-            </select>
-	</td></tr><tr>
+		
+	</tr><tr>
 	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Class</td>
 	<td>
-	<script type="text/javascript" language="JavaScript">
-                document.write('<select name="subcategory" class="required-entry" id="subcategory" onchange="javascript: dynamicdropdown1(this.options[this.selectedIndex].value);"><option value="">Please select Class</option></select>')
-            </script>
-            <noscript>
-                <select name="subcategory" id="subcategory" >
-                    <option value="">Please select Class</option>
+			<select name="subcategory" id="subcategory" onchange="javascript: dynamicdropdown1(this.options[this.selectedIndex].value);">
+             
+                    <option value="">Select Class</option>
+					
+					{% for b in obj1 %}
+					<option value="{{b.clid}}">{{b.clname}}</option>
+					{% endfor %}
                 </select>
-            </noscript>
+    
 	</td></tr><tr>
 	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Division</td>
 	<td>
-	<script type="text/javascript" language="JavaScript">
-                document.write('<select name="sub1category" id="sub1category" onchange="javascript: dynamicdropdown2(this.options[this.selectedIndex].value);"><option value="">Please select Division</option></select>')
-            </script>
-            <noscript>
+	
                 <select name="sub1category" id="sub1category" >
                     <option value="">Please select Division</option>
                 </select>
-            </noscript>	
+          
 			</td>
 			</tr>
 		<!--	<tr><td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Date</td>

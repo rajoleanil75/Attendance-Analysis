@@ -10,9 +10,9 @@
 				document.getElementById("subcategory").options[0]=new Option("Please select Class","");
 				var ro=1;
 				{% for b in obj1 %}
-					if ( listindex == {{b.sid}} )
+					if ( listindex == {{b.lid}} )
 					{
-						document.getElementById("subcategory").options[ro]=new Option("{{b.classes.clname}}","{{b.classes.clid}}");
+						document.getElementById("subcategory").options[ro]=new Option("{{b.division.classes.clname}}","{{b.division.classes.clid}}");
 						ro++;
 					}
 				{% endfor %} 
@@ -90,7 +90,7 @@ document.onclick = mclose;
 	<div id="t_header">
 	
 	</div>		
-		<ul id="sddm">
+			<ul id="sddm">
 
 			<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Dashboard</a><div id="m1" 
             onmouseover="mcancelclosetime()" 
@@ -125,18 +125,18 @@ document.onclick = mclose;
         <div id="height">
 		
 		<br><br>
-		
 	<table width="600">
-	<th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspAdd Attendence</th>
+	
+	<th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspAdd Lab Attendence</th>
 	<tr>
 	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Subject</td>
 	<td>
-	<form action="{% url 'attendence:hattendence1' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
+	<form action="{% url 'attendence:hlattendence1' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
 	
 		<select name="category1" id="category1" onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);">
-                <option value="">Select Subject</option>
+                <option value="">Select Lab</option>
                 {% for b in obj1 %}
-				<option value="{{b.sid}}">{{b.sname}}</option>
+				<option value="{{b.lid}}">{{b.lname}}</option>
 				{% endfor %}
             </select>
 	</td></tr><tr>

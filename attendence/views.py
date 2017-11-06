@@ -82,10 +82,20 @@ def hlview(request):
 		return render(request,'attendence/hlview.html', context_dict)
 	else:
 	   return render(request,'attendence/home.html')
+
+def htview(request):
+	if  'lid' in request.session:
+		obj1=teacher.objects.all()
+		#obj2=student.objects.all()
+		#context_dict = { 'obj1' : obj1, 'obj2': obj2}
+		context_dict = { 'obj1' : obj1}
+		return render(request,'attendence/htview.html', context_dict)
+	else:
+	   return render(request,'attendence/home.html')
 	   
 def hview(request):
 	if  'lid' in request.session:
-		obj1=subject.objects.all()
+		obj1=classes.objects.all()
 		#obj2=student.objects.all()
 		#context_dict = { 'obj1' : obj1, 'obj2': obj2}
 		context_dict = { 'obj1' : obj1}
@@ -291,104 +301,140 @@ def atview1(request):
 			return render(request, 'attendence/atview2.html',context)
 	else:
 	   return render(request,'attendence/home.html')
+
+def htview1(request):
+	if  'lid' in request.session:
+		category1=request.POST.get('category1','')
+		direct=request.POST.get('direct','')
+		obj1=subject.objects.filter(teacher_id=category1)
+		obj2=lab.objects.filter(teacher_id=category1)
+		obj5=teacher.objects.get(tid=category1)
+		nme=obj5.tname
+		
+		if direct == "1":
+			mat = DynamicList()
+			mat[0] = ['Subject','Average Attendance','Total Lecture']
+			i=1
+			for a in obj1:
+				obj3=attendence.objects.filter(subject_id=a.sid)
+				obj8=attendence.objects.values('student').filter(subject_id=a.sid).order_by('student').annotate(Count('student'))
+				obj9=obj8.aggregate(n=Max('student__count'))
+				o1=obj9.get('n')
+				#print(o1)
+				cnt=0
+				for c in obj3:
+					cnt+=1
+				obj4=student.objects.all()
+				cnt1=0
+				for d in obj4:
+					if d.division.classes_id == a.classes_id:
+						cnt1=cnt1+1
+				n=cnt/cnt1
+				mat[i] = [a.sname,n,o1]
+				i=i+1
+			data_source = SimpleDataSource(data=mat)
+			chart = ColumnChart(data_source,height=700, width=865, options={'title': 'Subject Attendence Graph'})
+			context = {'chart': chart , 'name' : nme }
+			return render(request, 'attendence/htview1.html', context)
+		else:
+			mat = DynamicList()
+			i=0
+			for a in obj1:
+				obj3=attendence.objects.filter(subject_id=a.sid)
+				obj8=attendence.objects.values('student').filter(subject_id=a.sid).order_by('student').annotate(Count('student'))
+				obj9=obj8.aggregate(n=Max('student__count'))
+				o1=obj9.get('n')
+				cnt=0
+				for c in obj3:
+					cnt+=1
+				obj4=student.objects.all()
+				cnt1=0
+				for d in obj4:
+					if d.division.classes_id == a.classes_id:
+						cnt1=cnt1+1
+				n=cnt/cnt1
+				mat[i] = [a.sname,a.classes.clname,n,o1]
+				i=i+1
+			context = {'mat': mat , 'name' : nme }
+			return render(request, 'attendence/htview2.html',context)
+	else:
+	   return render(request,'attendence/home.html')
 	   
 def hlview1(request):
 	if  'lid' in request.session:
 		category1=request.POST.get('category1','')
 		subcategory=request.POST.get('subcategory','')
 		sub1category=request.POST.get('sub1category','')
-		#print(category1)
-		#print(sub1category)
-		#print(subcategory)
-		# obj1=attendence.objects.values('student_id').order_by().annotate(Count('student_id'))
-		#obj1=attendence.objects.values('student').filter(subject_id=category1,division_id=sub1category).order_by('student').annotate(Count('student'))
-		#print(obj1)
+		direct=request.POST.get('direct','')
 		obj1=lab1.objects.filter(lab_id=category1).order_by('student')
-		
-		#obj1=attendence.objects.filter(subject_id=category1,division_id=sub1category).order_by('student')
-		#obj1=subject.objects.filter(teacher_id=request.session['lid'])
-		#obj2=student.objects.all()
-		#context_dict = { 'obj1' : obj1, 'obj2': obj2}
-		context_dict = { 'obj1' : obj1}
-	#	print(context_dict)
-	#	arr = [][]
-	#	arr[0].append("Roll No")
-	#	arr[0].append("Attendence")
-		mat = DynamicList()
-		mat[0] = ['Roll No','Attendence']
-		i=1
-		#{% for b in obj1 %}
-			
-		#{% endfor %}
-		for b in obj1:
-			#print(key)
-			#print(value)
-			obj2=lattendence.objects.filter(lid_id=b.lid)
-			cnt=0
-			for c in obj2:
+		obj3=lab.objects.filter(lid=category1)
+		if direct == "1":
+			mat = DynamicList()
+			mat[0] = ['Roll No','Attendence']
+			i=1
+			for b in obj1:
+				obj2=lattendence.objects.filter(lid_id=b.lid)
+				cnt=0
+				for c in obj2:
 					cnt+=1
-			mat[i] = [b.student.roll,cnt]
-			i=i+1
-	#	arr[1].append(10)
-	#	arr[1].append(30)
-	#	arr[2].append(10)
-	#	arr[2].append(30)
-	#	arr[3].append(10)
-	#	arr[3].append(30)
-		
-		
-		#mat[1] = ['row2','row2']
-		#mat[2] = ['row2','row2']
-	#	print(mat)
-			#i=i+1
-		
-	#	data =  [['Year', 'Sales'],[2004, 1000],[2005, 1170],[2006, 660],[2007, 1030]]
-	#	print(data)
-		# DataSource object
-		data_source = SimpleDataSource(data=mat)
-		# Chart object
-		chart = LineChart(data_source,height=800, width=800, options={'title': 'Lab Attendence Graph'})
-		context = {'chart': chart}
-		return render(request, 'attendence/hlview1.html', context)
-	#	return render(request,'attendence/tview1.html', context_dict)
+				mat[i] = [b.student.roll,cnt]
+				i=i+1
+			data_source = SimpleDataSource(data=mat)
+			chart = LineChart(data_source,height=700, width=865, options={'title': 'Lab Attendence Graph'})
+			context = {'chart': chart , 'obj3' : obj3}
+			return render(request, 'attendence/hlview1.html', context)
+		else:
+			obj4=lattendence.objects.all()
+			context_dict = { 'obj1' : obj1, 'obj3' : obj3 , 'obj4' : obj4 }
+			return render(request, 'attendence/hlview2.html', context_dict)
 	else:
 	   return render(request,'attendence/home.html')
 	   
 def hview1(request):
 	if  'lid' in request.session:
-		category1=request.POST.get('category1','')
+		#category1=request.POST.get('category1','')
 		subcategory=request.POST.get('subcategory','')
 		sub1category=request.POST.get('sub1category','')
 		#print(category1)
 		#print(sub1category)
 		#print(subcategory)
 		# obj1=attendence.objects.values('student_id').order_by().annotate(Count('student_id'))
-			#obj1=attendence.objects.values('student').filter(subject_id=category1,division_id=sub1category).order_by('student').annotate(Count('student'))
+	#	obj1=attendence.objects.values(student).filter(subject_id=category1,division_id=sub1category).order_by('student').annotate(Count('student'))
+	#	print(obj1)
+		obj1=attendence.objects.filter(division_id=sub1category).order_by('student')
 		#print(obj1)
-		obj1=attendence.objects.filter(subject_id=category1,division_id=sub1category).order_by('student')
-		#obj1=subject.objects.filter(teacher_id=request.session['lid'])
-		#obj2=student.objects.all()
-		#context_dict = { 'obj1' : obj1, 'obj2': obj2}
-		context_dict = { 'obj1' : obj1}
+		obj2=subject.objects.filter(classes_id=subcategory)
+		obj3=student.objects.filter(division_id=sub1category)
+		n=subject.objects.filter(classes_id=subcategory).count()
+		n=n+2
+		obj4=division.objects.filter(did=sub1category)
+		
+		context_dict = { 'obj1' : obj1, 'obj2': obj2, 'obj3': obj3, 'obj4': obj4, 'n':n }
+		#context_dict = { 'obj1' : obj1}
 	#	print(context_dict)
 	#	arr = [][]
 	#	arr[0].append("Roll No")
 	#	arr[0].append("Attendence")
-		mat = DynamicList()
-		mat[0] = ['Roll No','Attendence']
-		i=1
+	
+		
+	#	mat[15] = DynamicList()
+		
+	#	for a in obj2:
+			
+	#	mat[0] = ['Roll No','Attendence']
+	#	i=1
 		#{% for b in obj1 %}
 			
 		#{% endfor %}
-		for b in obj1:
+	#	for b in obj1:
 			#print(key)
 			#print(value)
-			cnt=0
-			for c in obj1:
-				if b.student.roll==c.student.roll:
-					cnt+=1
-			mat[i] = [b.student.roll,cnt]
-			i=i+1
+	#		cnt=0
+	#		for c in obj1:
+	#			if b.student.roll==c.student.roll:
+	#				cnt+=1
+	#		mat[i] = [b.student.roll,cnt]
+	#		i=i+1
 	#	arr[1].append(10)
 	#	arr[1].append(30)
 	#	arr[2].append(10)
@@ -405,11 +451,12 @@ def hview1(request):
 	#	data =  [['Year', 'Sales'],[2004, 1000],[2005, 1170],[2006, 660],[2007, 1030]]
 	#	print(data)
 		# DataSource object
-		data_source = SimpleDataSource(data=mat)
+	#	data_source = SimpleDataSource(data=mat)
 		# Chart object
-		chart = LineChart(data_source,height=800, width=800, options={'title': 'Attendence Graph'})
-		context = {'chart': chart}
-		return render(request, 'attendence/hview1.html', context)
+	#	chart = LineChart(data_source,height=800, width=800, options={'title': 'Division Attendence Graph'})
+	#	context = {'chart': chart}
+		return render(request, 'attendence/hview1.html', context_dict)
+	#	print(context_dict)
 	#	return render(request,'attendence/tview1.html', context_dict)
 	else:
 	   return render(request,'attendence/home.html')
@@ -702,7 +749,17 @@ def tlattendence(request):
 		context_dict = { 'obj1' : obj1}
 		return render(request,'attendence/tlattendence.html', context_dict)
 	else:
-	   return render(request,'attendence/home.html')	
+	   return render(request,'attendence/home.html')
+
+def hlattendence(request):
+	if  'lid' in request.session:
+		obj1=lab.objects.filter(teacher_id=request.session['lid'])
+		#obj2=student.objects.all()
+		#context_dict = { 'obj1' : obj1, 'obj2': obj2}
+		context_dict = { 'obj1' : obj1}
+		return render(request,'attendence/hlattendence.html', context_dict)
+	else:
+	   return render(request,'attendence/home.html')	   
 	   
 def ultattendence(request):
 	if  'lid' in request.session:
@@ -714,6 +771,16 @@ def ultattendence(request):
 	else:
 	   return render(request,'attendence/home.html')	
 
+def ulhattendence(request):
+	if  'lid' in request.session:
+		obj1=lab.objects.filter(teacher_id=request.session['lid'])
+		#obj2=student.objects.all()
+		#context_dict = { 'obj1' : obj1, 'obj2': obj2}
+		context_dict = { 'obj1' : obj1}
+		return render(request,'attendence/ulhattendance.html', context_dict)
+	else:
+	   return render(request,'attendence/home.html')	
+	   
 def tattendence1(request):
 	if 'lid' in request.session:
 		category1=request.POST.get('category1','')
@@ -752,6 +819,25 @@ def tlattendence1(request):
 	else:
 	   return render(request,'attendence/home.html')
 
+def hlattendence1(request):
+	if 'lid' in request.session:
+		category1=request.POST.get('category1','')
+		subcategory=request.POST.get('subcategory','')
+		sub1category=request.POST.get('sub1category','')
+		date=request.POST.get('date','')
+		#print(request.POST)
+		request.session['subject'] = category1
+		request.session['division'] = sub1category
+		request.session['date'] = date
+		obj1=lab1.objects.filter(lab_id=category1)
+		#print(obj1)
+		context_dict = { 'obj1' : obj1}
+		return render(request,'attendence/hlattendence2.html', context_dict)
+		#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
+		#return HttpResponse(html)
+	else:
+	   return render(request,'attendence/home.html')
+	   
 def ultattendence1(request):
 	if 'lid' in request.session:
 		category1=request.POST.get('category1','')
@@ -771,6 +857,25 @@ def ultattendence1(request):
 	else:
 	   return render(request,'attendence/home.html')
 
+def ulhattendence1(request):
+	if 'lid' in request.session:
+		category1=request.POST.get('category1','')
+		subcategory=request.POST.get('subcategory','')
+		sub1category=request.POST.get('sub1category','')
+		date=request.POST.get('date','')
+		#print(request.POST)
+		request.session['subject'] = category1
+		request.session['division'] = sub1category
+		request.session['date'] = date
+		obj1=lab1.objects.filter(lab_id=category1)
+		#print(obj1)
+		context_dict = { 'obj1' : obj1}
+		return render(request,'attendence/ulhattendance1.html', context_dict)
+		#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
+		#return HttpResponse(html)
+	else:
+	   return render(request,'attendence/home.html')
+	   
 def tattendence2(request):
 	if 'lid' in request.session:
 		#form = NameForm(request.POST)
@@ -871,7 +976,109 @@ def tlattendence2(request):
 	else:
 	   return render(request,'attendence/home.html')
 
+def hlattendence2(request):
+	if 'lid' in request.session:
+		#form = NameForm(request.POST)
+		#subject = form.cleaned_data['chk1']
+		#print(subject)
+		chk1=request.POST.getlist('chk')
+		#print(chk1)
+		sub=request.session.get('subject', '')
+		#print(sub)
+		s=lab.objects.get(lid=sub)
+		#print(s.sname)
+		div=request.session.get('division', '')
+		#print(div)
+		date=request.session.get('date', '')
+		#print(date)
+		d=division.objects.get(did=div)
+		
+		for i in chk1:
+			#n=attendence.objects.count()
+			#n+=1
+			st=lab1.objects.get(lid=i)
+			#print(st.sname)
+			atd=lattendence()
+			#atd.aid=n
+			atd.adate=date
+			atd.atime=datetime.now()
+			atd.lid=st
+			#atd.division=d
+			#atd.subject=s
+			atd.save()
+			#print(i)
+		#print(request.POST)
+
+		#choices = request.POST.MultipleChoiceField('chk')
+		#print(choices)
+		m=mail()
+		n=request.session.get('lid', '')
+		sub="Lab Attendence Added"
+		msg=s.lname+" attendece added of division "+d.dname+", Date:"+date
+		m.sender=n
+		m.subject=sub
+		m.message=msg
+		m.mdate=datetime.now().date()
+		m.mtime=datetime.now()
+		m.save()
+		html = "<script>alert(\"Lab Attendence Added..!!\");window.history.go(-2);</script>"
+		return HttpResponse(html)
+	else:
+	   return render(request,'attendence/home.html')
+
 def ultattendence2(request):
+	if 'lid' in request.session:
+		#form = NameForm(request.POST)
+		#subject = form.cleaned_data['chk1']
+		#print(subject)
+		chk1=request.POST.getlist('chk')
+		#print(chk1)
+		sub=request.session.get('subject', '')
+		#print(sub)
+		s=lab.objects.get(lid=sub)
+		#print(s.sname)
+		div=request.session.get('division', '')
+		#print(div)
+		date=request.session.get('date', '')
+		#print(date)
+		d=division.objects.get(did=div)
+		obj1=lab1.objects.filter(lab_id=sub)
+		for i in obj1:
+			lattendence.objects.filter(adate=date,lid_id=i.lid).delete()
+		for i in chk1:
+			#n=attendence.objects.count()
+			#n+=1
+			st=lab1.objects.get(lid=i)
+			#print(st.sname)
+			atd=lattendence()
+			#atd.aid=n
+			atd.adate=date
+			atd.atime=datetime.now()
+			atd.lid=st
+			#atd.division=d
+			#atd.subject=s
+			atd.save()
+			#print(i)
+		#print(request.POST)
+
+		#choices = request.POST.MultipleChoiceField('chk')
+		#print(choices)
+		m=mail()
+		n=request.session.get('lid', '')
+		sub="Lab Attendence Updated"
+		msg=s.lname+" attendece updated of division "+d.dname+", Date:"+date
+		m.sender=n
+		m.subject=sub
+		m.message=msg
+		m.mdate=datetime.now().date()
+		m.mtime=datetime.now()
+		m.save()
+		html = "<script>alert(\"Lab Attendence Updated..!!\");window.history.go(-2);</script>"
+		return HttpResponse(html)
+	else:
+	   return render(request,'attendence/home.html')
+
+def ulhattendence2(request):
 	if 'lid' in request.session:
 		#form = NameForm(request.POST)
 		#subject = form.cleaned_data['chk1']
@@ -1418,8 +1625,6 @@ def addcourse(request):
 def aviewcourse(request):
 	if 'lid' in request.session:
 		obj1=classes.objects.all()
-		#obj2=student.objects.all()
-		#context_dict = { 'obj1' : obj1, 'obj2': obj2}
 		context_dict = { 'obj1' : obj1}
 		return render(request,'attendence/aviewcourse.html', context_dict)
 	else:
