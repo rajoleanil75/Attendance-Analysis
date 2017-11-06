@@ -25,8 +25,8 @@ SECRET_KEY = 'j6@=b8u8a0ci1lx@d3ka0$bjt4fpvf*nq7)b8i)uk-l20x58gk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+#ALLOWED_HOSTS = ['anilraj.pythonanywhere.com','127.0.0.1']
+ALLOWED_HOSTS = ['anilraj.pythonanywhere.com']
 
 # Application definition
 #EMAIL_BACKEND = ''
