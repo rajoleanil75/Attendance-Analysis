@@ -6,6 +6,7 @@ app_name = 'attendence'
 urlpatterns = [
 	url(r'^$', views.home, name='home'),
 	url(r'^home$', views.home, name='home'),
+	url(r'^backup$', views.backup, name='backup'),
     url(r'^index$', views.index, name='index'),
 	url(r'^submit/$', views.submit, name='submit'),
 	url(r'^login/$', views.login, name='login'),

@@ -23,13 +23,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'j6@=b8u8a0ci1lx@d3ka0$bjt4fpvf*nq7)b8i)uk-l20x58gk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 #ALLOWED_HOSTS = ['anilraj.pythonanywhere.com','127.0.0.1']
 #ALLOWED_HOSTS = ['anilraj.pythonanywhere.com']
 
 ALLOWED_HOSTS = ['*']
-
+DEBUG = True
 # Application definition
 EMAIL_BACKEND = ''
 EMAIL_HOST = ""
@@ -89,19 +89,19 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-		'ENGINE': 'django.db.backends.mysql',
-		'NAME': 'anilraj$test',
-		'USER': 'anilraj',
-		'PASSWORD': 'test1234',
-		'HOST': 'anilraj.mysql.pythonanywhere-services.com',
-		'PORT': '3306',
-	 
 		#'ENGINE': 'django.db.backends.mysql',
-        #'NAME': 'db',
-        #'USER': 'root',
-        #'PASSWORD': '',
-        #'HOST': '127.0.0.1',
-        #'PORT': '3306',
+		#'NAME': 'anilraj$test',
+		#'USER': 'anilraj',
+		#'PASSWORD': 'test1234',
+		#'HOST': 'anilraj.mysql.pythonanywhere-services.com',
+		#'PORT': '3306',
+	 
+		'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
       #  'ENGINE': 'django.db.backends.sqlite3',
       #  'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }

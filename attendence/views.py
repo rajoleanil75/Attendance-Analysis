@@ -28,6 +28,12 @@ from graphos.renderers.gchart import BarChart
 from graphos.renderers.gchart import ColumnChart
 from graphos.renderers.gchart import AreaChart
 from django.views.decorators.csrf import csrf_exempt
+import os
+from django.core import management
+from django.core.management.commands import loaddata
+import sys
+from django.core.management import call_command
+from wsgiref.util import FileWrapper 
 
 @csrf_exempt
 def aview(request, username=None, errmsg=None):
@@ -35,6 +41,35 @@ def aview(request, username=None, errmsg=None):
 	return render_to_response('attendence/aviewclasses.html',{'obj':a})
 	#return render(request,'attendence/aviewclasses.html')
 	
+def backup(request):
+	if  'lid' in request.session:
+		dir = os.path.dirname(__file__)  # get current directory
+		print(dir)
+		file_path = os.path.join(dir, 'backup.json')
+		print(file_path)
+		#f1 = open( file_path, 'w+')
+		#with open(f1) as f:
+	#		management.call_command('dumpdata', stdout=f)
+		#management.call_command('dumpdata', use_natural_foreign_keys=True)
+		#f.close()
+		
+		sysout = sys.stdout
+		sys.stdout = open(file_path, 'w')
+		call_command('dumpdata')
+		sys.stdout = sysout
+		
+		f = open(file_path, "r")
+		response = HttpResponse(FileWrapper(f), content_type='application/json')
+		response['Content-Disposition'] = 'attachment; filename=backup.json'
+		f.close()
+		return response
+		
+		#html = "<script>alert(\"Backup Successful..!!\");window.history.go(-1);</script>"
+		#return HttpResponse(html)
+		#return render(request,'attendence/tview.html', context_dict)
+	else:
+	   return render(request,'attendence/home.html')
+
 def tview(request):
 	if  'lid' in request.session:
 		obj1=subject.objects.filter(teacher_id=request.session['lid'])
