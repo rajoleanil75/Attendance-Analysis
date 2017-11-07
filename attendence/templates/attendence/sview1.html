@@ -38,7 +38,7 @@ document.onclick = mclose;
 	<div id="t_header">
 	
 	</div>		
-		<ul id="sddm">
+	<ul id="sddm">
 
 			<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Dashboard</a><div id="m1" 
             onmouseover="mcancelclosetime()" 
@@ -47,29 +47,75 @@ document.onclick = mclose;
 		<a href="">Update Password</a>
         </div></li>
 			<li><a href="{% url 'attendence:sview1' %}">Report</a></li>
-			<li><a href="">Graph</a></li>		
-			<li><a href="">Notification</a></li>		
+			<li><a href="{% url 'attendence:sview2' %}">Graph</a></li>		
+			
 		<li><a href="{% url 'attendence:slogout' %}">Logout</a></li>
 	</ul>
 	
 	 <div id="background">
         <div id="height">
-		<br><br><br>
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript">
-		google.load("visualization", "1", {packages:["corechart"]});
-	</script>
-	{{ chart.as_html }}
+		<br><br>
+	
+		<br><br>
+		<script>
+		 function myfun()
+		 {
+			var a=document.getElementById("tbl");
+			newWin=window.open("");
+			newWin.document.write(a.outerHTML);
+			newWin.print();
+			newWin.close();
+		}
+			
+		 
+		 </script>
+		 <input type="button" value="Print" onclick="myfun()" />
+		<table name="tbl" id="tbl" border="double" width="865">
+			<tr>
+        <th colspan="3">
+		Roll No: {{ obj.roll }}
+		, Student Name: {{ obj.sname }}
+		, Course Name: {{ obj.division.classes.course.coname }}
+		, Class: {{ obj.division.classes.clname }}  
+		, Division:  {{ obj.division.dname }}
+		</th>
+        </tr>
+		<tr><th>Subjet</th>
+		<th>Attendance</th>
+		<th>Total Lecture</th>
+		<th>Attendance %</th>
+		</tr>
+	{% for c in mat %}
+		<tr>
+		<td>
+		<script>
+		var arr={{ c|safe }} ;
+		document.write(arr[0]);
+		</script>
+		</td>
+		<td>
+		<script>document.write(arr[1]);
+		</script>
+		</td>
+		<td><script>document.write(arr[2]);
+		</script>
+		</td>
+		<td><script>document.write(arr[3]);
+		</script>
+		 </td>
+		</tr>
+	{% endfor %}
+
+		</table>
+        
 		</div>
-		
+       
 		<hr noshade>
-		
-		
 
 	
 	</div>	
 	
-	</form>
+	
 	<div id="t_footer"></div>
 <div id="footer"></div>
 <div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>

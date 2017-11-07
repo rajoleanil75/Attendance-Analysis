@@ -464,44 +464,26 @@ def hview1(request):
 def sview1(request):
 	if  'lid' in request.session:
 		n=request.session.get('lid', '')
-		obj1=student.objects.filter(sid=n)
-		#category1=request.POST.get('category1','')
-		#subcategory=request.POST.get('subcategory','')
-		#sub1category=request.POST.get('sub1category','')
-		#print(category1)
-		#print(sub1category)
-		#print(subcategory)
-		# obj1=attendence.objects.values('student_id').order_by().annotate(Count('student_id'))
-			#obj1=attendence.objects.values('student').filter(subject_id=category1,division_id=sub1category).order_by('student').annotate(Count('student'))
-		#print(obj1)
-		
-		
-		
+		obj7=student.objects.get(sid=n)
 		obj1=attendence.objects.filter(student_id=n).order_by('subject')
 		obj2=subject.objects.all()
-		#obj1=subject.objects.filter(teacher_id=request.session['lid'])
-		#obj2=student.objects.all()
-		#context_dict = { 'obj1' : obj1, 'obj2': obj2}
 		context_dict = { 'obj1' : obj1}
-	#	print(context_dict)
-	#	arr = [][]
-	#	arr[0].append("Roll No")
-	#	arr[0].append("Attendence")
 		mat = DynamicList()
-		mat[0] = ['Subject','Attendence']
-		i=1
-		#{% for b in obj1 %}
-			
-		#{% endfor %}
+		i=0
 		for b in obj2:
-			#print(key)
-			#print(value)
 			cnt=0
+			o1=0
 			for c in obj1:
 				if b.sid==c.subject.sid:
+					obj8=attendence.objects.values('student').filter(subject_id=c.subject.sid,division_id=c.division.did).order_by('student').annotate(Count('student'))
+					obj9=obj8.aggregate(n=Max('student__count'))
+					o1=obj9.get('n')
+					#print(o1)
 					cnt+=1
 			if cnt > 0: 
-				mat[i] = [b.sname,cnt]
+				per=cnt/o1
+				per1=per*100
+				mat[i] = [b.sname,cnt,o1,per1]
 				i=i+1
 	
 		obj5=lab1.objects.filter(student_id=n).order_by('lab')
@@ -512,33 +494,54 @@ def sview1(request):
 				if b.lid==c.lid_id:
 					cnt+=1
 			if cnt>0:
-				mat[i] = [b.lab.lname,cnt]
+				mat[i] = [b.lab.lname,cnt,"-","-"]
 				i=i+1
-	#	arr[1].append(10)
-	#	arr[1].append(30)
-	#	arr[2].append(10)
-	#	arr[2].append(30)
-	#	arr[3].append(10)
-	#	arr[3].append(30)
-		
-		
-		#mat[1] = ['row2','row2']
-		#mat[2] = ['row2','row2']
-	#	print(mat)
-			#i=i+1
-		
-	#	data =  [['Year', 'Sales'],[2004, 1000],[2005, 1170],[2006, 660],[2007, 1030]]
-	#	print(data)
-		# DataSource object
-		data_source = SimpleDataSource(data=mat)
-		# Chart object
-		chart = BarChart(data_source,height=800, width=800, options={'title': 'Attendence Graph'})
-		context = {'chart': chart}
-		return render(request, 'attendence/sview1.html', context)
-	#	return render(request,'attendence/tview1.html', context_dict)
+		context = {'mat': mat , 'obj' : obj7 }
+		return render(request,'attendence/sview1.html', context)
 	else:
-	   return render(request,'attendence/home.html')
-	   
+	   return render(request,'attendence/student1.html')
+
+def sview2(request):
+	if  'lid' in request.session:
+		n=request.session.get('lid', '') 
+		obj7=student.objects.get(sid=n)
+		obj1=attendence.objects.filter(student_id=n).order_by('subject')
+		obj2=subject.objects.all()
+		context_dict = { 'obj1' : obj1}
+		mat = DynamicList()
+		mat[0] = ['Subject','Attendence','Total Lecture']
+		i=1
+		for b in obj2:
+			cnt=0
+			o1=0
+			for c in obj1:
+				if b.sid==c.subject.sid:
+					obj8=attendence.objects.values('student').filter(subject_id=c.subject.sid,division_id=c.division.did).order_by('student').annotate(Count('student'))
+					obj9=obj8.aggregate(n=Max('student__count'))
+					o1=obj9.get('n')
+					#print(o1)
+					cnt+=1
+			if cnt > 0: 
+				mat[i] = [b.sname,cnt,o1]
+				i=i+1
+	
+		obj5=lab1.objects.filter(student_id=n).order_by('lab')
+		obj6= lattendence.objects.all()
+		for b in obj5:
+			cnt=0
+			for c in obj6:
+				if b.lid==c.lid_id:
+					cnt+=1
+			if cnt>0:
+				mat[i] = [b.lab.lname,cnt,0]
+				i=i+1
+		data_source = SimpleDataSource(data=mat)
+		chart = ColumnChart(data_source,height=700, width=865, options={'title': 'Attendence Graph'})
+		context = {'chart': chart , 'obj' : obj7 }
+		return render(request, 'attendence/sview2.html', context)
+	else:
+	   return render(request,'attendence/student1.html')	   
+
 def asview(request):
 	if  'lid' in request.session:
 		n=request.COOKIES.get('sid') 

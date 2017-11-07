@@ -38,7 +38,7 @@ document.onclick = mclose;
 	<div id="t_header">
 	
 	</div>		
-				<ul id="sddm">
+	<ul id="sddm">
 
 			<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Dashboard</a><div id="m1" 
             onmouseover="mcancelclosetime()" 
@@ -51,35 +51,57 @@ document.onclick = mclose;
 			
 		<li><a href="{% url 'attendence:slogout' %}">Logout</a></li>
 	</ul>
-	<div id="background">
-        <div id="common">
-        <div class="cs_article">
-        <div class="left">
-        <h1>Alert and Messages</h1>
-        <br>
-	<table width="300">
+	
+	 <div id="background">
+        <div id="height">
+		<br><br>
+	
+		<br><br>
+		<script>
+		 function myfun()
+		 {
+			var a=document.getElementById("tbl");
+			newWin=window.open("");
+			newWin.document.write(a.outerHTML);
+			newWin.print();
+			newWin.close();
+		}
+			
+		 
+		 </script>
+<input type="button" value="Print" onclick="myfun()" />
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		google.load("visualization", "1", {packages:["corechart"]});
+	</script>
+	<table name="tbl" id="tbl" border="double" width="865">
 	<tr>
-	<td>Total Subject</td>
-	<td>4
+        <th>
+		Roll No: {{ obj.roll }}
+		, Student Name: {{ obj.sname }}
+		, Course Name: {{ obj.division.classes.course.coname }}
+		, Class: {{ obj.division.classes.clname }}  
+		, Division:  {{ obj.division.dname }}
+		
+		
+		</th>
+        </tr>
+	<tr>
+	<td>
+	{{ chart.as_html }}
 	</td>
-	</table>
+	</tr>
+
+		</table>
         
-        </div>
-        <div class="right">
-        <h1>Dashboard</h1>
-        <ul class="list">
-        <li><a href="">Update Password</a></li>
-        </ul>
-        </div>
-        </div>
-        </div>
+		</div>
        
+		<hr noshade>
 
 	
-	<hr noshade>
-	 </div>
-
-
+	</div>	
+	
+	
 	<div id="t_footer"></div>
 <div id="footer"></div>
 <div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>

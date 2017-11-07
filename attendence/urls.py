@@ -86,6 +86,7 @@ urlpatterns = [
 	url(r'^sindex$', views.sindex, name='sindex'),
 	url(r'^ssubmit/$', views.ssubmit, name='ssubmit'),
 	url(r'^sview1/$', views.sview1, name='sview1'),
+	url(r'^sview2/$', views.sview2, name='sview2'),
 	url(r'^sdashboard/$', views.sdashboard, name='sdashboard'),
 	url(r'^slogout/$', views.slogout, name='slogout'),
 ] 
