@@ -34,6 +34,7 @@ from django.core.management.commands import loaddata
 import sys
 from django.core.management import call_command
 from wsgiref.util import FileWrapper 
+from django.core.files.storage import FileSystemStorage
 
 @csrf_exempt
 def aview(request, username=None, errmsg=None):
@@ -44,9 +45,9 @@ def aview(request, username=None, errmsg=None):
 def backup(request):
 	if  'lid' in request.session:
 		dir = os.path.dirname(__file__)  # get current directory
-		print(dir)
+		#print(dir)
 		file_path = os.path.join(dir, 'backup.json')
-		print(file_path)
+		#print(file_path)
 		#f1 = open( file_path, 'w+')
 		#with open(f1) as f:
 	#		management.call_command('dumpdata', stdout=f)
@@ -62,6 +63,16 @@ def backup(request):
 		response = HttpResponse(FileWrapper(f), content_type='application/json')
 		response['Content-Disposition'] = 'attachment; filename=backup.json'
 		f.close()
+		m=mail()
+		n=request.session.get('lid', '')
+		sub="Backup Successful"
+		msg= "Backup Successful.."
+		m.sender=n
+		m.subject=sub
+		m.message=msg
+		m.mdate=datetime.now().date()
+		m.mtime=datetime.now()
+		m.save()
 		return response
 		
 		#html = "<script>alert(\"Backup Successful..!!\");window.history.go(-1);</script>"
@@ -70,6 +81,39 @@ def backup(request):
 	else:
 	   return render(request,'attendence/home.html')
 
+def restore(request):
+	if  'lid' in request.session:
+		return render(request,'attendence/restore.html')
+	else:
+	   return render(request,'attendence/home.html')
+	
+def handle_uploaded_file(f):
+	dir = os.path.dirname(__file__)  # get current directory
+	file_path = os.path.join(dir, 'backup.json')
+	with open(file_path,'wb+') as destination:
+		for chunk in f.chunks():
+			destination.write(chunk)
+	
+	
+def restore1(request):
+	if  'lid' in request.session:
+		myfile = request.FILES['efile']
+	#	fs = FileSystemStorage()
+	#	filename = fs.save(myfile.name, myfile)
+	#	uploaded_file_url = fs.url(filename)
+	#	print(uploaded_file_url)
+		#print(myfile)
+		#handle_uploaded_file(request.FILES['efile'])
+		handle_uploaded_file(request.FILES['efile'])
+		dir = os.path.dirname(__file__)  # get current directory
+		file_path = os.path.join(dir, 'backup.json')
+		#f = open(file_path, "r")
+		call_command('loaddata',file_path, app_label='attendence')
+		html = "<script>alert(\"Restore Successful..!!\");window.history.go(-1);</script>"
+		return HttpResponse(html)
+	else:
+	   return render(request,'attendence/home.html')
+	   
 def tview(request):
 	if  'lid' in request.session:
 		obj1=subject.objects.filter(teacher_id=request.session['lid'])

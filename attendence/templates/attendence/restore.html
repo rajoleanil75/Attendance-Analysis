@@ -32,12 +32,14 @@ function mcancelclosetime()
 }
 document.onclick = mclose; 
 </script>
+
 </head>
 <body>
 	<div id="t_wrapper">
 	<div id="t_header">
 	
 	</div>		
+	<!--end of t_header-->
 	<ul id="sddm">
 
 			<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Dashboard</a><div id="m1" 
@@ -74,28 +76,27 @@ document.onclick = mclose;
 	</ul>
 	
 	 <div id="background">
-	 <div id="height">
-	 
-        <h1>Notification</h1>
-        <br>
-        <table border="double" width="850">
-        <tr>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Message</th>
+        <div id="height">
+	
+<br><br>
+	
+	
+	<table width="800" >
+        <th colspan="2" align="center">Restore</th>
+	
+	<form action="{% url 'attendence:restore1' %}" name="AddStudent" method="POST" enctype="multipart/form-data">{% csrf_token %}
+	<tr>
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSelect Backup File</td>
+        <td><input type="file" name="efile" id="efile" size="30" required></td>
         </tr>
-        {% for b in obj1 %}
-			<tr>
-			<td>{{b.mdate}}</td>
-			<td>{{b.mtime}}</td>
-			<td>{{b.message}}</td>
-			</tr>
-		{% endfor %}
+		<tr>
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="Reset" name="reset"/></td>
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type="submit" value="Submit" name="submit" /></td> 
+	</tr>
+        </table>	
 		
 		
-		</table>
 		
-        
 	
         
 		</div>

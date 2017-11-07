@@ -44,8 +44,8 @@ document.onclick = mclose;
             onmouseover="mcancelclosetime()" 
             onmouseout="mclosetime()">
         <a href="{% url 'attendence:adashboard' %}">Dashboard</a>
-        <a href="#">Backup</a>
-        <a href="#">Restore</a>
+         <a href="{% url 'attendence:backup' %}">Backup</a>
+       <a href="{% url 'attendence:restore' %}">Restore</a>
 		<a href="{% url 'attendence:aupdatepass1' %}">Update Password</a>
         </div></li>
 			<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Manage</a><div id="m2" 
