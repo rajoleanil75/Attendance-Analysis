@@ -1544,6 +1544,15 @@ def addteacher1(request):
 	   
 def aupdatepass1(request):
 	return render(request,'attendence/aupdatepass.html')
+	
+def tupdatepass1(request):
+	return render(request,'attendence/tupdatepass.html')
+	
+def hupdatepass1(request):
+	return render(request,'attendence/hupdatepass.html')
+	
+def supdatepass1(request):
+	return render(request,'attendence/supdatepass.html')
 
 def addstudent(request):
 	return render(request,'attendence/addstudent.html')
@@ -1646,7 +1655,90 @@ def aupdatepass(request):
 	else:
 		html = "<script>alert(\"Passwords Not Match..!!\");window.history.go(-1);</script>"
 		return HttpResponse(html)
+		
+def tupdatepass(request):
+	curp=request.POST.get('curp','')
+	password=request.POST.get('pass','')
+	cpassword=request.POST.get('cpass','')	
+	if password==cpassword:
+		name=request.session.get('lid', '')
+		c=teacher.objects.get(tid=request.session['lid'])
+		if c.tpassword==curp:
+			adm=teacher.objects.select_for_update().filter(tid=request.session['lid']).update(tpassword=password)
+			m=mail()
+			n=request.session.get('lid', '')
+			sub="Password Updated"
+			msg="Password Updated"
+			m.sender=n
+			m.subject=sub
+			m.message=msg
+			m.mdate=datetime.now().date()
+			m.mtime=datetime.now()
+			m.save()
+			html = "<script>alert(\"Passwords Updated..!!\");window.history.go(-1);</script>"
+			return HttpResponse(html)
+		else:
+			html = "<script>alert(\"Please enter valid passwrod..!!\");window.history.go(-1);</script>"
+			return HttpResponse(html)
+	else:
+		html = "<script>alert(\"Passwords Not Match..!!\");window.history.go(-1);</script>"
+		return HttpResponse(html)
+		
+def hupdatepass(request):
+	curp=request.POST.get('curp','')
+	password=request.POST.get('pass','')
+	cpassword=request.POST.get('cpass','')	
+	if password==cpassword:
+		name=request.session.get('lid', '')
+		c=teacher.objects.get(tid=request.session['lid'])
+		if c.tpassword==curp:
+			adm=teacher.objects.select_for_update().filter(tid=request.session['lid']).update(tpassword=password)
+			m=mail()
+			n=request.session.get('lid', '')
+			sub="Password Updated"
+			msg="Password Updated"
+			m.sender=n
+			m.subject=sub
+			m.message=msg
+			m.mdate=datetime.now().date()
+			m.mtime=datetime.now()
+			m.save()
+			html = "<script>alert(\"Passwords Updated..!!\");window.history.go(-1);</script>"
+			return HttpResponse(html)
+		else:
+			html = "<script>alert(\"Please enter valid passwrod..!!\");window.history.go(-1);</script>"
+			return HttpResponse(html)
+	else:
+		html = "<script>alert(\"Passwords Not Match..!!\");window.history.go(-1);</script>"
+		return HttpResponse(html)
 
+def supdatepass(request):
+	curp=request.POST.get('curp','')
+	password=request.POST.get('pass','')
+	cpassword=request.POST.get('cpass','')	
+	if password==cpassword:
+		name=request.session.get('lid', '')
+		c=student.objects.get(sid=request.session['lid'])
+		if c.spassword==curp:
+			adm=student.objects.select_for_update().filter(sid=request.session['lid']).update(spassword=password)
+			m=mail()
+			n=request.session.get('lid', '')
+			sub="Password Updated"
+			msg="Password Updated"
+			m.sender=n
+			m.subject=sub
+			m.message=msg
+			m.mdate=datetime.now().date()
+			m.mtime=datetime.now()
+			m.save()
+			html = "<script>alert(\"Passwords Updated..!!\");window.history.go(-1);</script>"
+			return HttpResponse(html)
+		else:
+			html = "<script>alert(\"Please enter valid passwrod..!!\");window.history.go(-1);</script>"
+			return HttpResponse(html)
+	else:
+		html = "<script>alert(\"Passwords Not Match..!!\");window.history.go(-1);</script>"
+		return HttpResponse(html)
 
 def adminreg(request):
 	return render(request,'attendence/adminreg.html')

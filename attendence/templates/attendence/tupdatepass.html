@@ -1,37 +1,6 @@
 <html>
 <head>
 <title>NWC Attendence System</title>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-<SCRIPT language="javascript">
-
-			function invertAll()
-			{
-				
-				var q = document.querySelectorAll("input[type=checkbox][name=chk]"),
-				l = q.length, i;
-				for( i=0; i<l; i++)
-					q[i].checked = !q[i].checked;
-				//$('#tbl input:checkbox').attr('checked',false);
-				//print();
-			}
-			
-			
-			
-			function CheckAll()
-			{ 
-				$('#tbl input:checkbox').attr('checked',true);
-			//	for (i = 0; i < chk.length; i++) 
-			//	chk[i].checked = true ;
-			} 
-			function UnCheckAll()
-			{ 
-				$('#tbl input:checkbox').attr('checked',false);
-				//for (i = 0; i < chk.length; i++) 	
-				//chk[i].checked = false ;
-			} 
-			
-			
-       </script>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'attendence/css/style.css' %}" />
 <script type="text/javascript">
@@ -63,13 +32,15 @@ function mcancelclosetime()
 }
 document.onclick = mclose; 
 </script>
+
 </head>
 <body>
 	<div id="t_wrapper">
 	<div id="t_header">
 	
 	</div>		
-		<ul id="sddm">
+	<!--end of t_header-->
+	<ul id="sddm">
 
 			<li><a href="#" onmouseover="mopen('m1')" onmouseout="mclosetime()">Dashboard</a><div id="m1" 
             onmouseover="mcancelclosetime()" 
@@ -98,71 +69,36 @@ document.onclick = mclose;
 			<li><a href="{% url 'attendence:tmail' %}">Notification</a></li>
 			<li><a href="{% url 'attendence:logout' %}">Logout</a></li>
 	</ul>
-	
-	 <div id="background">
+	<div id="background">
         <div id="height">
-	<table width="865">
-	<th align="right">
-	<form action="{% url 'attendence:tattendence2' %}" name="TeacherRegistration" method="POST">{% csrf_token %}
+        <table width="800" >
+        <th colspan="2" align="center">Update Password</th>
 	
-		
-	<!--<input type="text" name="search" size="15" required /> <input type="submit" name="submit" value="Search" />--></th>
-	<!--</form>-->
-	
-	</table>
-	<table width="400">
-        <th><input type=Button name="all" id='check_all' value="Select All"  onclick="CheckAll()" /></th>
-		<script>
-		
-			</script>
-        <th><input type=Button name="invert" value="Invert Selection" onclick="invertAll()"/></th>
-		<th><input type=Button name="disseleect" value="Deselect" onclick="UnCheckAll()"/></th>
-		<th><input type="submit" id="submit-button" value="Submit" name="submit"  /></th>
-        </table>
-	<table name="tbl" id="tbl" border="double" width="865">
-        <th colspan="6">Select Student</a></th>
-        <tr>
+	<form action="{% url 'attendence:tupdatepass' %}" name="tupdatepass" method="POST">{% csrf_token %}
+	<tr>
         
-	<th>Select</th>	
-	<th>Roll No</th>
-        <th>Name</th>
-       </tr>
-	   {% for b in obj1 %}
-	   <tr>
-	   <td><input type='checkbox' name='chk' id='chk' value="{{b.sid}}" /></td>
-	   <td>{{b.roll}}</td>
-	   <td>{{b.sname}}</td>
-	   </tr>
-	   {% endfor %}
-	<!--
-		<tr>
-		<td><input type='checkbox' name='chk' id='chk' value='1' /></td>
-		<td>a</td>
-		<td>b</b>
-		</tr>
-		
-			<tr>
-		<td><input type='checkbox' name='chk' id='chk' value='2' /></td>
-		<td>a</td>
-		<td>b</b>
-		</tr>
-	
-		-->
-		
-		 </table>
-        
-		</div>
-       
-		<hr noshade>
-		
-		
+		<td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCurrent Password</p></td>
+        <td><input type="password" name="curp" id="curp" size="30" pattern=".{6,}" title="Six or more characters" required></td>
+        </tr>
+	<tr>
+        <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspNew Password</p></td>
+        <td><input type="password" name="pass" id="pass" size="30" pattern=".{6,}" title="Six or more characters" required></td>
+        </tr>
+	<tr>
+        <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspConfirm Password</p></td>
+        <td><input type="password" name="cpass" id="cpass" size="30" pattern=".{6,}" title="Six or more characters" required></td>
+        </tr>
 
-	
-	</div>	
-	
-	</form>
-	<div id="t_footer"></div>
-<div id="footer"></div>
+		<tr>
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="Reset" name="reset"/></td>
+	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input type="submit" value="Submit" name="submit" /></td> 
+	</tr>
+        </table>
+		
+        </div>
+        </div>
+		<div id="t_footer"></div>
+<div id="footer"> </div>
 <div id="footer">Designed and Developed by Shubhangi Mahajan, Anil Rajole & Vinod Thapa</div>
 </body>
 </html>

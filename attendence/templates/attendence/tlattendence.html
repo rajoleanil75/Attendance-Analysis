@@ -96,7 +96,7 @@ document.onclick = mclose;
             onmouseover="mcancelclosetime()" 
             onmouseout="mclosetime()">
         <a href="{% url 'attendence:tdashboard' %}">Dashboard</a>
-		<a href="">Update Password</a>
+		<a href="{% url 'attendence:tupdatepass1' %}">Update Password</a>
         </div></li>
 			<li><a href="#" onmouseover="mopen('m2')" onmouseout="mclosetime()">Add</a><div id="m2" 
             onmouseover="mcancelclosetime()" 
