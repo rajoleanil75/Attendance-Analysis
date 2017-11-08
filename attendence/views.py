@@ -212,331 +212,311 @@ class DynamicList(list):
 	   
 def tview1(request):
 	if  'lid' in request.session:
-		category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		direct=request.POST.get('direct','')
-		obj1=attendence.objects.filter(subject_id=category1,division_id=sub1category).order_by('student')
-		obj2=student.objects.filter(division_id=sub1category)
-		obj3=subject.objects.get(sid=category1)
-		obj4=attendence.objects.values('student').filter(subject_id=category1,division_id=sub1category).order_by('student').annotate(Count('student'))
-		obj5=obj4.aggregate(n=Max('student__count'))
-		max=obj5.get('n')
-		obj6=division.objects.get(did=sub1category)
-		if direct == "1":
-			mat = DynamicList()
-			mat[0] = ['Roll No','Attendence']
-			i=1
-			for a in obj2:
-				cnt=0
-				for b in obj1:
-					if b.student.roll==a.roll:
-						cnt+=1
-				mat[i] = [a.roll,cnt]
-				i=i+1
-			data_source = SimpleDataSource(data=mat)
-			chart = LineChart(data_source,height=700, width=865, options={'title': 'Attendence Graph'})
-			context = {'chart': chart , 'max': max , 'obj1':obj3 , 'obj2': obj6 }
-			return render(request, 'attendence/tview1.html', context)
-		else:
-			mat = DynamicList()
-			i=0
-			for a in obj2:
-				cnt=0
-				for b in obj1:
-					if b.student.roll==a.roll:
-						cnt+=1
-				per=cnt/max
-				per1=per*100
-				mat[i] = [a.roll,a.sname,cnt,per1]
-				i=i+1
-				context = {'mat': mat , 'max': max , 'obj1':obj3 , 'obj2': obj6 }
-			return render(request, 'attendence/tview2.html', context)
+		try:
+			category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			direct=request.POST.get('direct','')
+			obj1=attendence.objects.filter(subject_id=category1,division_id=sub1category).order_by('student')
+			obj2=student.objects.filter(division_id=sub1category)
+			obj3=subject.objects.get(sid=category1)
+			obj4=attendence.objects.values('student').filter(subject_id=category1,division_id=sub1category).order_by('student').annotate(Count('student'))
+			obj5=obj4.aggregate(n=Max('student__count'))
+			max=obj5.get('n')
+			obj6=division.objects.get(did=sub1category)
+			if direct == "1":
+				mat = DynamicList()
+				mat[0] = ['Roll No','Attendence']
+				i=1
+				for a in obj2:
+					cnt=0
+					for b in obj1:
+						if b.student.roll==a.roll:
+							cnt+=1
+					mat[i] = [a.roll,cnt]
+					i=i+1
+				data_source = SimpleDataSource(data=mat)
+				chart = LineChart(data_source,height=700, width=865, options={'title': 'Attendence Graph'})
+				context = {'chart': chart , 'max': max , 'obj1':obj3 , 'obj2': obj6 }
+				return render(request, 'attendence/tview1.html', context)
+			else:
+				mat = DynamicList()
+				i=0
+				for a in obj2:
+					cnt=0
+					for b in obj1:
+						if b.student.roll==a.roll:
+							cnt+=1
+					per=cnt/max
+					per1=per*100
+					mat[i] = [a.roll,a.sname,cnt,per1]
+					i=i+1
+					context = {'mat': mat , 'max': max , 'obj1':obj3 , 'obj2': obj6 }
+				return render(request, 'attendence/tview2.html', context)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 	
 def tlview1(request):
 	if  'lid' in request.session:
-		category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		direct=request.POST.get('direct','')
-		obj3=lab.objects.get(lid=category1)
-		obj1=lab1.objects.filter(lab_id=category1).order_by('student')
-		if direct == "1":
-			mat = DynamicList()
-			mat[0] = ['Roll No','Attendence']
-			i=1		
-			for b in obj1:	
-				obj2=lattendence.objects.filter(lid_id=b.lid)
-				cnt=0
-				for c in obj2:
+		try:
+			category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			direct=request.POST.get('direct','')
+			obj3=lab.objects.get(lid=category1)
+			obj1=lab1.objects.filter(lab_id=category1).order_by('student')
+			if direct == "1":
+				mat = DynamicList()
+				mat[0] = ['Roll No','Attendence']
+				i=1		
+				for b in obj1:	
+					obj2=lattendence.objects.filter(lid_id=b.lid)
+					cnt=0
+					for c in obj2:
+							cnt+=1
+					mat[i] = [b.student.roll,cnt]
+					i=i+1
+				data_source = SimpleDataSource(data=mat)
+				chart = LineChart(data_source,height=700, width=865, options={'title': 'Lab Attendence Graph'})
+				context = {'chart': chart, 'obj1' : obj3 }
+				return render(request, 'attendence/tlview1.html', context)
+			else:
+				mat = DynamicList()
+				i=0		
+				for b in obj1:	
+					obj2=lattendence.objects.filter(lid_id=b.lid)
+					cnt=0
+					for c in obj2:
 						cnt+=1
-				mat[i] = [b.student.roll,cnt]
-				i=i+1
-			data_source = SimpleDataSource(data=mat)
-			chart = LineChart(data_source,height=700, width=865, options={'title': 'Lab Attendence Graph'})
-			context = {'chart': chart, 'obj1' : obj3 }
-			return render(request, 'attendence/tlview1.html', context)
-		else:
-			mat = DynamicList()
-			i=0		
-			for b in obj1:	
-				obj2=lattendence.objects.filter(lid_id=b.lid)
-				cnt=0
-				for c in obj2:
-						cnt+=1
-				mat[i] = [b.student.roll,b.student.sname,cnt]
-				i=i+1
-			context = {'mat': mat , 'obj1' : obj3 }
-			return render(request, 'attendence/tlview2.html', context)
+					mat[i] = [b.student.roll,b.student.sname,cnt]
+					i=i+1
+				context = {'mat': mat , 'obj1' : obj3 }
+				return render(request, 'attendence/tlview2.html', context)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 	   
 def alview1(request):
 	if  'lid' in request.session:
-		category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		direct=request.POST.get('direct','')
-		obj1=lab1.objects.filter(lab_id=category1).order_by('student')
-		obj3=lab.objects.filter(lid=category1)
-		if direct == "1":
-			mat = DynamicList()
-			mat[0] = ['Roll No','Attendence']
-			i=1
-			for b in obj1:
-				obj2=lattendence.objects.filter(lid_id=b.lid)
-				cnt=0
-				for c in obj2:
-					cnt+=1
-				mat[i] = [b.student.roll,cnt]
-				i=i+1
-			data_source = SimpleDataSource(data=mat)
-			chart = LineChart(data_source,height=700, width=865, options={'title': 'Lab Attendence Graph'})
-			context = {'chart': chart , 'obj3' : obj3}
-			return render(request, 'attendence/alview1.html', context)
-		else:
-			obj4=lattendence.objects.all()
-			context_dict = { 'obj1' : obj1, 'obj3' : obj3 , 'obj4' : obj4 }
-			return render(request, 'attendence/alview2.html', context_dict)
+		try:
+			category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			direct=request.POST.get('direct','')
+			obj1=lab1.objects.filter(lab_id=category1).order_by('student')
+			obj3=lab.objects.filter(lid=category1)
+			if direct == "1":
+				mat = DynamicList()
+				mat[0] = ['Roll No','Attendence']
+				i=1
+				for b in obj1:
+					obj2=lattendence.objects.filter(lid_id=b.lid)
+					cnt=0
+					for c in obj2:
+						cnt+=1
+					mat[i] = [b.student.roll,cnt]
+					i=i+1
+				data_source = SimpleDataSource(data=mat)
+				chart = LineChart(data_source,height=700, width=865, options={'title': 'Lab Attendence Graph'})
+				context = {'chart': chart , 'obj3' : obj3}
+				return render(request, 'attendence/alview1.html', context)
+			else:
+				obj4=lattendence.objects.all()
+				context_dict = { 'obj1' : obj1, 'obj3' : obj3 , 'obj4' : obj4 }
+				return render(request, 'attendence/alview2.html', context_dict)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 	   
 def atview1(request):
 	if  'lid' in request.session:
-		category1=request.POST.get('category1','')
-		direct=request.POST.get('direct','')
-		obj1=subject.objects.filter(teacher_id=category1)
-		obj2=lab.objects.filter(teacher_id=category1)
-		obj5=teacher.objects.get(tid=category1)
-		nme=obj5.tname
-		
-		if direct == "1":
-			mat = DynamicList()
-			mat[0] = ['Subject','Average Attendance','Total Lecture']
-			i=1
-			for a in obj1:
-				obj3=attendence.objects.filter(subject_id=a.sid)
-				obj8=attendence.objects.values('student').filter(subject_id=a.sid).order_by('student').annotate(Count('student'))
-				obj9=obj8.aggregate(n=Max('student__count'))
-				o1=obj9.get('n')
-				#print(o1)
-				cnt=0
-				for c in obj3:
-					cnt+=1
-				obj4=student.objects.all()
-				cnt1=0
-				for d in obj4:
-					if d.division.classes_id == a.classes_id:
-						cnt1=cnt1+1
-				n=cnt/cnt1
-				mat[i] = [a.sname,n,o1]
-				i=i+1
-			data_source = SimpleDataSource(data=mat)
-			chart = ColumnChart(data_source,height=700, width=865, options={'title': 'Subject Attendence Graph'})
-			context = {'chart': chart , 'name' : nme }
-			return render(request, 'attendence/atview1.html', context)
-		else:
-			mat = DynamicList()
-			i=0
-			for a in obj1:
-				obj3=attendence.objects.filter(subject_id=a.sid)
-				obj8=attendence.objects.values('student').filter(subject_id=a.sid).order_by('student').annotate(Count('student'))
-				obj9=obj8.aggregate(n=Max('student__count'))
-				o1=obj9.get('n')
-				cnt=0
-				for c in obj3:
-					cnt+=1
-				obj4=student.objects.all()
-				cnt1=0
-				for d in obj4:
-					if d.division.classes_id == a.classes_id:
-						cnt1=cnt1+1
-				n=cnt/cnt1
-				mat[i] = [a.sname,a.classes.clname,n,o1]
-				i=i+1
-			context = {'mat': mat , 'name' : nme }
-			return render(request, 'attendence/atview2.html',context)
+		try:
+			category1=request.POST.get('category1','')
+			direct=request.POST.get('direct','')
+			obj1=subject.objects.filter(teacher_id=category1)
+			obj2=lab.objects.filter(teacher_id=category1)
+			obj5=teacher.objects.get(tid=category1)
+			nme=obj5.tname
+			
+			if direct == "1":
+				mat = DynamicList()
+				mat[0] = ['Subject','Average Attendance','Total Lecture']
+				i=1
+				for a in obj1:
+					obj3=attendence.objects.filter(subject_id=a.sid)
+					obj8=attendence.objects.values('student').filter(subject_id=a.sid).order_by('student').annotate(Count('student'))
+					obj9=obj8.aggregate(n=Max('student__count'))
+					o1=obj9.get('n')
+					#print(o1)
+					cnt=0
+					for c in obj3:
+						cnt+=1
+					obj4=student.objects.all()
+					cnt1=0
+					for d in obj4:
+						if d.division.classes_id == a.classes_id:
+							cnt1=cnt1+1
+					n=cnt/cnt1
+					mat[i] = [a.sname,n,o1]
+					i=i+1
+				data_source = SimpleDataSource(data=mat)
+				chart = ColumnChart(data_source,height=700, width=865, options={'title': 'Subject Attendence Graph'})
+				context = {'chart': chart , 'name' : nme }
+				return render(request, 'attendence/atview1.html', context)
+			else:
+				mat = DynamicList()
+				i=0
+				for a in obj1:
+					obj3=attendence.objects.filter(subject_id=a.sid)
+					obj8=attendence.objects.values('student').filter(subject_id=a.sid).order_by('student').annotate(Count('student'))
+					obj9=obj8.aggregate(n=Max('student__count'))
+					o1=obj9.get('n')
+					cnt=0
+					for c in obj3:
+						cnt+=1
+					obj4=student.objects.all()
+					cnt1=0
+					for d in obj4:
+						if d.division.classes_id == a.classes_id:
+							cnt1=cnt1+1
+					n=cnt/cnt1
+					mat[i] = [a.sname,a.classes.clname,n,o1]
+					i=i+1
+				context = {'mat': mat , 'name' : nme }
+				return render(request, 'attendence/atview2.html',context)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 
 def htview1(request):
 	if  'lid' in request.session:
-		category1=request.POST.get('category1','')
-		direct=request.POST.get('direct','')
-		obj1=subject.objects.filter(teacher_id=category1)
-		obj2=lab.objects.filter(teacher_id=category1)
-		obj5=teacher.objects.get(tid=category1)
-		nme=obj5.tname
-		
-		if direct == "1":
-			mat = DynamicList()
-			mat[0] = ['Subject','Average Attendance','Total Lecture']
-			i=1
-			for a in obj1:
-				obj3=attendence.objects.filter(subject_id=a.sid)
-				obj8=attendence.objects.values('student').filter(subject_id=a.sid).order_by('student').annotate(Count('student'))
-				obj9=obj8.aggregate(n=Max('student__count'))
-				o1=obj9.get('n')
-				#print(o1)
-				cnt=0
-				for c in obj3:
-					cnt+=1
-				obj4=student.objects.all()
-				cnt1=0
-				for d in obj4:
-					if d.division.classes_id == a.classes_id:
-						cnt1=cnt1+1
-				n=cnt/cnt1
-				mat[i] = [a.sname,n,o1]
-				i=i+1
-			data_source = SimpleDataSource(data=mat)
-			chart = ColumnChart(data_source,height=700, width=865, options={'title': 'Subject Attendence Graph'})
-			context = {'chart': chart , 'name' : nme }
-			return render(request, 'attendence/htview1.html', context)
-		else:
-			mat = DynamicList()
-			i=0
-			for a in obj1:
-				obj3=attendence.objects.filter(subject_id=a.sid)
-				obj8=attendence.objects.values('student').filter(subject_id=a.sid).order_by('student').annotate(Count('student'))
-				obj9=obj8.aggregate(n=Max('student__count'))
-				o1=obj9.get('n')
-				cnt=0
-				for c in obj3:
-					cnt+=1
-				obj4=student.objects.all()
-				cnt1=0
-				for d in obj4:
-					if d.division.classes_id == a.classes_id:
-						cnt1=cnt1+1
-				n=cnt/cnt1
-				mat[i] = [a.sname,a.classes.clname,n,o1]
-				i=i+1
-			context = {'mat': mat , 'name' : nme }
-			return render(request, 'attendence/htview2.html',context)
+		try:
+			category1=request.POST.get('category1','')
+			direct=request.POST.get('direct','')
+			obj1=subject.objects.filter(teacher_id=category1)
+			obj2=lab.objects.filter(teacher_id=category1)
+			obj5=teacher.objects.get(tid=category1)
+			nme=obj5.tname
+			
+			if direct == "1":
+				mat = DynamicList()
+				mat[0] = ['Subject','Average Attendance','Total Lecture']
+				i=1
+				for a in obj1:
+					obj3=attendence.objects.filter(subject_id=a.sid)
+					obj8=attendence.objects.values('student').filter(subject_id=a.sid).order_by('student').annotate(Count('student'))
+					obj9=obj8.aggregate(n=Max('student__count'))
+					o1=obj9.get('n')
+					#print(o1)
+					cnt=0
+					for c in obj3:
+						cnt+=1
+					obj4=student.objects.all()
+					cnt1=0
+					for d in obj4:
+						if d.division.classes_id == a.classes_id:
+							cnt1=cnt1+1
+					n=cnt/cnt1
+					mat[i] = [a.sname,n,o1]
+					i=i+1
+				data_source = SimpleDataSource(data=mat)
+				chart = ColumnChart(data_source,height=700, width=865, options={'title': 'Subject Attendence Graph'})
+				context = {'chart': chart , 'name' : nme }
+				return render(request, 'attendence/htview1.html', context)
+			else:
+				mat = DynamicList()
+				i=0
+				for a in obj1:
+					obj3=attendence.objects.filter(subject_id=a.sid)
+					obj8=attendence.objects.values('student').filter(subject_id=a.sid).order_by('student').annotate(Count('student'))
+					obj9=obj8.aggregate(n=Max('student__count'))
+					o1=obj9.get('n')
+					cnt=0
+					for c in obj3:
+						cnt+=1
+					obj4=student.objects.all()
+					cnt1=0
+					for d in obj4:
+						if d.division.classes_id == a.classes_id:
+							cnt1=cnt1+1
+					n=cnt/cnt1
+					mat[i] = [a.sname,a.classes.clname,n,o1]
+					i=i+1
+				context = {'mat': mat , 'name' : nme }
+				return render(request, 'attendence/htview2.html',context)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 	   
 def hlview1(request):
 	if  'lid' in request.session:
-		category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		direct=request.POST.get('direct','')
-		obj1=lab1.objects.filter(lab_id=category1).order_by('student')
-		obj3=lab.objects.filter(lid=category1)
-		if direct == "1":
-			mat = DynamicList()
-			mat[0] = ['Roll No','Attendence']
-			i=1
-			for b in obj1:
-				obj2=lattendence.objects.filter(lid_id=b.lid)
-				cnt=0
-				for c in obj2:
-					cnt+=1
-				mat[i] = [b.student.roll,cnt]
-				i=i+1
-			data_source = SimpleDataSource(data=mat)
-			chart = LineChart(data_source,height=700, width=865, options={'title': 'Lab Attendence Graph'})
-			context = {'chart': chart , 'obj3' : obj3}
-			return render(request, 'attendence/hlview1.html', context)
-		else:
-			obj4=lattendence.objects.all()
-			context_dict = { 'obj1' : obj1, 'obj3' : obj3 , 'obj4' : obj4 }
-			return render(request, 'attendence/hlview2.html', context_dict)
+		try:
+			category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			direct=request.POST.get('direct','')
+			obj1=lab1.objects.filter(lab_id=category1).order_by('student')
+			obj3=lab.objects.filter(lid=category1)
+			if direct == "1":
+				mat = DynamicList()
+				mat[0] = ['Roll No','Attendence']
+				i=1
+				for b in obj1:
+					obj2=lattendence.objects.filter(lid_id=b.lid)
+					cnt=0
+					for c in obj2:
+						cnt+=1
+					mat[i] = [b.student.roll,cnt]
+					i=i+1
+				data_source = SimpleDataSource(data=mat)
+				chart = LineChart(data_source,height=700, width=865, options={'title': 'Lab Attendence Graph'})
+				context = {'chart': chart , 'obj3' : obj3}
+				return render(request, 'attendence/hlview1.html', context)
+			else:
+				obj4=lattendence.objects.all()
+				context_dict = { 'obj1' : obj1, 'obj3' : obj3 , 'obj4' : obj4 }
+				return render(request, 'attendence/hlview2.html', context_dict)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 	   
 def hview1(request):
 	if  'lid' in request.session:
-		#category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		#print(category1)
-		#print(sub1category)
-		#print(subcategory)
-		# obj1=attendence.objects.values('student_id').order_by().annotate(Count('student_id'))
-	#	obj1=attendence.objects.values(student).filter(subject_id=category1,division_id=sub1category).order_by('student').annotate(Count('student'))
-	#	print(obj1)
-		obj1=attendence.objects.filter(division_id=sub1category).order_by('student')
-		#print(obj1)
-		obj2=subject.objects.filter(classes_id=subcategory)
-		obj3=student.objects.filter(division_id=sub1category)
-		n=subject.objects.filter(classes_id=subcategory).count()
-		n=n+2
-		obj4=division.objects.filter(did=sub1category)
-		
-		context_dict = { 'obj1' : obj1, 'obj2': obj2, 'obj3': obj3, 'obj4': obj4, 'n':n }
-		#context_dict = { 'obj1' : obj1}
-	#	print(context_dict)
-	#	arr = [][]
-	#	arr[0].append("Roll No")
-	#	arr[0].append("Attendence")
-	
-		
-	#	mat[15] = DynamicList()
-		
-	#	for a in obj2:
-			
-	#	mat[0] = ['Roll No','Attendence']
-	#	i=1
-		#{% for b in obj1 %}
-			
-		#{% endfor %}
-	#	for b in obj1:
-			#print(key)
-			#print(value)
-	#		cnt=0
-	#		for c in obj1:
-	#			if b.student.roll==c.student.roll:
-	#				cnt+=1
-	#		mat[i] = [b.student.roll,cnt]
-	#		i=i+1
-	#	arr[1].append(10)
-	#	arr[1].append(30)
-	#	arr[2].append(10)
-	#	arr[2].append(30)
-	#	arr[3].append(10)
-	#	arr[3].append(30)
-		
-		
-		#mat[1] = ['row2','row2']
-		#mat[2] = ['row2','row2']
-	#	print(mat)
-			#i=i+1
-		
-	#	data =  [['Year', 'Sales'],[2004, 1000],[2005, 1170],[2006, 660],[2007, 1030]]
-	#	print(data)
-		# DataSource object
-	#	data_source = SimpleDataSource(data=mat)
-		# Chart object
-	#	chart = LineChart(data_source,height=800, width=800, options={'title': 'Division Attendence Graph'})
-	#	context = {'chart': chart}
-		return render(request, 'attendence/hview1.html', context_dict)
-	#	print(context_dict)
-	#	return render(request,'attendence/tview1.html', context_dict)
+		try:
+			#category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			#print(category1)
+			#print(sub1category)
+			#print(subcategory)
+			# obj1=attendence.objects.values('student_id').order_by().annotate(Count('student_id'))
+		#	obj1=attendence.objects.values(student).filter(subject_id=category1,division_id=sub1category).order_by('student').annotate(Count('student'))
+		#	print(obj1)
+			obj1=attendence.objects.filter(division_id=sub1category).order_by('student')
+			#print(obj1)
+			obj2=subject.objects.filter(classes_id=subcategory)
+			obj3=student.objects.filter(division_id=sub1category)
+			n=subject.objects.filter(classes_id=subcategory).count()
+			n=n+2
+			obj4=division.objects.filter(did=sub1category)
+			context_dict = { 'obj1' : obj1, 'obj2': obj2, 'obj3': obj3, 'obj4': obj4, 'n':n }
+			return render(request, 'attendence/hview1.html', context_dict)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 	   
@@ -702,72 +682,28 @@ def asview1(request):
 	   
 def aview1(request):
 	if  'lid' in request.session:
-		#category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		#print(category1)
-		#print(sub1category)
-		#print(subcategory)
-		# obj1=attendence.objects.values('student_id').order_by().annotate(Count('student_id'))
-	#	obj1=attendence.objects.values(student).filter(subject_id=category1,division_id=sub1category).order_by('student').annotate(Count('student'))
-	#	print(obj1)
-		obj1=attendence.objects.filter(division_id=sub1category).order_by('student')
-		#print(obj1)
-		obj2=subject.objects.filter(classes_id=subcategory)
-		obj3=student.objects.filter(division_id=sub1category)
-		n=subject.objects.filter(classes_id=subcategory).count()
-		n=n+2
-		obj4=division.objects.filter(did=sub1category)
-		
-		context_dict = { 'obj1' : obj1, 'obj2': obj2, 'obj3': obj3, 'obj4': obj4, 'n':n }
-		#context_dict = { 'obj1' : obj1}
-	#	print(context_dict)
-	#	arr = [][]
-	#	arr[0].append("Roll No")
-	#	arr[0].append("Attendence")
-	
-		
-	#	mat[15] = DynamicList()
-		
-	#	for a in obj2:
-			
-	#	mat[0] = ['Roll No','Attendence']
-	#	i=1
-		#{% for b in obj1 %}
-			
-		#{% endfor %}
-	#	for b in obj1:
-			#print(key)
-			#print(value)
-	#		cnt=0
-	#		for c in obj1:
-	#			if b.student.roll==c.student.roll:
-	#				cnt+=1
-	#		mat[i] = [b.student.roll,cnt]
-	#		i=i+1
-	#	arr[1].append(10)
-	#	arr[1].append(30)
-	#	arr[2].append(10)
-	#	arr[2].append(30)
-	#	arr[3].append(10)
-	#	arr[3].append(30)
-		
-		
-		#mat[1] = ['row2','row2']
-		#mat[2] = ['row2','row2']
-	#	print(mat)
-			#i=i+1
-		
-	#	data =  [['Year', 'Sales'],[2004, 1000],[2005, 1170],[2006, 660],[2007, 1030]]
-	#	print(data)
-		# DataSource object
-	#	data_source = SimpleDataSource(data=mat)
-		# Chart object
-	#	chart = LineChart(data_source,height=800, width=800, options={'title': 'Division Attendence Graph'})
-	#	context = {'chart': chart}
-		return render(request, 'attendence/aview1.html', context_dict)
-	#	print(context_dict)
-	#	return render(request,'attendence/tview1.html', context_dict)
+		try:
+			#category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			#print(category1)
+			#print(sub1category)
+			#print(subcategory)
+			# obj1=attendence.objects.values('student_id').order_by().annotate(Count('student_id'))
+		#	obj1=attendence.objects.values(student).filter(subject_id=category1,division_id=sub1category).order_by('student').annotate(Count('student'))
+		#	print(obj1)
+			obj1=attendence.objects.filter(division_id=sub1category).order_by('student')
+			#print(obj1)
+			obj2=subject.objects.filter(classes_id=subcategory)
+			obj3=student.objects.filter(division_id=sub1category)
+			n=subject.objects.filter(classes_id=subcategory).count()
+			n=n+2
+			obj4=division.objects.filter(did=sub1category)
+			context_dict = { 'obj1' : obj1, 'obj2': obj2, 'obj3': obj3, 'obj4': obj4, 'n':n }
+			return render(request, 'attendence/aview1.html', context_dict)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 	   
@@ -865,96 +801,116 @@ def ulhattendence(request):
 	   
 def tattendence1(request):
 	if 'lid' in request.session:
-		category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		date=request.POST.get('date','')
-		#print(request.POST)
-		request.session['subject'] = category1
-		request.session['division'] = sub1category
-		request.session['date'] = date
-		obj1=student.objects.filter(division_id=sub1category)
-		#print(obj1)
-		context_dict = { 'obj1' : obj1}
-		return render(request,'attendence/tattendence2.html', context_dict)
-		#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
-		#return HttpResponse(html)
+		try:
+			category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			date=request.POST.get('date','')
+			#print(request.POST)
+			request.session['subject'] = category1
+			request.session['division'] = sub1category
+			request.session['date'] = date
+			obj1=student.objects.filter(division_id=sub1category)
+			#print(obj1)
+			context_dict = { 'obj1' : obj1}
+			return render(request,'attendence/tattendence2.html', context_dict)
+			#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
+			#return HttpResponse(html)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 	   
 def tlattendence1(request):
 	if 'lid' in request.session:
-		category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		date=request.POST.get('date','')
-		#print(request.POST)
-		request.session['subject'] = category1
-		request.session['division'] = sub1category
-		request.session['date'] = date
-		obj1=lab1.objects.filter(lab_id=category1)
-		#print(obj1)
-		context_dict = { 'obj1' : obj1}
-		return render(request,'attendence/tlattendence2.html', context_dict)
-		#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
-		#return HttpResponse(html)
+		try:
+			category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			date=request.POST.get('date','')
+			#print(request.POST)
+			request.session['subject'] = category1
+			request.session['division'] = sub1category
+			request.session['date'] = date
+			obj1=lab1.objects.filter(lab_id=category1)
+			#print(obj1)
+			context_dict = { 'obj1' : obj1}
+			return render(request,'attendence/tlattendence2.html', context_dict)
+			#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
+			#return HttpResponse(html)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 
 def hlattendence1(request):
 	if 'lid' in request.session:
-		category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		date=request.POST.get('date','')
-		#print(request.POST)
-		request.session['subject'] = category1
-		request.session['division'] = sub1category
-		request.session['date'] = date
-		obj1=lab1.objects.filter(lab_id=category1)
-		#print(obj1)
-		context_dict = { 'obj1' : obj1}
-		return render(request,'attendence/hlattendence2.html', context_dict)
-		#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
-		#return HttpResponse(html)
+		try:
+			category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			date=request.POST.get('date','')
+			#print(request.POST)
+			request.session['subject'] = category1
+			request.session['division'] = sub1category
+			request.session['date'] = date
+			obj1=lab1.objects.filter(lab_id=category1)
+			#print(obj1)
+			context_dict = { 'obj1' : obj1}
+			return render(request,'attendence/hlattendence2.html', context_dict)
+			#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
+			#return HttpResponse(html)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 	   
 def ultattendence1(request):
 	if 'lid' in request.session:
-		category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		date=request.POST.get('date','')
-		#print(request.POST)
-		request.session['subject'] = category1
-		request.session['division'] = sub1category
-		request.session['date'] = date
-		obj1=lab1.objects.filter(lab_id=category1)
-		#print(obj1)
-		context_dict = { 'obj1' : obj1}
-		return render(request,'attendence/ultattendance1.html', context_dict)
-		#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
-		#return HttpResponse(html)
+		try:
+			category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			date=request.POST.get('date','')
+			#print(request.POST)
+			request.session['subject'] = category1
+			request.session['division'] = sub1category
+			request.session['date'] = date
+			obj1=lab1.objects.filter(lab_id=category1)
+			#print(obj1)
+			context_dict = { 'obj1' : obj1}
+			return render(request,'attendence/ultattendance1.html', context_dict)
+			#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
+			#return HttpResponse(html)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 
 def ulhattendence1(request):
 	if 'lid' in request.session:
-		category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		date=request.POST.get('date','')
-		#print(request.POST)
-		request.session['subject'] = category1
-		request.session['division'] = sub1category
-		request.session['date'] = date
-		obj1=lab1.objects.filter(lab_id=category1)
-		#print(obj1)
-		context_dict = { 'obj1' : obj1}
-		return render(request,'attendence/ulhattendance1.html', context_dict)
-		#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
-		#return HttpResponse(html)
+		try:
+			category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			date=request.POST.get('date','')
+			#print(request.POST)
+			request.session['subject'] = category1
+			request.session['division'] = sub1category
+			request.session['date'] = date
+			obj1=lab1.objects.filter(lab_id=category1)
+			#print(obj1)
+			context_dict = { 'obj1' : obj1}
+			return render(request,'attendence/ulhattendance1.html', context_dict)
+			#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
+			#return HttpResponse(html)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 	   
@@ -1224,20 +1180,24 @@ def hattendence(request):
 
 def hattendence1(request):
 	if 'lid' in request.session:
-		category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		date=request.POST.get('date','')
-		#print(request.POST)
-		request.session['subject'] = category1
-		request.session['division'] = sub1category
-		request.session['date'] = date
-		obj1=student.objects.filter(division_id=sub1category)
-		#print(obj1)
-		context_dict = { 'obj1' : obj1}
-		return render(request,'attendence/hattendence2.html', context_dict)
-		#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
-		#return HttpResponse(html)
+		try:
+			category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			date=request.POST.get('date','')
+			#print(request.POST)
+			request.session['subject'] = category1
+			request.session['division'] = sub1category
+			request.session['date'] = date
+			obj1=student.objects.filter(division_id=sub1category)
+			#print(obj1)
+			context_dict = { 'obj1' : obj1}
+			return render(request,'attendence/hattendence2.html', context_dict)
+			#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
+			#return HttpResponse(html)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 
@@ -1303,20 +1263,24 @@ def utattendence(request):
 
 def utattendence1(request):
 	if 'lid' in request.session:
-		category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		date=request.POST.get('date','')
-		#print(request.POST)
-		request.session['subject'] = category1
-		request.session['division'] = sub1category
-		request.session['date'] = date
-		obj1=attendence.objects.filter(adate=date,subject_id=category1,division_id=sub1category)
-		obj2=student.objects.filter(division_id=sub1category)
-		context_dict = { 'obj1' : obj1, 'obj2': obj2}
-		return render(request,'attendence/utattendence1.html', context_dict)
-		#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
-		#return HttpResponse(html)
+		try:
+			category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			date=request.POST.get('date','')
+			#print(request.POST)
+			request.session['subject'] = category1
+			request.session['division'] = sub1category
+			request.session['date'] = date
+			obj1=attendence.objects.filter(adate=date,subject_id=category1,division_id=sub1category)
+			obj2=student.objects.filter(division_id=sub1category)
+			context_dict = { 'obj1' : obj1, 'obj2': obj2}
+			return render(request,'attendence/utattendence1.html', context_dict)
+			#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
+			#return HttpResponse(html)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 
@@ -1385,24 +1349,28 @@ def uhattendence(request):
 
 def uhattendence1(request):
 	if 'lid' in request.session:
-		category1=request.POST.get('category1','')
-		subcategory=request.POST.get('subcategory','')
-		sub1category=request.POST.get('sub1category','')
-		date=request.POST.get('date','')
-		#print(request.POST)
-		request.session['subject'] = category1
-		request.session['division'] = sub1category
-		request.session['date'] = date
-		obj1=attendence.objects.filter(adate=date,subject_id=category1,division_id=sub1category)
-		#print(obj)
-		#obj2=student.objects.filter(sid=obj)
-		#print(obj2)
-		obj2=student.objects.filter(division_id=sub1category)
-		#print(obj1)
-		context_dict = { 'obj1' : obj1, 'obj2': obj2}
-		return render(request,'attendence/uhattendence1.html', context_dict)
-		#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
-		#return HttpResponse(html)
+		try:
+			category1=request.POST.get('category1','')
+			subcategory=request.POST.get('subcategory','')
+			sub1category=request.POST.get('sub1category','')
+			date=request.POST.get('date','')
+			#print(request.POST)
+			request.session['subject'] = category1
+			request.session['division'] = sub1category
+			request.session['date'] = date
+			obj1=attendence.objects.filter(adate=date,subject_id=category1,division_id=sub1category)
+			#print(obj)
+			#obj2=student.objects.filter(sid=obj)
+			#print(obj2)
+			obj2=student.objects.filter(division_id=sub1category)
+			#print(obj1)
+			context_dict = { 'obj1' : obj1, 'obj2': obj2}
+			return render(request,'attendence/uhattendence1.html', context_dict)
+			#html = "<script>alert(\"Attendence Added..!!\");window.history.go(-1);</script>"
+			#return HttpResponse(html)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 
@@ -1461,37 +1429,37 @@ def uhattendence2(request):
 	   
 def addsubject1(request):
 	if 'lid' in request.session:
-		scode=request.POST.get('scode','')
-		sname=request.POST.get('sname','')
-		maxlec=request.POST.get('maxlec','')
-		thid=request.POST.get('teacher','')
-		clas=request.POST.get('classes','')
-		d=teacher.objects.get(tid=thid)
-		e=classes.objects.get(clid=clas)
-		n=subject.objects.count()
-		q=subject(1,0,'',0,d,e)
-		q.sid=n+1
-		q.scode=scode
-		q.sname=sname
-		q.max_lacture=maxlec
-		q.teacher=d
-		q.classes=e
-		q.save();
-		m=mail()
-		n=request.session.get('lid', '')
-		sub="Subject Added"
-		msg= sname+" subject added to "+e.clname
-		m.sender=n
-		m.subject=sub
-		m.message=msg
-		m.mdate=datetime.now().date()
-		m.mtime=datetime.now()
-		m.save()
-		#print(tid)
-		#print(classes)
-#		q=teacher(tid,tname,designation,mobileno,emailid,password);
-#		q.save()	
-		return render(request, 'attendence/subjectsubmit.html')
+		try:
+			scode=request.POST.get('scode','')
+			sname=request.POST.get('sname','')
+			maxlec=request.POST.get('maxlec','')
+			thid=request.POST.get('teacher','')
+			clas=request.POST.get('classes','')
+			d=teacher.objects.get(tid=thid)
+			e=classes.objects.get(clid=clas)
+			n=subject.objects.count()
+			q=subject(1,0,'',0,d,e)
+			q.sid=n+1
+			q.scode=scode
+			q.sname=sname
+			q.max_lacture=maxlec
+			q.teacher=d
+			q.classes=e
+			q.save();
+			m=mail()
+			n=request.session.get('lid', '')
+			sub="Subject Added"
+			msg= sname+" subject added to "+e.clname
+			m.sender=n
+			m.subject=sub
+			m.message=msg
+			m.mdate=datetime.now().date()
+			m.mtime=datetime.now()
+			m.save()
+			return render(request, 'attendence/subjectsubmit.html')
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 	   
@@ -1500,70 +1468,77 @@ def addlab1(request):
 		lname=request.POST.get('lname','')
 		div=request.POST.get('sub1category','')
 		teach=request.POST.get('teacher','')
-		d=teacher.objects.get(tid=teach)
-		div1=division.objects.get(did=div)
-		fromr=request.POST.get('from','')
-		tor=request.POST.get('to','')
-		q=lab()
-		q.lname=lname
-		q.teacher=d
-		q.division=div1
-		q.save()
-		fromr1=int(fromr)
-		tor1=int(tor)
-		#ssid=101
-		#s2=student.objects.get(sid=ssid)
-		while fromr1<=tor1:
-			s=student.objects.filter(division_id=div)
-			for s1 in s:
-				if s1.roll==fromr1 :
-					s2=student.objects.get(sid=s1.sid)
-					l1=lab1()
-					l1.lab=q
-					l1.student=s2
-					l1.save()
-			fromr1+=1
-		m=mail()
-		n=request.session.get('lid', '')
-		sub="Lab Added"
-		msg= lname+" lab added to "+div1.classes.clname
-		m.sender=n
-		m.subject=sub
-		m.message=msg
-		m.mdate=datetime.now().date()
-		m.mtime=datetime.now()
-		m.save()
-		#print(tid)
-		#print(classes)
-#		q=teacher(tid,tname,designation,mobileno,emailid,password);
-#		q.save()	
-		#return render(request, 'attendence/subjectsubmit.html')
-		html = "<script>alert(\"Lab Added..!!\");window.history.go(-2);</script>"
-		return HttpResponse(html)
+		try:
+			d=teacher.objects.get(tid=teach)
+			div1=division.objects.get(did=div)
+			fromr=request.POST.get('from','')
+			tor=request.POST.get('to','')
+			fromr1=int(fromr)
+			tor1=int(tor)
+			if fromr1>=tor1:
+				html = "<script>alert(\"From Roll No. is must be less than To Roll No.\");window.history.go(-2);</script>"
+				return HttpResponse(html)
+			q=lab()
+			q.lname=lname
+			q.teacher=d
+			q.division=div1
+			q.save()
+			
+			#ssid=101
+			#s2=student.objects.get(sid=ssid)
+			while fromr1<=tor1:
+				s=student.objects.filter(division_id=div)
+				for s1 in s:
+					if s1.roll==fromr1 :
+						s2=student.objects.get(sid=s1.sid)
+						l1=lab1()
+						l1.lab=q
+						l1.student=s2
+						l1.save()
+				fromr1+=1
+			m=mail()
+			n=request.session.get('lid', '')
+			sub="Lab Added"
+			msg= lname+" lab added to "+div1.classes.clname
+			m.sender=n
+			m.subject=sub
+			m.message=msg
+			m.mdate=datetime.now().date()
+			m.mtime=datetime.now()
+			m.save()
+			html = "<script>alert(\"Lab Added..!!\");window.history.go(-2);</script>"
+			return HttpResponse(html)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 
 def addteacher1(request):
 	if 'lid' in request.session:
-		tid=request.POST.get('tid','')
-		tname=request.POST.get('tname','')
-		designation=request.POST.get('designation','')
-		mobileno=request.POST.get('mobileno','')
-		emailid=request.POST.get('emailid','')
-		password=""	
-		q=teacher(tid,tname,designation,mobileno,emailid,password);
-		q.save()
-		m=mail()
-		n=request.session.get('lid', '')
-		sub="Teacher Added"
-		msg= "Prof. "+tname+" teacher added."
-		m.sender=n
-		m.subject=sub
-		m.message=msg
-		m.mdate=datetime.now().date()
-		m.mtime=datetime.now()
-		m.save()		
-		return render(request, 'attendence/teachersubmit.html')
+		try:
+			tid=request.POST.get('tid','')
+			tname=request.POST.get('tname','')
+			designation=request.POST.get('designation','')
+			mobileno=request.POST.get('mobileno','')
+			emailid=request.POST.get('emailid','')
+			password=""	
+			q=teacher(tid,tname,designation,mobileno,emailid,password);
+			q.save()
+			m=mail()
+			n=request.session.get('lid', '')
+			sub="Teacher Added"
+			msg= "Prof. "+tname+" teacher added."
+			m.sender=n
+			m.subject=sub
+			m.message=msg
+			m.mdate=datetime.now().date()
+			m.mtime=datetime.now()
+			m.save()		
+			return render(request, 'attendence/teachersubmit.html')
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 	   return render(request,'attendence/home.html')
 	   
@@ -1575,69 +1550,63 @@ def addstudent(request):
 
 def addstudent1(request):
 	if  'lid' in request.session:
-		c1=request.POST.get('category1','') 
-		c2=request.POST.get('subcategory',None) 
-		c3=request.POST.get('sub1category','sub1category') 
-		#print(c1)
-		#print(c2)
-		#rint(c3)
-		if c1=="BSc (Computer Science)":
-			if c2=="FYBsc":
-				if c3=="Div A":
-					divid=1
-				elif c3=="Div B":
-					divid=2
-			elif c2=="SYBsc":
-				if c3=="Div A":
-					divid=3
-				elif c3=="Div B":
-					divid=4
-			elif c2=="TYBsc":
-				if c3=="Div A":
-					divid=5
-				elif c3=="Div B":
-					divid=6
-		elif c1=="MSc (Computer Science)":
-			if c2=="FYMsc":
-				if c3=="Div A":
-					divid=7
-			elif c2=="SYMsc":
-				if c3=="Div A":
-					divid=8
-		myfile = request.FILES['efile']
-		arr=myfile.get_array(sheet_name=None)
-		#print(arr)
-		d=division.objects.get(did=divid)
-		#std=student(1,1,'anil',99,'em','ps',d)
-		#std.sid=2
-		#std.division=d
-		#std.roll=1
-		#std.sname='a'
-		#std.save()
-		for a in arr:
-			t1=a[0]
-			t2=str(a[1])
-			t4=a[2]
-			#n=student.objects.count()
-			t3=student()
-			#t3.sid=n+1
-			t3.division=d
-			t3.roll=t1
-			t3.sname=t2
-			t3.smobile=t4
-			t3.save()
-		m=mail()
-		n=request.session.get('lid', '')
-		sub="Students Added"
-		msg="Students added to course "+c1+" of class "+c2+" of division "+c3
-		m.sender=n
-		m.subject=sub
-		m.message=msg
-		m.mdate=datetime.now().date()
-		m.mtime=datetime.now()
-		m.save()
-		html = "<script>alert(\"Students Added..!!\");window.history.go(-1);</script>"
-		return HttpResponse(html)
+		try:
+			c1=request.POST.get('category1','') 
+			c2=request.POST.get('subcategory',None) 
+			c3=request.POST.get('sub1category','sub1category') 
+			if c1=="BSc (Computer Science)":
+				if c2=="FYBsc":
+					if c3=="Div A":
+						divid=1
+					elif c3=="Div B":
+						divid=2
+				elif c2=="SYBsc":
+					if c3=="Div A":
+						divid=3
+					elif c3=="Div B":
+						divid=4
+				elif c2=="TYBsc":
+					if c3=="Div A":
+						divid=5
+					elif c3=="Div B":
+						divid=6
+			elif c1=="MSc (Computer Science)":
+				if c2=="FYMsc":
+					if c3=="Div A":
+						divid=7
+				elif c2=="SYMsc":
+					if c3=="Div A":
+						divid=8
+			myfile = request.FILES['efile']
+			arr=myfile.get_array(sheet_name=None)
+			d=division.objects.get(did=divid)
+			for a in arr:
+				t1=a[0]
+				t2=str(a[1])
+				t4=a[2]
+				#n=student.objects.count()
+				t3=student()
+				#t3.sid=n+1
+				t3.division=d
+				t3.roll=t1
+				t3.sname=t2
+				t3.smobile=t4
+				t3.save()
+			m=mail()
+			n=request.session.get('lid', '')
+			sub="Students Added"
+			msg="Students added to course "+c1+" of class "+c2+" of division "+c3
+			m.sender=n
+			m.subject=sub
+			m.message=msg
+			m.mdate=datetime.now().date()
+			m.mtime=datetime.now()
+			m.save()
+			html = "<script>alert(\"Students Added..!!\");window.history.go(-1);</script>"
+			return HttpResponse(html)
+		except Exception as e:
+			html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 	else:
 		return render(request,'attendence/home.html')
 	
@@ -1816,7 +1785,11 @@ def login_check(request):
 			html = "<script>alert(\"Invalid Username or Passwords\");window.history.go(-1);</script>"
 			return HttpResponse(html)
 	elif role=="teacher":
-		a=teacher.objects.filter(tid=lid)
+		try:
+			a=teacher.objects.filter(tid=lid)
+		except Exception as e:
+			html = "<script>alert(\"InvalidUsername or Passwords\");window.history.go(-1);</script>"
+			return HttpResponse(html)
 		for i in a:
 			p=i.tpassword
 			if p==lpass :
@@ -1942,7 +1915,8 @@ def submit(request):
 	#else:
 	 #  return render(request,'attendence/home.html')
 def ssubmit(request):
-	#if 'lid' in request.session:
+	try:
+		#if 'lid' in request.session:
 		sid1=request.POST.get('sid','')
 		uname=request.POST.get('uname','')
 		email=request.POST.get('email','')
@@ -1950,11 +1924,15 @@ def ssubmit(request):
 		#designation=request.POST.get('designation','')
 		#mobileno=request.POST.get('mobileno','')
 		c3=request.POST.get('sub1category','')
-		print(c3)
+		#print(c3)
 		mob=request.POST.get('mob','')
-		print(mob)
+		#print(mob)
 		password=request.POST.get('pass1','')
-		c=student.objects.get(smobile=mob,division_id=c3)
+		try:
+			c=student.objects.get(smobile=mob,division_id=c3)
+		except Exception as e:
+			html = "<script>alert(\"Invalid Mobile Number...!!!\");window.history.go(-1);</script>"
+			return HttpResponse(html)	
 		#print(c.tid)
 		#print(c.contact_mob)
 		#print(tid1)
@@ -1969,3 +1947,6 @@ def ssubmit(request):
 			html = "<script>alert(\"Invalid Mobile Number or Roll Number...!!!\");window.history.go(-1);</script>"
 			return HttpResponse(html)
 		#else:
+	except Exception as e:
+		html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
+		return HttpResponse(html)

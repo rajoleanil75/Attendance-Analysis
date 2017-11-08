@@ -31,6 +31,8 @@ function mcancelclosetime()
 	}
 }
 document.onclick = mclose; 
+
+
 </script>
 
 </head>
@@ -87,20 +89,21 @@ document.onclick = mclose;
 	<tr>
         
 		<td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSubject Code</p></td>
-        <td><input type="text" name="scode" id="scode" size="30" required></td>
+        <td><input type="number" name="scode" min="100" id="scode" size="30" required></td>
         </tr>
 	<tr>
         <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSubject Name</p></td>
-        <td><input type=text name=sname id="sname" size="30" required></td>
+        <td><input type=text name=sname id="sname" size="30" pattern=".{3,}" title="Three or more characters" required></td>
         </tr>
 		<tr>
         <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMax Lecture</p></td>
-        <td><input type="text" name="maxlec" id="maxlec" size="30" required></td>
+        <td><input type="number" name="maxlec" id="maxlec" min="40" size="30" required></td>
         </tr>
 		<tr>
         <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspTeacher</p></td>
-        <td><select name="teacher" id="teacher" >
-		<option value="">Select Teacher</option>
+       
+	   <td><select name="teacher" class="teacher" id="teacher" >
+		
 		{% for b in obj %}
 		<option value="{{b.tid}}">{{b.tname}}</option>
 		{% endfor %}
@@ -110,7 +113,7 @@ document.onclick = mclose;
         <tr>
         <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspClass</p></td>
         <td><select name="classes" id="classes" >
-                <option value="">Select Class</option>
+                
                 <option value="1">FYBSc</option>
                 <option value="2">SYBSc</option>
 				<option value="3">TYBSc</option>

@@ -83,12 +83,13 @@ document.onclick = mclose;
 		<br><br>
 		<script>
 		 function myfun()
-		 {
+		 {	debugger;
 			var a=document.getElementById("tbl");
 			newWin=window.open("");
-			newWin.document.write(a.outerHTML);
+			newWin.alert(a.outerHTML);
 			newWin.print();
 			newWin.close();
+			//window.print();
 		}
 			
 		 

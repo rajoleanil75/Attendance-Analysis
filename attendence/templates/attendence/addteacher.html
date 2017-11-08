@@ -32,6 +32,10 @@ function mcancelclosetime()
 }
 document.onclick = mclose; 
 </script>
+<script type="text/javascript">
+
+
+</script>
 
 </head>
 <body>
@@ -88,23 +92,23 @@ document.onclick = mclose;
 	<tr>
         
 		<td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRegistration ID</p></td>
-        <td><input type="text" name="tid" id="tid" size="30" required></td>
+        <td><input type="number" name="tid" id="tid" min="1000" size="30" required></td>
         </tr>
 	<tr>
         <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspName</p></td>
-        <td><input type=text name=tname id="tname" size="30" required></td>
+        <td><input type=text name=tname id="tname" size="30" pattern=".{6,}" title="Six or more characters" required></td>
         </tr>
 		<tr>
         <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspDesignation</p></td>
-        <td><input type="text" name="designation" id="designation" size="30" required></td>
+        <td><input type="text" name="designation" id="designation" pattern="[A-Za-z]{3,}"  title="Three or more characters" size="30" required></td>
         </tr>
 		<tr>
         <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspMobile Number</p></td>
-        <td><input type="text" name="mobileno" id="mobileno" size="30" required></td>
+        <td><input type="text" name="mobileno" id="mobileno" pattern="[7-9]{1}[0-9]{9}" title="Ten Number" size="30" required></td>
         </tr>
         <tr>
         <td><p class="field-wrapper required-field">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspEmail ID</p></td>
-        <td><input type="text" name="emailid" id="emailid" size="30" required></td>
+        <td><input type="text" name="emailid" id="emailid" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Invalid Email Address" size="30" required></td>
         </tr>
 		<tr>
 	<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="reset" value="Reset" name="reset"/></td>
