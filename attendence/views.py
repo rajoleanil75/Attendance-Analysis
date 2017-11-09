@@ -1945,8 +1945,8 @@ def slogin_check(request):
 	#	if lid=="admin":
 	#		if lpass=="password":
 			request.session['lid'] = uid
-			e=student.objects.get(sid=uid)
-			request.session['llogin']=e.lastlogin
+			#e=student.objects.get(sid=uid)
+			#request.session['llogin']=e.lastlogin
 			d=student.objects.select_for_update().filter(sid=uid).update(lastlogin=datetime.now())
 			return render(request,'attendence/sdashboard.html')
 		else:
