@@ -1809,25 +1809,53 @@ def aviewlab(request):
 
 def tdashboard(request):
 	if 'lid' in request.session:
-		return render(request,'attendence/tdashboard.html')
+		n=request.session.get('lid', '') 
+		obj1=subject.objects.filter(teacher_id=n)
+		obj3=teacher.objects.get(tid=n)
+		cnt=0
+		for a in obj1:
+			cnt=cnt+1
+		obj2=lab.objects.filter(teacher_id=n)
+		cnt1=0
+		for b in obj2:
+			cnt1=cnt1+1
+		context_dict = { 'cnt' : cnt, 'cnt1': cnt1 , 'obj3': obj3 }
+		return render(request,'attendence/tdashboard.html', context_dict)
 	else:
 	   return render(request,'attendence/home.html')
 
 def adashboard(request):
 	if 'lid' in request.session:
-		return render(request,'attendence/adashboard.html')
+		obj1=teacher.objects.count()
+		obj2=subject.objects.count()
+		obj3=lab.objects.count()
+		obj4=student.objects.count()
+		n=request.session.get('lid', '') 
+		obj5=admin.objects.get(uid=n)
+		context_dict = { 'obj1' : obj1, 'obj2': obj2 ,'obj3': obj3 , 'obj4': obj4,'obj5': obj5 }
+		return render(request,'attendence/adashboard.html', context_dict)
 	else:
 	   return render(request,'attendence/home.html')
   
 def hdashboard(request):
 	if 'lid' in request.session:
-		return render(request,'attendence/hdashboard.html')
+		obj1=teacher.objects.count()
+		obj2=subject.objects.count()
+		obj3=lab.objects.count()
+		obj4=student.objects.count()
+		n=request.session.get('lid', '') 
+		obj5=teacher.objects.get(tid=n)
+		context_dict = { 'obj1' : obj1, 'obj2': obj2 ,'obj3': obj3 , 'obj4': obj4,'obj5': obj5 }
+		return render(request,'attendence/hdashboard.html', context_dict)
 	else:
 	   return render(request,'attendence/home.html')
 	   
 def sdashboard(request):
 	if 'lid' in request.session:
-		return render(request,'attendence/sdashboard.html')
+		n=request.session.get('lid', '') 
+		obj1=student.objects.get(sid=n)
+		context_dict = { 'obj1' : obj1 }
+		return render(request,'attendence/sdashboard.html' , context_dict)
 	else:
 	   return render(request,'attendence/home.html')
 	   
@@ -1851,6 +1879,7 @@ def login_check(request):
 	#	if lid=="admin":
 	#		if lpass=="password":
 				request.session['lid'] = uid
+				d=admin.objects.select_for_update().filter(uid=uid).update(lastlogin=datetime.now())
 				return render(request,'attendence/adashboard.html')
 			else:
 				html = "<script>alert(\"Invalid Username or Passwords\");window.history.go(-1);</script>"
@@ -1867,6 +1896,7 @@ def login_check(request):
 				if p==lpass :
 					uid=i.tid
 					request.session['lid'] = uid
+					d=teacher.objects.select_for_update().filter(tid=uid).update(lastlogin=datetime.now())
 					return render(request,'attendence/hdashboard.html')
 				else:
 					html = "<script>alert(\"Invalid Username or Passwords\");window.history.go(-1);</script>"
@@ -1887,6 +1917,8 @@ def login_check(request):
 			if p==lpass :
 				uid=i.tid
 				request.session['lid'] = uid
+				#creationDate = timezone.now()
+				d=teacher.objects.select_for_update().filter(tid=uid).update(lastlogin=datetime.now())
 				return render(request,'attendence/tdashboard.html')
 			else:
 				html = "<script>alert(\"Invalid Username or Passwords\");window.history.go(-1);</script>"
@@ -1913,6 +1945,9 @@ def slogin_check(request):
 	#	if lid=="admin":
 	#		if lpass=="password":
 			request.session['lid'] = uid
+			e=student.objects.get(sid=uid)
+			request.session['llogin']=e.lastlogin
+			d=student.objects.select_for_update().filter(sid=uid).update(lastlogin=datetime.now())
 			return render(request,'attendence/sdashboard.html')
 		else:
 			html = "<script>alert(\"Invalid Username or Passwords\");window.history.go(-1);</script>"
