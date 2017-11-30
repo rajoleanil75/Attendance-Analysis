@@ -2077,3 +2077,6 @@ def ssubmit(request):
 	except Exception as e:
 		html = "<script>alert(\"Oops! Something went wrong\");window.history.go(-1);</script>"
 		return HttpResponse(html)
+		
+def m_student(request):
+		return render(request, 'attendence/m_student.html')

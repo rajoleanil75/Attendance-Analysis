@@ -360,3 +360,19 @@ hr
 		color: #FFF
 	}
 }
+.jumbotron {
+	background: #ABCDEF url('images/230px-Aromatas.JPG') no-repeat right top;
+}
+.navbar {
+    background-color: #ABF;
+}
+.navbar .active {
+    background-color: #ADF;
+}
+.navbar-toggle {
+    background-color: #999;
+}
+.icon-bar {
+    background-color: blue;
+}
+
