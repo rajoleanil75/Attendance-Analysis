@@ -2080,3 +2080,6 @@ def ssubmit(request):
 		
 def m_student(request):
 		return render(request, 'attendence/m_student.html')
+
+def m_slogin(request):
+		return render(request, 'attendence/m_slogin.html')

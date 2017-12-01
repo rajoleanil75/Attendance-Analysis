@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+    <title>NWC Computer Science Department</title>
+	{% load static %}
+   <link rel="stylesheet" type="text/css" href="{% static 'attendence/css/bootstrap.css' %}" />
+  </head>
+  <body>
+
+<form name="login" id="login" action="{% url 'attendence:slogin_check' %}" method="POST">{% csrf_token %}
+     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-5 col-md-3">
+            <div class="form-login">
+			<h3 align="center" >Welcome To Attendance Portal<h3>
+            <h4>Student Login</h4>
+            <input type="text" id="userName" name="lid" class="form-control input-sm chat-input" placeholder="username" required/>
+            </br>
+            <input type="password" id="userPassword" name="lpass" class="form-control input-sm chat-input" placeholder="password" required/>
+            </br>
+            <div class="wrapper">
+            <span class="group-btn">   
+				<input type="image" src="{% static "attendence/images/loginbutton.png" %}" value="e_submit" name="e_submit" width="150" height="50"/>
+                
+            </span>
+            </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+
+
+
+</form>		
+
+
+	</body>
+</html>

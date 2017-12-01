@@ -7,6 +7,7 @@ urlpatterns = [
 	url(r'^$', views.home, name='home'),
 	url(r'^home$', views.home, name='home'),
 	url(r'^m_student$', views.m_student, name='m_student'),
+	url(r'^m_slogin$', views.m_slogin, name='m_slogin'),
 	url(r'^backup$', views.backup, name='backup'),
 	url(r'^restore$', views.restore, name='restore'),
 	url(r'^restore1$', views.restore1, name='restore1'),

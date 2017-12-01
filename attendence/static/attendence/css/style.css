@@ -375,4 +375,17 @@ hr
 .icon-bar {
     background-color: blue;
 }
+.centered {
+ position: absolute;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+.table {
+    border-radius: 5px;
+    width: 50%;
+    margin: 0px auto;
+    float: none;
+}
 
