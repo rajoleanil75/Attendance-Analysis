@@ -2083,3 +2083,33 @@ def m_student(request):
 
 def m_slogin(request):
 		return render(request, 'attendence/m_slogin.html')
+		
+def m_slogin_check(request):
+	lid=request.POST.get('lid','')
+	lpass=request.POST.get('lpass','')
+	#print(lid)
+	#if role=="admin":
+	#	a=admin.objects.all()
+		#b=admin.objects.get(uid=1)
+		#print(b)
+	a=student.objects.filter(suname=lid)
+	for i in a:
+		#	print(i.uid)
+		#	print(i.uname)
+		#	print(i.upass)
+		p=i.spassword
+		if p==lpass :
+			uid=i.sid
+	#	if lid=="admin":
+	#		if lpass=="password":
+			request.session['lid'] = uid
+			#e=student.objects.get(sid=uid)
+			#request.session['llogin']=e.lastlogin
+			d=student.objects.select_for_update().filter(sid=uid).update(lastlogin=datetime.now())
+			return render(request,'attendence/m_student.html')
+		else:
+			html = "<script>alert(\"Invalid Username or Passwords\");window.history.go(-1);</script>"
+			return HttpResponse(html)
+	html = "<script>alert(\"Invalid Username or Passwords\");window.history.go(-1);</script>"
+	return HttpResponse(html)
+			#return render(request,'attendence/login.html')
