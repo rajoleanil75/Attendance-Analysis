@@ -2200,7 +2200,7 @@ def m_sview2(request):
 				mat[i] = [b.lab.lname,cnt,0]
 				i=i+1
 		data_source = SimpleDataSource(data=mat)
-		chart = ColumnChart(data_source,height=700, width=865, options={'title': 'Attendence Graph'})
+		chart = BarChart(data_source,height=700, width=865, options={'title': 'Attendence Graph'})
 		context = {'chart': chart , 'obj' : obj7 }
 		return render(request, 'attendence/m_sview2.html', context)
 	else:
