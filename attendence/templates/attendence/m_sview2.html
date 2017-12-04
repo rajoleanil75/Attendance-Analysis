@@ -35,24 +35,38 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="{% url 'attendence:m_student' %}">Home</a></li>
       <li><a href="{% url 'attendence:m_sview1' %}">View Report</a></li>
-     <li><a href=""{% url 'attendence:m_sview2' %}">View Graph</a></li>
+     <li><a href="{% url 'attendence:m_sview2' %}">View Graph</a></li>
 	  <li><a href="{% url 'attendence:m_slogout' %}">Logout</a></li>
        </ul>
   </div>
 
 <div class="jumbotron">
+		
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		google.load("visualization", "1", {packages:["corechart"]});
+	</script>
+	<table class="table" name="tbl" id="tbl" border="double" width="865">
+	<tr>
+        <th>
+		Roll No: {{ obj.roll }}
+		, Student Name: {{ obj.sname }}
+		, Course Name: {{ obj.division.classes.course.coname }}
+		, Class: {{ obj.division.classes.clname }}  
+		, Division:  {{ obj.division.dname }}
+		
+		
+		</th>
+        </tr>
+	<tr>
+	<td>
+	{{ chart.as_html }}
+	</td>
+	</tr>
 
-	<table class="table" width="600">
-	<tr colspan="2"><th>Dashboard</th></tr>
-	<tr><td>Name :</td><td> {{ obj1.sname }} </td></tr>
-	<tr><td>Roll No : </td><td> {{ obj1.roll }} </td></tr>
-	<tr><td>Course :</td><td> BSc(Computer Science) </td></tr>
-	<tr><td>Class :</td><td> SYBSc </td></tr>
-	<tr><td>Division :</td><td> A </td></tr>
-
-	
-	</table>
-</div>
+		</table>
+        
+		</div>
 </nav>
 
 

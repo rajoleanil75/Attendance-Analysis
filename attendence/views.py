@@ -1999,7 +1999,6 @@ def aviewclasses(request):
 		return render(request,'attendence/aviewclasses.html')
 	else:
 	   return render(request,'attendence/home.html')
-	
 
 def submit(request):
 	#if 'lid' in request.session:
@@ -2079,11 +2078,21 @@ def ssubmit(request):
 		return HttpResponse(html)
 		
 def m_student(request):
-		return render(request, 'attendence/m_student.html')
-
+	if 'lid' in request.session:
+		n=request.session.get('lid', '') 
+		obj1=student.objects.get(sid=n)
+		context_dict = { 'obj1' : obj1}
+		return render(request,'attendence/m_student.html', context_dict)
+	else:
+	   return render(request,'attendence/m_slogin.html')
+		
 def m_slogin(request):
 		return render(request, 'attendence/m_slogin.html')
 		
+def m_slogout(request):
+   del request.session['lid']
+   return render(request,'attendence/m_slogin.html')
+   
 def m_slogin_check(request):
 	lid=request.POST.get('lid','')
 	lpass=request.POST.get('lpass','')
@@ -2106,10 +2115,93 @@ def m_slogin_check(request):
 			#e=student.objects.get(sid=uid)
 			#request.session['llogin']=e.lastlogin
 			d=student.objects.select_for_update().filter(sid=uid).update(lastlogin=datetime.now())
-			return render(request,'attendence/m_student.html')
+			obj1=student.objects.get(sid=uid)
+			context_dict = { 'obj1' : obj1}
+			return render(request,'attendence/m_student.html', context_dict)
 		else:
 			html = "<script>alert(\"Invalid Username or Passwords\");window.history.go(-1);</script>"
 			return HttpResponse(html)
 	html = "<script>alert(\"Invalid Username or Passwords\");window.history.go(-1);</script>"
 	return HttpResponse(html)
 			#return render(request,'attendence/login.html')
+
+def m_sview1(request):
+	if  'lid' in request.session:
+		n=request.session.get('lid', '')
+		obj7=student.objects.get(sid=n)
+		obj1=attendence.objects.filter(student_id=n).order_by('subject')
+		obj2=subject.objects.all()
+		context_dict = { 'obj1' : obj1}
+		mat = DynamicList()
+		i=0
+		for b in obj2:
+			cnt=0
+			o1=0
+			for c in obj1:
+				if b.sid==c.subject.sid:
+					obj8=attendence.objects.values('student').filter(subject_id=c.subject.sid,division_id=c.division.did).order_by('student').annotate(Count('student'))
+					obj9=obj8.aggregate(n=Max('student__count'))
+					o1=obj9.get('n')
+					#print(o1)
+					cnt+=1
+			if cnt > 0: 
+				per=cnt/o1
+				per1=per*100
+				mat[i] = [b.sname,cnt,o1,per1]
+				i=i+1
+	
+		obj5=lab1.objects.filter(student_id=n).order_by('lab')
+		obj6= lattendence.objects.all()
+		for b in obj5:
+			cnt=0
+			for c in obj6:
+				if b.lid==c.lid_id:
+					cnt+=1
+			if cnt>0:
+				mat[i] = [b.lab.lname,cnt,"-","-"]
+				i=i+1
+		context = {'mat': mat , 'obj' : obj7 }
+		return render(request,'attendence/m_sview1.html', context)
+	else:
+	   return render(request,'attendence/m_slogin.html')
+
+def m_sview2(request):
+	if  'lid' in request.session:
+		n=request.session.get('lid', '') 
+		obj7=student.objects.get(sid=n)
+		obj1=attendence.objects.filter(student_id=n).order_by('subject')
+		obj2=subject.objects.all()
+		context_dict = { 'obj1' : obj1}
+		mat = DynamicList()
+		mat[0] = ['Subject','Attendence','Total Lecture']
+		i=1
+		for b in obj2:
+			cnt=0
+			o1=0
+			for c in obj1:
+				if b.sid==c.subject.sid:
+					obj8=attendence.objects.values('student').filter(subject_id=c.subject.sid,division_id=c.division.did).order_by('student').annotate(Count('student'))
+					obj9=obj8.aggregate(n=Max('student__count'))
+					o1=obj9.get('n')
+					#print(o1)
+					cnt+=1
+			if cnt > 0: 
+				mat[i] = [b.sname,cnt,o1]
+				i=i+1
+	
+		obj5=lab1.objects.filter(student_id=n).order_by('lab')
+		obj6= lattendence.objects.all()
+		for b in obj5:
+			cnt=0
+			for c in obj6:
+				if b.lid==c.lid_id:
+					cnt+=1
+			if cnt>0:
+				mat[i] = [b.lab.lname,cnt,0]
+				i=i+1
+		data_source = SimpleDataSource(data=mat)
+		chart = ColumnChart(data_source,height=700, width=865, options={'title': 'Attendence Graph'})
+		context = {'chart': chart , 'obj' : obj7 }
+		return render(request, 'attendence/m_sview2.html', context)
+	else:
+	   return render(request,'attendence/m_slogin.html')	
