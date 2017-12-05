@@ -2090,9 +2090,12 @@ def m_slogin(request):
 		return render(request, 'attendence/m_slogin.html')
 		
 def m_slogout(request):
-   del request.session['lid']
-   return render(request,'attendence/m_slogin.html')
-   
+	if 'lid' in request.session:
+		del request.session['lid']
+		return render(request,'attendence/m_slogin.html')
+	else:
+	   return render(request,'attendence/m_slogin.html')
+	
 def m_slogin_check(request):
 	lid=request.POST.get('lid','')
 	lpass=request.POST.get('lpass','')
@@ -2200,7 +2203,7 @@ def m_sview2(request):
 				mat[i] = [b.lab.lname,cnt,0]
 				i=i+1
 		data_source = SimpleDataSource(data=mat)
-		chart = BarChart(data_source,height=700, width=865, options={'title': 'Attendence Graph'})
+		chart = BarChart(data_source, options={'title': 'Attendence Graph'})
 		context = {'chart': chart , 'obj' : obj7 }
 		return render(request, 'attendence/m_sview2.html', context)
 	else:
